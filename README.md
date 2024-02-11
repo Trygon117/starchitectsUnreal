@@ -2,6 +2,9 @@
 
 This is the Unreal Engine side of the Starchitect project. Here there is a Universe full of stars that can be added, and controlled through a websocket connection with a web server.
 
+# Open VSCode Workspace
+open the "Starchitect.code-workspace" file to open the workspace in vscode
+
 # Set Up The Enviroment
 
 Here is an online Guide that you can refer to: 
