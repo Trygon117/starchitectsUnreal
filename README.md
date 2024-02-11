@@ -5,6 +5,9 @@ This is the Unreal Engine side of the Starchitect project. Here there is a Unive
 # Open VSCode Workspace
 open the "Starchitect.code-workspace" file to open the workspace in vscode
 
+# Open Unreal Engine Workspace
+open the "Starchitect.uproject" file
+
 # Set Up The Enviroment
 
 Here is an online Guide that you can refer to: 
