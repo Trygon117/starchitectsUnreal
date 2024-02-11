@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\documents\\github repositories\\starchitectsunreal\\starchitect\\source\\starchitect\\starchitect.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\documents\\github repositories\\starchitectsunreal\\starchitect\\intermediate\\build\\win64\\x64\\starchitecteditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "d:\\documents\\github repositories\\starchitectsunreal\\starchitect\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\starchitect\\definitions.starchitect.h",
+            "d:\\documents\\github repositories\\starchitectsunreal\\starchitect\\source\\starchitect\\starchitect.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
