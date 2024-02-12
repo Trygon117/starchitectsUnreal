@@ -1,8 +1,0 @@
-{
-	"SourceFiles": [
-		"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Source\\Starchitect\\Starchitect.Build.cs",
-		"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Source\\Starchitect.Target.cs",
-		"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Source\\StarchitectEditor.Target.cs"
-	],
-	"EngineVersion": "5.3.2"
-}
