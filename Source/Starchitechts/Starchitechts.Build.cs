@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class Starchitect : ModuleRules
+public class Starchitechts : ModuleRules
 {
-	public Starchitect(ReadOnlyTargetRules Target) : base(Target)
+	public Starchitechts(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	

@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"name": "Starchitect",
+			"name": "Starchitechts",
 			"path": "."
 		},
 		{
@@ -23,14 +23,14 @@
 		"version": "2.0.0",
 		"tasks": [
 			{
-				"label": "Starchitect Win64 Debug Build",
+				"label": "Starchitechts Win64 Debug Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -40,19 +40,19 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Debug Rebuild",
+				"label": "Starchitechts Win64 Debug Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"Starchitect Win64 Debug Clean"
+					"Starchitechts Win64 Debug Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -60,14 +60,14 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Debug Clean",
+				"label": "Starchitechts Win64 Debug Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -77,14 +77,14 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 DebugGame Build",
+				"label": "Starchitechts Win64 DebugGame Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -94,19 +94,19 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 DebugGame Rebuild",
+				"label": "Starchitechts Win64 DebugGame Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"Starchitect Win64 DebugGame Clean"
+					"Starchitechts Win64 DebugGame Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -114,14 +114,14 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 DebugGame Clean",
+				"label": "Starchitechts Win64 DebugGame Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -131,14 +131,14 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Development Build",
+				"label": "Starchitechts Win64 Development Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -148,19 +148,19 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Development Rebuild",
+				"label": "Starchitechts Win64 Development Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"Starchitect Win64 Development Clean"
+					"Starchitechts Win64 Development Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -168,14 +168,14 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Development Clean",
+				"label": "Starchitechts Win64 Development Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -185,14 +185,14 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Test Build",
+				"label": "Starchitechts Win64 Test Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Test",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -202,19 +202,19 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Test Rebuild",
+				"label": "Starchitechts Win64 Test Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Test",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"Starchitect Win64 Test Clean"
+					"Starchitechts Win64 Test Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -222,14 +222,14 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Test Clean",
+				"label": "Starchitechts Win64 Test Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Test",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -239,14 +239,14 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Shipping Build",
+				"label": "Starchitechts Win64 Shipping Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Shipping",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -256,19 +256,19 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Shipping Rebuild",
+				"label": "Starchitechts Win64 Shipping Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Shipping",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"Starchitect Win64 Shipping Clean"
+					"Starchitechts Win64 Shipping Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -276,14 +276,14 @@
 				}
 			},
 			{
-				"label": "Starchitect Win64 Shipping Clean",
+				"label": "Starchitechts Win64 Shipping Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"Starchitect",
+					"Starchitechts",
 					"Win64",
 					"Shipping",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -293,14 +293,14 @@
 				}
 			},
 			{
-				"label": "StarchitectEditor Win64 Debug Build",
+				"label": "StarchitechtsEditor Win64 Debug Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"StarchitectEditor",
+					"StarchitechtsEditor",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -310,19 +310,19 @@
 				}
 			},
 			{
-				"label": "StarchitectEditor Win64 Debug Rebuild",
+				"label": "StarchitechtsEditor Win64 Debug Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"StarchitectEditor",
+					"StarchitechtsEditor",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"StarchitectEditor Win64 Debug Clean"
+					"StarchitechtsEditor Win64 Debug Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -330,14 +330,14 @@
 				}
 			},
 			{
-				"label": "StarchitectEditor Win64 Debug Clean",
+				"label": "StarchitechtsEditor Win64 Debug Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"StarchitectEditor",
+					"StarchitechtsEditor",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -347,14 +347,14 @@
 				}
 			},
 			{
-				"label": "StarchitectEditor Win64 DebugGame Build",
+				"label": "StarchitechtsEditor Win64 DebugGame Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"StarchitectEditor",
+					"StarchitechtsEditor",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -364,19 +364,19 @@
 				}
 			},
 			{
-				"label": "StarchitectEditor Win64 DebugGame Rebuild",
+				"label": "StarchitechtsEditor Win64 DebugGame Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"StarchitectEditor",
+					"StarchitechtsEditor",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"StarchitectEditor Win64 DebugGame Clean"
+					"StarchitechtsEditor Win64 DebugGame Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -384,14 +384,14 @@
 				}
 			},
 			{
-				"label": "StarchitectEditor Win64 DebugGame Clean",
+				"label": "StarchitechtsEditor Win64 DebugGame Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"StarchitectEditor",
+					"StarchitechtsEditor",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -401,14 +401,14 @@
 				}
 			},
 			{
-				"label": "StarchitectEditor Win64 Development Build",
+				"label": "StarchitechtsEditor Win64 Development Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"StarchitectEditor",
+					"StarchitechtsEditor",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -418,19 +418,19 @@
 				}
 			},
 			{
-				"label": "StarchitectEditor Win64 Development Rebuild",
+				"label": "StarchitechtsEditor Win64 Development Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"StarchitectEditor",
+					"StarchitechtsEditor",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"StarchitectEditor Win64 Development Clean"
+					"StarchitechtsEditor Win64 Development Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -438,14 +438,14 @@
 				}
 			},
 			{
-				"label": "StarchitectEditor Win64 Development Clean",
+				"label": "StarchitechtsEditor Win64 Development Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"StarchitectEditor",
+					"StarchitechtsEditor",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -460,10 +460,10 @@
 		"version": "0.2.0",
 		"configurations": [
 			{
-				"name": "Launch Starchitect (Debug)",
+				"name": "Launch Starchitechts (Debug)",
 				"request": "launch",
-				"program": "D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
-				"preLaunchTask": "Starchitect Win64 Debug Build",
+				"program": "D:\\Documents\\Github Repositories\\Starchitechts\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
+				"preLaunchTask": "Starchitechts Win64 Debug Build",
 				"args": [
 				],
 				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
@@ -476,10 +476,10 @@
 				}
 			},
 			{
-				"name": "Launch Starchitect (DebugGame)",
+				"name": "Launch Starchitechts (DebugGame)",
 				"request": "launch",
-				"program": "D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
-				"preLaunchTask": "Starchitect Win64 DebugGame Build",
+				"program": "D:\\Documents\\Github Repositories\\Starchitechts\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
+				"preLaunchTask": "Starchitechts Win64 DebugGame Build",
 				"args": [
 				],
 				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
@@ -492,10 +492,10 @@
 				}
 			},
 			{
-				"name": "Launch Starchitect (Development)",
+				"name": "Launch Starchitechts (Development)",
 				"request": "launch",
-				"program": "D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Binaries\\Win64\\UnrealGame.exe",
-				"preLaunchTask": "Starchitect Win64 Development Build",
+				"program": "D:\\Documents\\Github Repositories\\Starchitechts\\Binaries\\Win64\\UnrealGame.exe",
+				"preLaunchTask": "Starchitechts Win64 Development Build",
 				"args": [
 				],
 				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
@@ -508,10 +508,10 @@
 				}
 			},
 			{
-				"name": "Launch Starchitect (Test)",
+				"name": "Launch Starchitechts (Test)",
 				"request": "launch",
-				"program": "D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
-				"preLaunchTask": "Starchitect Win64 Test Build",
+				"program": "D:\\Documents\\Github Repositories\\Starchitechts\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
+				"preLaunchTask": "Starchitechts Win64 Test Build",
 				"args": [
 				],
 				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
@@ -524,10 +524,10 @@
 				}
 			},
 			{
-				"name": "Launch Starchitect (Shipping)",
+				"name": "Launch Starchitechts (Shipping)",
 				"request": "launch",
-				"program": "D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
-				"preLaunchTask": "Starchitect Win64 Shipping Build",
+				"program": "D:\\Documents\\Github Repositories\\Starchitechts\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
+				"preLaunchTask": "Starchitechts Win64 Shipping Build",
 				"args": [
 				],
 				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
@@ -540,12 +540,12 @@
 				}
 			},
 			{
-				"name": "Launch StarchitectEditor (Debug)",
+				"name": "Launch StarchitechtsEditor (Debug)",
 				"request": "launch",
 				"program": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-Debug.exe",
-				"preLaunchTask": "StarchitectEditor Win64 Debug Build",
+				"preLaunchTask": "StarchitechtsEditor Win64 Debug Build",
 				"args": [
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject"
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject"
 				],
 				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
@@ -557,12 +557,12 @@
 				}
 			},
 			{
-				"name": "Launch StarchitectEditor (DebugGame)",
+				"name": "Launch StarchitechtsEditor (DebugGame)",
 				"request": "launch",
 				"program": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-DebugGame.exe",
-				"preLaunchTask": "StarchitectEditor Win64 DebugGame Build",
+				"preLaunchTask": "StarchitechtsEditor Win64 DebugGame Build",
 				"args": [
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject"
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject"
 				],
 				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
@@ -574,12 +574,12 @@
 				}
 			},
 			{
-				"name": "Launch StarchitectEditor (Development)",
+				"name": "Launch StarchitechtsEditor (Development)",
 				"request": "launch",
 				"program": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
-				"preLaunchTask": "StarchitectEditor Win64 Development Build",
+				"preLaunchTask": "StarchitechtsEditor Win64 Development Build",
 				"args": [
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject"
+					"D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject"
 				],
 				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
@@ -599,7 +599,7 @@
 				"args": [
 					"-projectfiles",
 					"-vscode",
-					"-project=D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitect\\Starchitect.uproject",
+					"-project=D:\\Documents\\Github Repositories\\Starchitechts\\Starchitechts.uproject",
 					"-game",
 					"-engine",
 					"-dotnet"
