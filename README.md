@@ -25,3 +25,7 @@ If you need to set VS Code as your default IDE (optional), open Unreal Editor an
 	then set your Source Code Editor to Visual Studio Code. 
 	Restart the editor for the change to take effect.
 
+To set up IntelliSense
+	Navigate to ".vscode/c_cpp_properties.json"
+	add "includePath": [ "${workspaceFolder}\\Intermediate\\**", "[Workspace Folder]\\Plugins\\**", "[Workspace Folder]\\Source\\**" ], to the "StarchitectsEditor Editor Win64 Development (Starchitects)" object
+	Go the the C/C++ Extension settings and change C_Cpp: IntelliSense Engine Fallback to Enabled

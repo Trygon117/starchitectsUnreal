@@ -2,13 +2,13 @@
 
 using UnrealBuildTool;
 
-public class Starchitechts : ModuleRules
+public class Starchitects : ModuleRules
 {
-	public Starchitechts(ReadOnlyTargetRules Target) : base(Target)
+	public Starchitects(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "WebSockets" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

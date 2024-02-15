@@ -3,13 +3,13 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class StarchitechtsTarget : TargetRules
+public class StarchitectsTarget : TargetRules
 {
-	public StarchitechtsTarget(TargetInfo Target) : base(Target)
+	public StarchitectsTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V4;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
-		ExtraModuleNames.Add("Starchitechts");
+		ExtraModuleNames.Add("Starchitects");
 	}
 }
