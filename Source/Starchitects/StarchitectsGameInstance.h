@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "IWebSocket.h"
+#include "StarData.h"
 #include "StarchitectsGameInstance.generated.h"
 
 /**
@@ -19,5 +20,7 @@ public:
 	virtual void Init() override;
 	virtual void Shutdown() override;
 	
+	TMap<int32,FStarData> stars;
+
 	TSharedPtr<IWebSocket> WebSocket;
 };
