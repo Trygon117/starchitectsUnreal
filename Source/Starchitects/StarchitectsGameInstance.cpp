@@ -50,3 +50,11 @@ void UStarchitectsGameInstance::Shutdown() {
 
     Super::Shutdown();
 }
+
+void UStarchitectsGameInstance::LoadStars(FString json){
+    //for each json in the web socket
+    //get each data from the array and add it to the map
+    TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(json);
+
+    //return if json is not parseable
+}

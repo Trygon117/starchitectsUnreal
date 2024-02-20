@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "IWebSocket.h"
+#include "Json.h"
 #include "StarData.h"
 #include "StarchitectsGameInstance.generated.h"
 
@@ -19,6 +20,10 @@ class STARCHITECTS_API UStarchitectsGameInstance : public UGameInstance
 public:
 	virtual void Init() override;
 	virtual void Shutdown() override;
+
+	void CreateStar();
+	void LoadStars(FString json);
+	void AddStar();
 	
 	TMap<int32,FStarData> stars;
 
