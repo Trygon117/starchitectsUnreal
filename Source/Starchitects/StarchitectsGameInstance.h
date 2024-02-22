@@ -7,6 +7,7 @@
 #include "IWebSocket.h"
 #include "Json.h"
 #include "StarData.h"
+#include "StarObj.h"
 #include "StarchitectsGameInstance.generated.h"
 
 /**

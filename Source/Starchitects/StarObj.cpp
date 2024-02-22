@@ -15,6 +15,8 @@ AStarObj::AStarObj()
 void AStarObj::BeginPlay()
 {
 	Super::BeginPlay();
+
+	isGlowing = false;
 	
 }
 

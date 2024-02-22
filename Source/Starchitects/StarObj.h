@@ -15,8 +15,14 @@ class STARCHITECTS_API AStarObj : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AStarObj();
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 ID;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FStarData starData;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float rotationSpeed;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool isGlowing;
 
 protected:
 	// Called when the game starts or when spawned

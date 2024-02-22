@@ -20,19 +20,13 @@ public:
 	UStaticMesh* shape;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FColor primaryColor;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FColor secondaryColor;
+	float color;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float size;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float brightness;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FVector position;
 
 	FStarData();
 	~FStarData();
