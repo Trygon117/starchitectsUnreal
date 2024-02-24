@@ -25,8 +25,12 @@ public:
 	void CreateStar();
 	void LoadStars(FString json);
 	void AddStar();
+	void AddStarDebug();
 	
 	TMap<int32,FStarData> stars;
 
 	TSharedPtr<IWebSocket> WebSocket;
+
+	UPROPERTY(VisibleAnywhere)
+	TSubclassOf<AActor> StarClass;
 };

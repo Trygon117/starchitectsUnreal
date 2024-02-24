@@ -5,6 +5,7 @@
 
 #include "StarchitectsGameInstance.h"
 #include "WebSocketsModule.h"
+#include "UObject/ConstructorHelpers.h"
 
 void UStarchitectsGameInstance::Init() {
     Super::Init();
@@ -36,10 +37,15 @@ void UStarchitectsGameInstance::Init() {
         GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sent Message: " + Message);
     });
 
+    if(GEngine)
+     GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Hello!"));
+
     // example send message
     // WebSocket->Send("Test Message");
 
     WebSocket->Connect();
+
+    AddStarDebug();
 }
 
 void UStarchitectsGameInstance::Shutdown() {
@@ -60,4 +66,16 @@ void UStarchitectsGameInstance::LoadStars(FString json){
     //for each json in the web socket
     //FStarData data 
     //get each data from the array and add it to the map
+}
+
+void UStarchitectsGameInstance::AddStarDebug(){
+    //static ConstructorHelpers::FClassFinder<AActor> StarClassFinder(TEXT("/Game/Star"));
+    //bool doesItExit = StarClassFinder.Class == NULL;
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, doesItExit ? "False" : "True");
+
+    //StarClass = StarClassFinder.Class;
+
+    //AActor* newStar = GetWorld()->SpawnActor<AActor>(StarClass, FVector::ZeroVector, FRotator::ZeroRotator);
+
+    AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator); 
 }
