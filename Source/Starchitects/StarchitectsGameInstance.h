@@ -11,13 +11,13 @@
 #include "StarchitectsGameInstance.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class STARCHITECTS_API UStarchitectsGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
-	
+
 public:
 	virtual void Init() override;
 	virtual void Shutdown() override;
@@ -26,11 +26,14 @@ public:
 	void LoadStars(FString json);
 	void AddStar();
 	void AddStarDebug();
-	
-	TMap<int32,FStarData> stars;
+
+	TMap<int32, FStarData> stars;
 
 	TSharedPtr<IWebSocket> WebSocket;
 
 	UPROPERTY(VisibleAnywhere)
 	TSubclassOf<AActor> StarClass;
+
+private:
+	FString ParseJSON(FString json, FString field);
 };
