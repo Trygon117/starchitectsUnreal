@@ -6,6 +6,7 @@
 FStarData::FStarData()
 {
     name = "";
+    color = 1;
     size = 1;
     brightness = 1;
 }

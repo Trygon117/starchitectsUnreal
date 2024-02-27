@@ -17,7 +17,7 @@ public:
 	FString name;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	UStaticMesh* shape;
+	int shape;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float color;

@@ -27,9 +27,16 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMeshComponent* mesh;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* Asset;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+
+	//Create a function to add in all of the data
 
 };

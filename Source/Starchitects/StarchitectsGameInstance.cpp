@@ -45,7 +45,10 @@ void UStarchitectsGameInstance::Init() {
 
     WebSocket->Connect();
 
-    AddStarDebug();
+    //AddStarDebug();
+
+    AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+    newStar->SetActorRelativeScale3D(FVector::OneVector);
 }
 
 void UStarchitectsGameInstance::Shutdown() {
@@ -66,6 +69,10 @@ void UStarchitectsGameInstance::LoadStars(FString json){
     //for each json in the web socket
     //FStarData data 
     //get each data from the array and add it to the map
+}
+
+void UStarchitectsGameInstance::AddStar(){
+
 }
 
 void UStarchitectsGameInstance::AddStarDebug(){
