@@ -45,3 +45,9 @@ void AStarObj::Tick(float DeltaTime)
 
 }
 
+//Sets everything up because for some reason I can't make it an argument
+void AStarObj::SetUpData(FStarData data)
+{
+	starData = data;
+}
+

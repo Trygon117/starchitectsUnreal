@@ -47,8 +47,13 @@ void UStarchitectsGameInstance::Init() {
 
     //AddStarDebug();
 
+    FStarData testData;
+
+    testData.name = "This Is A Test";
+
     AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
-    newStar->SetActorRelativeScale3D(FVector::OneVector);
+    newStar->SetUpData(testData);
+    //newStar->SetActorRelativeScale3D(FVector::OneVector);
 }
 
 void UStarchitectsGameInstance::Shutdown() {

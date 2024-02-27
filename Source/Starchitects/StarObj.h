@@ -38,5 +38,5 @@ public:
 
 
 	//Create a function to add in all of the data
-
+	void SetUpData(FStarData data);
 };
