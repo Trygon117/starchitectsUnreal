@@ -26,6 +26,7 @@ void UStarchitectsGameInstance::Init()
 
     WebSocket->OnConnected().AddLambda([&]() {
         GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "Successfully Connected");
+        UE_LOG(LogTemp, Warning, TEXT("Connecting..."));
         WebSocket->Send("{\"header\":0, \"data\":\"\"}");
     });
 
@@ -43,7 +44,7 @@ void UStarchitectsGameInstance::Init()
 
         TSharedPtr<FJsonObject> JSON = UStarchitectsGameInstance::ParseJSON(Message);
         FString header = JSON->GetStringField("header");
-        UE_LOG(LogTemp, Warning, TEXT("Header: \"%s\"."), *header);
+        UE_LOG(LogTemp, Warning, TEXT("Recieved Header: \"%s\"."), *header);
 
         if (header == "0") {
             // error
@@ -148,19 +149,19 @@ void UStarchitectsGameInstance::AddStarDebug()
 void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
 {
     UE_LOG(LogTemp, Warning, TEXT("Sparkle Animation"));
-    WebSocket->Send("{\"header\": \"0\", \"data\": \"" + starID + "\"}");
+    WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 }
 
 void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
 {
     UE_LOG(LogTemp, Warning, TEXT("Twirl Animation"));
-    WebSocket->Send("{\"header\": \"0\", \"data\": \"" + starID + "\"}");
+    WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 }
 
 void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
 {
     UE_LOG(LogTemp, Warning, TEXT("Supernova Animation"));
-    WebSocket->Send("{\"header\": \"0\", \"data\": \"" + starID + "\"}");
+    WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 }
 
 TSharedPtr<FJsonObject> UStarchitectsGameInstance::ParseJSON(FString json)
