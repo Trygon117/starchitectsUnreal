@@ -23,9 +23,13 @@ public:
 	virtual void Shutdown() override;
 
 	void CreateStar();
-	void LoadStars(TSharedPtr<FJsonObject> starsJSON);
+	void LoadStars(TArray<TSharedPtr<FJsonValue>> starsJSON);
 	void AddStar(TSharedPtr<FJsonObject> starJSON);
 	void AddStarDebug();
+
+	void CallSparkleAnimation(FString starID);
+	void CallTwirlAnimation(FString starID);
+	void CallSupernovaAnimation(FString starID);
 
 	TMap<int32, FStarData> stars;
 

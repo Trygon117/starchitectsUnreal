@@ -26,7 +26,7 @@ void UStarchitectsGameInstance::Init()
 
     WebSocket->OnConnected().AddLambda([&]() {
         GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "Successfully Connected");
-        WebSocket->Send("{\"header\":0, \"data\":{}}");
+        WebSocket->Send("{\"header\":0, \"data\":\"\"}");
     });
 
     WebSocket->OnConnectionError().AddLambda([](const FString& Error) {
@@ -47,10 +47,12 @@ void UStarchitectsGameInstance::Init()
 
         if (header == "0") {
             // error
+            FString data = JSON->GetStringField("data");
+            UE_LOG(LogTemp, Warning, TEXT("Error: \"%s\"."), *data);
         }
         else if (header == "1") {
             // all stars
-            UStarchitectsGameInstance::LoadStars(JSON->GetObjectField("data"));
+            UStarchitectsGameInstance::LoadStars(JSON->GetArrayField("data"));
         }
         else if (header == "2") {
             // new star
@@ -58,12 +60,15 @@ void UStarchitectsGameInstance::Init()
         }
         else if (header == "3") {
             // sparkle animation
+            UStarchitectsGameInstance::CallSparkleAnimation(JSON->GetStringField("data"));
         }
         else if (header == "4") {
             // twirl animation
+            UStarchitectsGameInstance::CallTwirlAnimation(JSON->GetStringField("data"));
         }
         else if (header == "5") {
             // supernova animation
+            UStarchitectsGameInstance::CallSupernovaAnimation(JSON->GetStringField("data"));
         }
         else {
             UE_LOG(LogTemp, Error, TEXT("No Header."));
@@ -110,7 +115,7 @@ void UStarchitectsGameInstance::Shutdown()
     Super::Shutdown();
 }
 
-void UStarchitectsGameInstance::LoadStars(TSharedPtr<FJsonObject> starsJSON)
+void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJSON)
 {
     UE_LOG(LogTemp, Warning, TEXT("Loading Stars"));
     // TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(json);
@@ -138,6 +143,24 @@ void UStarchitectsGameInstance::AddStarDebug()
     // AActor* newStar = GetWorld()->SpawnActor<AActor>(StarClass, FVector::ZeroVector, FRotator::ZeroRotator);
 
     AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+}
+
+void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
+{
+    UE_LOG(LogTemp, Warning, TEXT("Sparkle Animation"));
+    WebSocket->Send("{\"header\": \"0\", \"data\": \"" + starID + "\"}");
+}
+
+void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
+{
+    UE_LOG(LogTemp, Warning, TEXT("Twirl Animation"));
+    WebSocket->Send("{\"header\": \"0\", \"data\": \"" + starID + "\"}");
+}
+
+void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
+{
+    UE_LOG(LogTemp, Warning, TEXT("Supernova Animation"));
+    WebSocket->Send("{\"header\": \"0\", \"data\": \"" + starID + "\"}");
 }
 
 TSharedPtr<FJsonObject> UStarchitectsGameInstance::ParseJSON(FString json)
