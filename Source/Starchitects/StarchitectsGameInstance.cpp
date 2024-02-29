@@ -1,11 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 // Youtube Tutorial for Websockets: https://www.youtube.com/watch?v=l9TTmtDBTWY
 // WebSockets Documentation: https://docs.unrealengine.com/4.27/en-US/API/Runtime/WebSockets/
+// FJsonObject Documentaion: https://docs.unrealengine.com/4.27/en-US/API/Runtime/Json/Dom/FJsonObject/
 
 #include "StarchitectsGameInstance.h"
 #include "WebSocketsModule.h"
 #include "Json.h"
 #include "UObject/ConstructorHelpers.h"
+
+#include "Serialization/JsonSerializer.h"
 
 void UStarchitectsGameInstance::Init()
 {
@@ -34,9 +37,37 @@ void UStarchitectsGameInstance::Init()
         GEngine->AddOnScreenDebugMessage(-1, 15.0f, bWasClean ? FColor::Green : FColor::Red, "Connection Closed: " + Reason);
     });
 
-    WebSocket->OnMessage().AddLambda([](const FString& Message) {
+    WebSocket->OnMessage().AddLambda([&](const FString& Message) {
         GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Recieved Message: " + Message);
         UE_LOG(LogTemp, Warning, TEXT("Recieved Message: \"%s\"."), *Message);
+
+        TSharedPtr<FJsonObject> JSON = UStarchitectsGameInstance::ParseJSON(Message);
+        FString header = JSON->GetStringField("header");
+        UE_LOG(LogTemp, Warning, TEXT("Header: \"%s\"."), *header);
+
+        if (header == "0") {
+            // error
+        }
+        else if (header == "1") {
+            // all stars
+            UStarchitectsGameInstance::LoadStars(JSON->GetObjectField("data"));
+        }
+        else if (header == "2") {
+            // new star
+            UStarchitectsGameInstance::AddStar(JSON->GetObjectField("data"));
+        }
+        else if (header == "3") {
+            // sparkle animation
+        }
+        else if (header == "4") {
+            // twirl animation
+        }
+        else if (header == "5") {
+            // supernova animation
+        }
+        else {
+            UE_LOG(LogTemp, Error, TEXT("No Header."));
+        }
     });
 
     WebSocket->OnRawMessage().AddLambda([](const void* Data, SIZE_T Size, SIZE_T BytesRemaining) {
@@ -50,7 +81,7 @@ void UStarchitectsGameInstance::Init()
     });
 
     // if (GEngine)
-    //     GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Hello!"));
+        // GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Hello!"));
 
     // example send message
     // WebSocket->Send("Test Message");
@@ -79,10 +110,10 @@ void UStarchitectsGameInstance::Shutdown()
     Super::Shutdown();
 }
 
-void UStarchitectsGameInstance::LoadStars(FString json)
+void UStarchitectsGameInstance::LoadStars(TSharedPtr<FJsonObject> starsJSON)
 {
-
-    TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(json);
+    UE_LOG(LogTemp, Warning, TEXT("Loading Stars"));
+    // TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(json);
 
     // return if json is not parseable
 
@@ -91,8 +122,9 @@ void UStarchitectsGameInstance::LoadStars(FString json)
     // get each data from the array and add it to the map
 }
 
-void UStarchitectsGameInstance::AddStar()
+void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
 {
+    UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
 }
 
 void UStarchitectsGameInstance::AddStarDebug()
@@ -108,17 +140,14 @@ void UStarchitectsGameInstance::AddStarDebug()
     AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
 }
 
-// Reads the value of a given field in a stringified JSON Object
-// FString UStarchitectsGameInstance::ParseJSON(FString json, FString field)
-// {
-//     TSharedPtr<FJsonObject> JsonParsed;
-//     TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(json);
-//     if (FJsonSerializer::Deserialize(JsonReader, JsonParsed))
-//     {
-//         return JsonParsed->GetStringField(field);
-//     }
-//     else
-//     {
-//         return "";
-//     }
-// }
+TSharedPtr<FJsonObject> UStarchitectsGameInstance::ParseJSON(FString json)
+{
+    TSharedPtr<FJsonObject> RetJsonObject;
+    // Try to convert string to json object. Output goes to RetJsonObject
+    if (!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(json), RetJsonObject))
+    {
+        return nullptr;
+    }
+
+    return RetJsonObject;
+}

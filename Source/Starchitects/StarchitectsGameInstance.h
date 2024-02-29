@@ -23,8 +23,8 @@ public:
 	virtual void Shutdown() override;
 
 	void CreateStar();
-	void LoadStars(FString json);
-	void AddStar();
+	void LoadStars(TSharedPtr<FJsonObject> starsJSON);
+	void AddStar(TSharedPtr<FJsonObject> starJSON);
 	void AddStarDebug();
 
 	TMap<int32, FStarData> stars;
@@ -35,5 +35,5 @@ public:
 	TSubclassOf<AActor> StarClass;
 
 private:
-	FString ParseJSON(FString json, FString field);
+	TSharedPtr<FJsonObject> ParseJSON(FString json);
 };
