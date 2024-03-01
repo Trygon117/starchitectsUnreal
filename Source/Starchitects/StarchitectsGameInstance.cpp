@@ -96,12 +96,16 @@ void UStarchitectsGameInstance::Init()
 
     // AddStarDebug();
 
+    starBase = GetWorld()->SpawnActor<AStarBase>(AStarBase::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+    //starBase->Rename("Base");
+
     FStarData testData;
 
     testData.name = "This Is A Test";
 
     AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
     newStar->SetUpData(testData);
+    newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);
     // newStar->SetActorRelativeScale3D(FVector::OneVector);
 }
 
@@ -162,6 +166,8 @@ void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
 {
     UE_LOG(LogTemp, Warning, TEXT("Supernova Animation"));
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
+
+    int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
 }
 
 TSharedPtr<FJsonObject> UStarchitectsGameInstance::ParseJSON(FString json)

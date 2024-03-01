@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "Misc/DefaultValueHelper.h"
 #include "IWebSocket.h"
 #include "Json.h"
 #include "StarData.h"
 #include "StarObj.h"
+#include "StarBase.h"
 #include "StarchitectsGameInstance.generated.h"
 
 /**
@@ -31,12 +33,16 @@ public:
 	void CallTwirlAnimation(FString starID);
 	void CallSupernovaAnimation(FString starID);
 
-	TMap<int32, FStarData> stars;
+	//TMap<int32, FStarData> stars;
+	TMap<int32, AStarObj> stars;
 
 	TSharedPtr<IWebSocket> WebSocket;
 
 	UPROPERTY(VisibleAnywhere)
 	TSubclassOf<AActor> StarClass;
+
+	UPROPERTY(VisibleAnywhere)
+	AStarBase* starBase; //This is where the rotation of all of the stars will be happening
 
 private:
 	TSharedPtr<FJsonObject> ParseJSON(FString json);
