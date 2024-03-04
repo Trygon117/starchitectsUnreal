@@ -28,6 +28,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float brightness;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FVector position;
+
+
 	FStarData();
 	~FStarData();
 };

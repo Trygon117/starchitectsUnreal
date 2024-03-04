@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "StarData.h"
+#include "Math/Vector.h"
 #include "StarObj.generated.h"
 
 UCLASS()

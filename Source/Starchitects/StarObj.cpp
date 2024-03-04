@@ -35,6 +35,10 @@ void AStarObj::BeginPlay()
 	//Based off of the int in the star data, set the static mesh to that
 
 	//mesh::GetMaterial(0) - get/change the properties of the material
+
+	//FString pos = this->GetActorLocation().ToString();
+
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Position: " + pos));
 	
 }
 
@@ -42,6 +46,12 @@ void AStarObj::BeginPlay()
 void AStarObj::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	//Set actor to position
+	this->SetActorRelativeLocation(FMath::Lerp(this->GetActorLocation(), starData.position, DeltaTime));
+	//Lerp - Linear
+	//SmoothStep - Hermite
+	//InterpEaseInOut - Ease In/Out
 
 }
 

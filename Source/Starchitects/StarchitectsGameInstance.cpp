@@ -102,10 +102,13 @@ void UStarchitectsGameInstance::Init()
     FStarData testData;
 
     testData.name = "This Is A Test";
+    testData.position = FVector::OneVector * 50;
 
-    AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
-    newStar->SetUpData(testData);
-    newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);
+    this->CreateStar(FVector::ZeroVector, testData);
+
+    //AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+    //newStar->SetUpData(testData);
+    //newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);
     // newStar->SetActorRelativeScale3D(FVector::OneVector);
 }
 
@@ -137,17 +140,17 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
     UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
 }
 
+void UStarchitectsGameInstance::CreateStar(FVector position, FStarData data)
+{
+    //UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
+    AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), position, FRotator::ZeroRotator);
+    newStar->SetUpData(data);
+    newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);
+}
+
 void UStarchitectsGameInstance::AddStarDebug()
 {
-    // static ConstructorHelpers::FClassFinder<AActor> StarClassFinder(TEXT("/Game/Star"));
-    // bool doesItExit = StarClassFinder.Class == NULL;
-    // GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, doesItExit ? "False" : "True");
 
-    // StarClass = StarClassFinder.Class;
-
-    // AActor* newStar = GetWorld()->SpawnActor<AActor>(StarClass, FVector::ZeroVector, FRotator::ZeroRotator);
-
-    AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
 }
 
 void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
