@@ -66,7 +66,7 @@ void AStarObj::Tick(float DeltaTime)
 		if(starData.shape == 0)
 		{
 			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("A Rook"));
-			SetActorRelativeScale3D(FVector::OneVector );
+			SetActorRelativeScale3D(FVector::OneVector);
 			mesh->SetStaticMesh(Asset);
 			hasChangedMesh = true;
 		}

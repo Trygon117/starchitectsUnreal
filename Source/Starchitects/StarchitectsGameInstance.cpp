@@ -133,6 +133,10 @@ void UStarchitectsGameInstance::Shutdown()
 void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJSON)
 {
     UE_LOG(LogTemp, Warning, TEXT("Loading Stars"));
+    //int32 length = starsJSON.Num();
+    //FString name = starsJSON[0]->GetStringField("name");
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, starsJSON[0]->AsString());
+    //UE_LOG(LogTemp, Warning, TEXT("Length: " + length.ToString()));
     // TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(json);
 
     // return if json is not parseable
@@ -147,7 +151,16 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
     UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
     FStarData data;
 
-    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, starJSON);
+    data.name = starJSON->GetStringField("name");
+    data.shape = starJSON->GetIntegerField("shape");
+    data.position = FVector::OneVector * 50;
+    CreateStar(FVector::ZeroVector, data, starJSON->GetIntegerField("id"));
+
+    //FString jsonString = JSON->Stringify(starJSON);
+
+    //const TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(json);
+
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, starJSON->GetStringField("name"));
 
     //data.name = starJSON.name;
     //data.shape = starJSON.shape;
