@@ -133,6 +133,13 @@ void UStarchitectsGameInstance::Shutdown()
 void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJSON)
 {
     UE_LOG(LogTemp, Warning, TEXT("Loading Stars"));
+
+    for (int i = 0; i < starsJSON.Num(); i++) {
+        TSharedPtr<FJsonObject> obj = starsJSON[i]->AsObject();
+        FString name = obj->GetStringField("name");
+        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + name);
+    }
+
     //int32 length = starsJSON.Num();
     //FString name = starsJSON[0]->GetStringField("name");
     //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, starsJSON[0]->AsString());
