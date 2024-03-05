@@ -99,12 +99,19 @@ void UStarchitectsGameInstance::Init()
     starBase = GetWorld()->SpawnActor<AStarBase>(AStarBase::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
     //starBase->Rename("Base");
 
-    FStarData testData;
+    /*FStarData testData;
 
     testData.name = "This Is A Test";
     testData.position = FVector::OneVector * 50;
+    testData.shape = 1;
 
     this->CreateStar(FVector::ZeroVector, testData);
+
+    testData.position = FVector::OneVector * -20;
+    testData.shape = 2;
+
+    this->CreateStar(FVector::ZeroVector, testData);
+    */
 
     //AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
     //newStar->SetUpData(testData);
@@ -138,13 +145,26 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
 void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
 {
     UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
+    FStarData data;
+
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, starJSON);
+
+    //data.name = starJSON.name;
+    //data.shape = starJSON.shape;
+    //data.color = starJSON.color;
+    //data.size = starData.size;
+
+    //CreateStar(FVector::ZeroVector, data, starJSON.id);
+
+
 }
 
-void UStarchitectsGameInstance::CreateStar(FVector position, FStarData data)
+void UStarchitectsGameInstance::CreateStar(FVector position, FStarData data, int32 ID)
 {
     //UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
     AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), position, FRotator::ZeroRotator);
     newStar->SetUpData(data);
+    newStar->ID = ID;
     newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);
 }
 

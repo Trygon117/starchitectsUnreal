@@ -16,6 +16,12 @@ AStarObj::AStarObj()
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> SquareMesh(TEXT("/Engine/BasicShapes/Sphere")); 
 	Asset = SquareMesh.Object;
 
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> RookMesh(TEXT("/Game/Models/Rook")); 
+	Rook = RookMesh.Object;
+
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> RockMesh(TEXT("/Game/Models/Rock")); 
+	Rock = RockMesh.Object;
+
 	const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Engine/BasicShapes/BasicShapeMaterial")); 
 	mesh->SetMaterial(0, MaterialObj.Object);
 
@@ -30,7 +36,7 @@ void AStarObj::BeginPlay()
 
 	isGlowing = false;
 
-	mesh->SetStaticMesh(Asset);
+	//mesh->SetStaticMesh(Asset);
 
 	//Based off of the int in the star data, set the static mesh to that
 
@@ -48,7 +54,39 @@ void AStarObj::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	//Set actor to position
-	this->SetActorRelativeLocation(FMath::Lerp(this->GetActorLocation(), starData.position, DeltaTime));
+	//FVector relativePosition = GetTransform().InverseTransformPosition(GetAttachParentActor()->GetActorLocation());
+	//FVector relativePosition = GetTransform().InverseTransformPosition(this->GetActorLocation());
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Position: " + relativePosition.ToString()));
+	this->SetActorRelativeLocation(FMath::Lerp(GetActorLocation(), starData.position, DeltaTime));
+	//mesh->SetStaticMesh(Asset);
+	//this->SetActorRelativeLocation(starData.position);
+
+	if(!hasChangedMesh)
+	{
+		if(starData.shape == 0)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("A Rook"));
+			SetActorRelativeScale3D(FVector::OneVector );
+			mesh->SetStaticMesh(Asset);
+			hasChangedMesh = true;
+		}
+		else if(starData.shape == 1)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("A Rook"));
+			SetActorRelativeScale3D(FVector::OneVector * 25);
+			mesh->SetStaticMesh(Rook);
+			hasChangedMesh = true;
+		}
+		else if(starData.shape == 2)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("A Rock"));
+			SetActorRelativeScale3D(FVector::OneVector * 25);
+			mesh->SetStaticMesh(Rock);
+			hasChangedMesh = true;
+		}
+	}
+
+
 	//Lerp - Linear
 	//SmoothStep - Hermite
 	//InterpEaseInOut - Ease In/Out
@@ -59,5 +97,9 @@ void AStarObj::Tick(float DeltaTime)
 void AStarObj::SetUpData(FStarData data)
 {
 	starData = data;
+			// SetActorRelativeScale3D(FVector::OneVector * 25);
+			// SetActorRelativeScale3D(FVector::OneVector * 25);
+
+	//Test for shape
 }
 

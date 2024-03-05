@@ -32,6 +32,12 @@ protected:
 	UStaticMeshComponent* mesh;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* Asset;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UStaticMesh* Rook;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UStaticMesh* Rock;
+	UPROPERTY(BlueprintReadWrite)
+	bool hasChangedMesh;
 
 public:	
 	// Called every frame
