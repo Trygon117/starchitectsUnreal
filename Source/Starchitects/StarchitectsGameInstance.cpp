@@ -143,6 +143,9 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
             FStarData data;
             FString name = obj->GetStringField("name");
             data.name = name; 
+            data.color = (float) obj->GetNumberField("color");
+            data.size = (float) obj->GetNumberField("size");
+            data.brightness = (float) obj->GetNumberField("shade");
             data.shape = obj->GetIntegerField("shape");
             if(i % 2 == 0) data.position = FVector::OneVector * 50;
             else data.position = FVector::OneVector * -20;
