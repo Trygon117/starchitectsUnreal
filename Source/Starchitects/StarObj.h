@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "StarData.h"
 #include "Math/Vector.h"
+#include "Math/TransformNonVectorized.h"
 #include "StarObj.generated.h"
 
 UCLASS()

@@ -144,7 +144,8 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
             FString name = obj->GetStringField("name");
             data.name = name; 
             data.shape = obj->GetIntegerField("shape");
-            data.position = FVector::OneVector * 50;
+            if(i % 2 == 0) data.position = FVector::OneVector * 50;
+            else data.position = FVector::OneVector * -20;
             GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + name);
             CreateStar(data.position, data, obj->GetIntegerField("id"));
         }
@@ -197,6 +198,7 @@ void UStarchitectsGameInstance::CreateStar(FVector position, FStarData data, int
     newStar->SetUpData(data);
     newStar->ID = ID;
     newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);
+    starClass.Add(newStar);
 }
 
 void UStarchitectsGameInstance::AddStarDebug()
@@ -208,12 +210,41 @@ void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
 {
     UE_LOG(LogTemp, Warning, TEXT("Sparkle Animation"));
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
+
+    int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
+    AStarObj* baseStar = NULL;
+
+        for (int i = 0; i < starClass.Num(); i++) 
+        {
+            if(starClass[i]->ID == ID)
+                baseStar = starClass[i];
+        }
+
+        //if(baseStar != NULL)
+            //Do sparkle animation
+            //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
+
+
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + ID);
 }
 
 void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
 {
     UE_LOG(LogTemp, Warning, TEXT("Twirl Animation"));
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
+
+    int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
+    AStarObj* baseStar = NULL;
+
+        for (int i = 0; i < starClass.Num(); i++) 
+        {
+            if(starClass[i]->ID == ID)
+                baseStar = starClass[i];
+        }
+
+        //if(baseStar != NULL)
+            //Do twirl animation
+            //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
 }
 
 void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
@@ -222,6 +253,17 @@ void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
     int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
+    AStarObj* baseStar = NULL;
+
+        for (int i = 0; i < starClass.Num(); i++) 
+        {
+            if(starClass[i]->ID == ID)
+                baseStar = starClass[i];
+        }
+
+        //if(baseStar != NULL)
+            //Do supernova animation
+            //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
 }
 
 TSharedPtr<FJsonObject> UStarchitectsGameInstance::ParseJSON(FString json)

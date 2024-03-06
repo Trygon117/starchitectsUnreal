@@ -58,6 +58,7 @@ void AStarObj::Tick(float DeltaTime)
 	//FVector relativePosition = GetTransform().InverseTransformPosition(this->GetActorLocation());
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Position: " + relativePosition.ToString()));
 	this->SetActorRelativeLocation(FMath::Lerp(GetActorLocation(), starData.position, DeltaTime));
+	//FTransform::GetRelativeTransform(GetTransform()).GetLocation()
 	//mesh->SetStaticMesh(Asset);
 	//this->SetActorRelativeLocation(starData.position);
 

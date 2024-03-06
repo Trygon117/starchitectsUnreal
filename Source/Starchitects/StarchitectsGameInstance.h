@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "EngineUtils.h"
 #include "Misc/DefaultValueHelper.h"
 #include "IWebSocket.h"
 #include "Json.h"
@@ -39,7 +40,7 @@ public:
 	TSharedPtr<IWebSocket> WebSocket;
 
 	UPROPERTY(VisibleAnywhere)
-	TSubclassOf<AActor> StarClass;
+	TArray<AStarObj*> starClass;
 
 	UPROPERTY(VisibleAnywhere)
 	AStarBase* starBase; //This is where the rotation of all of the stars will be happening
