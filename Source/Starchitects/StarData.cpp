@@ -7,7 +7,7 @@ FStarData::FStarData()
 {
     name = "";
     shape = -1;
-    color = 1;
+    //color = 1;
     size = 1;
     brightness = 1;
 }

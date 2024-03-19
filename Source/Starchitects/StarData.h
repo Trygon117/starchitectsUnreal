@@ -20,7 +20,7 @@ public:
 	int shape;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	float color;
+	FString color;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float size;

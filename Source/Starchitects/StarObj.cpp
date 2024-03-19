@@ -22,8 +22,16 @@ AStarObj::AStarObj()
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> RockMesh(TEXT("/Game/Models/Rock")); 
 	Rock = RockMesh.Object;
 
-	const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Engine/BasicShapes/BasicShapeMaterial")); 
+	//const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Engine/BasicShapes/BasicShapeMaterial")); 
+	const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Game/Star_Material")); 
 	mesh->SetMaterial(0, MaterialObj.Object);
+
+	DynamicMaterial = UMaterialInstanceDynamic::Create(MaterialObj.Object, mesh);
+	// DynamicMaterial->SetVectorParameterValue("StarColor", FLinearColor::MakeRandomColor());
+	// mesh->SetMaterial(0, DynamicMaterial);
+
+	//HSVToLinearRGB(starData.color, 1, starData.brightness);
+	//MakeFromHSV8
 
 	//Load every shape possible
 
@@ -64,26 +72,25 @@ void AStarObj::Tick(float DeltaTime)
 
 	if(!hasChangedMesh)
 	{
-		if(starData.shape == 0)
+		switch(starData.shape)
 		{
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("A Rook"));
-			SetActorRelativeScale3D(FVector::OneVector);
-			mesh->SetStaticMesh(Asset);
-			hasChangedMesh = true;
-		}
-		else if(starData.shape == 1)
-		{
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("A Rook"));
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(Rook);
-			hasChangedMesh = true;
-		}
-		else if(starData.shape == 2)
-		{
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("A Rock"));
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(Rock);
-			hasChangedMesh = true;
+			case 0:
+				SetActorRelativeScale3D(FVector::OneVector);
+				mesh->SetStaticMesh(Asset);
+				hasChangedMesh = true;
+				break;
+			case 1:
+				SetActorRelativeScale3D(FVector::OneVector * 25);
+				mesh->SetStaticMesh(Rook);
+				hasChangedMesh = true;
+				break;
+			case 2:
+				SetActorRelativeScale3D(FVector::OneVector * 25);
+				mesh->SetStaticMesh(Rock);
+				hasChangedMesh = true;
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -98,9 +105,28 @@ void AStarObj::Tick(float DeltaTime)
 void AStarObj::SetUpData(FStarData data)
 {
 	starData = data;
+	//hue = starData.color * 360;
+	DynamicMaterial->SetVectorParameterValue("StarColor", FLinearColor::MakeRandomColor());
+	//hue goes from 0-360
+	//saturation will always be 100%
+	mesh->SetMaterial(0, DynamicMaterial);
 			// SetActorRelativeScale3D(FVector::OneVector * 25);
 			// SetActorRelativeScale3D(FVector::OneVector * 25);
 
 	//Test for shape
 }
 
+void AStarObj::SparkleAnimation()
+{
+
+}
+
+void AStarObj::TwirlAnimation()
+{
+	
+}
+
+void AStarObj::SupernovaAnimation()
+{
+	
+}

@@ -143,7 +143,7 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
             FStarData data;
             FString name = obj->GetStringField("name");
             data.name = name; 
-            data.color = (float) obj->GetNumberField("color");
+            data.color = obj->GetStringField("color");
             data.size = (float) obj->GetNumberField("size");
             data.brightness = (float) obj->GetNumberField("shade");
             data.shape = obj->GetIntegerField("shape");
@@ -174,9 +174,9 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
 
     data.name = starJSON->GetStringField("name");
     data.shape = starJSON->GetIntegerField("shape");
-    data.color = (float) starJSON->GetNumberField("color");
-    data.size = (float) starJSON->GetNumberField("size");
-    data.brightness = (float) starJSON->GetNumberField("shade");
+    data.color = starJSON->GetStringField("color");
+    //data.size = (float) starJSON->GetNumberField("size");
+    //data.brightness = (float) starJSON->GetNumberField("shade");
     data.position = FVector(FMath::RandRange(-1000,1000),FMath::RandRange(-1000,1000),FMath::RandRange(100,1000));
     CreateStar(FVector::ZeroVector, data, starJSON->GetIntegerField("id"));
 
@@ -225,7 +225,8 @@ void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
                 baseStar = starClass[i];
         }
 
-        //if(baseStar != NULL)
+        if(baseStar != NULL)
+            baseStar->SparkleAnimation();
             //Do sparkle animation
             //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
 
@@ -247,7 +248,8 @@ void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
                 baseStar = starClass[i];
         }
 
-        //if(baseStar != NULL)
+        if(baseStar != NULL)
+            baseStar->TwirlAnimation();
             //Do twirl animation
             //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
 }
@@ -266,7 +268,8 @@ void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
                 baseStar = starClass[i];
         }
 
-        //if(baseStar != NULL)
+        if(baseStar != NULL)
+            baseStar->SupernovaAnimation();
             //Do supernova animation
             //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
 }

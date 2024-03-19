@@ -32,6 +32,8 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMeshComponent* mesh;
 	UPROPERTY(BlueprintReadWrite)
+	UMaterialInstanceDynamic* DynamicMaterial;
+	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* Asset;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	UStaticMesh* Rook;
@@ -39,6 +41,8 @@ protected:
 	UStaticMesh* Rock;
 	UPROPERTY(BlueprintReadWrite)
 	bool hasChangedMesh;
+	UPROPERTY(BlueprintReadWrite)
+	int32 hue;
 
 public:	
 	// Called every frame
@@ -47,4 +51,8 @@ public:
 
 	//Create a function to add in all of the data
 	void SetUpData(FStarData data);
+
+	void SparkleAnimation();
+	void TwirlAnimation();
+	void SupernovaAnimation();
 };
