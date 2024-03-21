@@ -50,9 +50,6 @@ protected:
 
 	//UFUNCTION(BlueprintCallable, Category="StarObj")
 	//void hueToRGB(float hue, TArray<float> &color);
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TArray<float> hueToRGB;
 	
 	//void RGBToHex(float color, float shade);
 
