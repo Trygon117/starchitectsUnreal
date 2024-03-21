@@ -20,13 +20,13 @@ public:
 	int shape;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FString color;
+	float color;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float size;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	float brightness;
+	float shade;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FVector position;

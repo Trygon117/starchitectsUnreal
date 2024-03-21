@@ -30,7 +30,7 @@ AStarObj::AStarObj()
 	// DynamicMaterial->SetVectorParameterValue("StarColor", FLinearColor::MakeRandomColor());
 	// mesh->SetMaterial(0, DynamicMaterial);
 
-	//HSVToLinearRGB(starData.color, 1, starData.brightness);
+	//HSVToLinearRGB(starData.color, 1, starData.shade);
 	//MakeFromHSV8
 
 	//Load every shape possible
@@ -105,11 +105,26 @@ void AStarObj::Tick(float DeltaTime)
 void AStarObj::SetUpData(FStarData data)
 {
 	starData = data;
-	//hue = starData.color * 360;
-	DynamicMaterial->SetVectorParameterValue("StarColor", FLinearColor::MakeRandomColor());
-	//hue goes from 0-360
-	//saturation will always be 100%
+
+	float hue = starData.color * 6;
+	hueToRGB = {FMath::Clamp(abs(hue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(hue - 2), 0, 1), FMath::Clamp(2 - abs(hue - 4), 0, 1)};
+
+	float shadeRadians = starData.shade * 2 * PI;
+	float saturation = 0.75 + 0.25*cos(shadeRadians);
+	float value = 0.75 + 0.25*sin(shadeRadians);
+
+	TArray<float> colorArray = {};
+
+	for(int i = 0; i < 3; i++)
+	{
+		colorArray.Add(FMath::Lerp(1, hueToRGB[i], saturation) * value);
+	}
+
+	color = FLinearColor(colorArray[0], colorArray[1], colorArray[2]);
+	DynamicMaterial->SetVectorParameterValue("StarColor", color);
 	mesh->SetMaterial(0, DynamicMaterial);
+
+	
 			// SetActorRelativeScale3D(FVector::OneVector * 25);
 			// SetActorRelativeScale3D(FVector::OneVector * 25);
 

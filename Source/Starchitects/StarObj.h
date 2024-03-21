@@ -6,7 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "StarData.h"
 #include "Math/Vector.h"
+#include "Math/Color.h"
 #include "Math/TransformNonVectorized.h"
+#include "Math/UnrealMathUtility.h"
 #include "StarObj.generated.h"
 
 UCLASS()
@@ -29,6 +31,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FLinearColor color;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMeshComponent* mesh;
 	UPROPERTY(BlueprintReadWrite)
@@ -41,13 +45,22 @@ protected:
 	UStaticMesh* Rock;
 	UPROPERTY(BlueprintReadWrite)
 	bool hasChangedMesh;
-	UPROPERTY(BlueprintReadWrite)
-	int32 hue;
+	//UPROPERTY(BlueprintReadWrite)
+	//int32 hue;
+
+	//UFUNCTION(BlueprintCallable, Category="StarObj")
+	//void hueToRGB(float hue, TArray<float> &color);
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<float> hueToRGB;
+	
+	//void RGBToHex(float color, float shade);
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//void hueToRGB(float hue, TArray<float> &color);
 
 	//Create a function to add in all of the data
 	void SetUpData(FStarData data);
