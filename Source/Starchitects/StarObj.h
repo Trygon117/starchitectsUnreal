@@ -9,6 +9,8 @@
 #include "Math/Color.h"
 #include "Math/TransformNonVectorized.h"
 #include "Math/UnrealMathUtility.h"
+#include "Components/TimelineComponent.h"
+#include "Curves/CurveFloat.h"
 #include "StarObj.generated.h"
 
 UCLASS()
@@ -27,6 +29,11 @@ public:
 	float rotationSpeed;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool isGlowing;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UParticleSystem* stardust;
+	//UParticleSystemComponent* stardust;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UCurveFloat* StarCurve;
 
 protected:
 	// Called when the game starts or when spawned
@@ -39,12 +46,19 @@ protected:
 	UMaterialInstanceDynamic* DynamicMaterial;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* Asset;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* Rook;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* Rock;
 	UPROPERTY(BlueprintReadWrite)
 	bool hasChangedMesh;
+	// UPROPERTY(BlueprintReadWrite)
+	FTimeline TwirlTimeline;
+
+	float RotateValue;
+	float CurveFloatValue;
+	float TimelineValue;
+
 	//UPROPERTY(BlueprintReadWrite)
 	//int32 hue;
 
@@ -65,4 +79,6 @@ public:
 	void SparkleAnimation();
 	void TwirlAnimation();
 	void SupernovaAnimation();
+
+	void TwirlControls();
 };

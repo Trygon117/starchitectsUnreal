@@ -53,6 +53,22 @@ void AStarObj::BeginPlay()
 	//FString pos = this->GetActorLocation().ToString();
 
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Position: " + pos));
+
+	StarCurve = NewObject<UCurveFloat>(this);
+	StarCurve->FloatCurve.UpdateOrAddKey(0.f, 0.f);
+	StarCurve->FloatCurve.UpdateOrAddKey(1.f, 1.f);
+
+    if (StarCurve)
+    {
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Timeline loaded");
+	    FOnTimelineFloat TimelineCallback;
+        FOnTimelineEventStatic TimelineFinishedCallback;
+
+        TimelineCallback.BindUFunction(this, FName("TwirlControls"));
+        //TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("SetState") });
+        TwirlTimeline.AddInterpFloat(StarCurve, TimelineCallback);
+        //TwirlTimeline.SetTimelineFinishedFunc(TimelineFinishedCallback);
+	}
 	
 }
 
@@ -79,22 +95,27 @@ void AStarObj::Tick(float DeltaTime)
 				SetActorRelativeScale3D(FVector::OneVector);
 				mesh->SetStaticMesh(Asset);
 				hasChangedMesh = true;
+				//SetActorTickEnabled(false);
 				break;
 			case 1:
 				SetActorRelativeScale3D(FVector::OneVector * 25);
 				mesh->SetStaticMesh(Rook);
 				hasChangedMesh = true;
+				//SetActorTickEnabled(false);
 				break;
 			case 2:
 				SetActorRelativeScale3D(FVector::OneVector * 25);
 				mesh->SetStaticMesh(Rock);
 				hasChangedMesh = true;
+				//SetActorTickEnabled(false);
 				break;
 			default:
 				break;
 		}
 	}
 
+	//Check if position is equal to
+	TwirlTimeline.TickTimeline(DeltaTime);
 
 	//Lerp - Linear
 	//SmoothStep - Hermite
@@ -139,10 +160,23 @@ void AStarObj::SparkleAnimation()
 
 void AStarObj::TwirlAnimation()
 {
-	
+	//Set the yaw from 0 to 360
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Spin!");
+	RotateValue = 1.0f;
+	TwirlTimeline.PlayFromStart();
 }
 
 void AStarObj::SupernovaAnimation()
 {
 	
+}
+
+void AStarObj::TwirlControls()
+{
+	TimelineValue = TwirlTimeline.GetPlaybackPosition();
+    CurveFloatValue = RotateValue*StarCurve->GetFloatValue(TimelineValue);
+
+    FQuat NewRotation = FQuat(FRotator(0.f, 0.f, CurveFloatValue));
+
+    SetActorRelativeRotation(NewRotation);
 }
