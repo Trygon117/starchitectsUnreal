@@ -29,6 +29,12 @@ public:
 	float shade;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float dustColor;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float dustShade;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FVector position;
 
 

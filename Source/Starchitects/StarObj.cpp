@@ -130,16 +130,16 @@ void AStarObj::SetUpData(FStarData data)
 
 	float hue = starData.color * 6;
 	TArray<float> hueToRGB = {FMath::Clamp(abs(hue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(hue - 2), 0, 1), FMath::Clamp(2 - abs(hue - 4), 0, 1)};
-
-	float shadeRadians = starData.shade * 2 * PI;
-	float saturation = 0.75 + 0.25*cos(shadeRadians);
-	float value = 0.75 + 0.25*sin(shadeRadians);
+	// float shadeRadians = starData.shade * 2 * PI;
+	// float saturation = 0.75 + 0.25*cos(shadeRadians);
+	// float value = 0.75 + 0.25*sin(shadeRadians);
 
 	TArray<float> colorArray = {};
 
 	for(int i = 0; i < 3; i++)
 	{
-		colorArray.Add(FMath::Lerp(1, hueToRGB[i], saturation) * value);
+		colorArray.Add(FMath::Lerp(hueToRGB[i], starData.shade, 0.35));
+	// 	colorArray.Add(FMath::Lerp(1, hueToRGB[i], saturation) * value);
 	}
 
 	color = FLinearColor(colorArray[0], colorArray[1], colorArray[2]);
@@ -161,9 +161,11 @@ void AStarObj::SparkleAnimation()
 void AStarObj::TwirlAnimation()
 {
 	//Set the yaw from 0 to 360
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Spin!");
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Spin!");
 	RotateValue = 1.0f;
 	TwirlTimeline.PlayFromStart();
+	//FQuat NewRotation = FQuat(FRotator(0.f, 0.f, GetActorRotation().Yaw + 90.0f));
+	//SetActorRelativeRotation(NewRotation);
 }
 
 void AStarObj::SupernovaAnimation()

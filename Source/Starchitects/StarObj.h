@@ -22,7 +22,7 @@ public:
 	// Sets default values for this actor's properties
 	AStarObj();
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int32 ID;
+	FString ID;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FStarData starData;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)

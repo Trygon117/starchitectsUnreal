@@ -143,13 +143,13 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
             FStarData data;
             FString name = obj->GetStringField("name");
             data.name = name; 
-            data.color = (float) obj->GetNumberField("color");
+            data.color = (float) obj->GetNumberField("starColor");
             data.size = (float) obj->GetNumberField("size");
-            data.shade = (float) obj->GetNumberField("shade");
+            data.shade = (float) obj->GetNumberField("starShade");
             data.shape = obj->GetIntegerField("shape");
             data.position = FVector(FMath::RandRange(-1000,1000),FMath::RandRange(-1000,1000),FMath::RandRange(100,1000));
             GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + name);
-            CreateStar(data.position, data, obj->GetIntegerField("id"));
+            CreateStar(data.position, data, obj->GetStringField("id"));
         }
     }
 
@@ -174,11 +174,11 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
 
     data.name = starJSON->GetStringField("name");
     data.shape = starJSON->GetIntegerField("shape");
-    data.color = (float) starJSON->GetNumberField("color");
+    data.color = (float) starJSON->GetNumberField("starColor");
     //data.size = (float) starJSON->GetNumberField("size");
-    data.shade = (float) starJSON->GetNumberField("shade");
+    data.shade = (float) starJSON->GetNumberField("starShade");
     data.position = FVector(FMath::RandRange(-1000,1000),FMath::RandRange(-1000,1000),FMath::RandRange(100,1000));
-    CreateStar(FVector::ZeroVector, data, starJSON->GetIntegerField("id"));
+    CreateStar(FVector::ZeroVector, data, starJSON->GetStringField("id"));
 
     //FString jsonString = JSON->Stringify(starJSON);
 
@@ -196,7 +196,7 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
 
 }
 
-void UStarchitectsGameInstance::CreateStar(FVector position, FStarData data, int32 ID)
+void UStarchitectsGameInstance::CreateStar(FVector position, FStarData data, FString ID)
 {
     //UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
     AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), position, FRotator::ZeroRotator);
@@ -216,12 +216,12 @@ void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
     UE_LOG(LogTemp, Warning, TEXT("Sparkle Animation"));
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
-    int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
+    //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
     AStarObj* baseStar = NULL;
 
         for (int i = 0; i < starClass.Num(); i++) 
         {
-            if(starClass[i]->ID == ID)
+            if(starClass[i]->ID == starID)
                 baseStar = starClass[i];
         }
 
@@ -239,19 +239,24 @@ void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
     UE_LOG(LogTemp, Warning, TEXT("Twirl Animation"));
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
-    int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
+    //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
     AStarObj* baseStar = NULL;
 
         for (int i = 0; i < starClass.Num(); i++) 
         {
-            if(starClass[i]->ID == ID)
+            if(starClass[i]->ID == starID)
                 baseStar = starClass[i];
         }
 
         if(baseStar != NULL)
+        {
             baseStar->TwirlAnimation();
+            GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Twirl");
+        }
+            
             //Do twirl animation
-            //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
+            // GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
+            
 }
 
 void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
@@ -259,12 +264,12 @@ void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
     UE_LOG(LogTemp, Warning, TEXT("Supernova Animation"));
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
-    int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
+    //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
     AStarObj* baseStar = NULL;
 
         for (int i = 0; i < starClass.Num(); i++) 
         {
-            if(starClass[i]->ID == ID)
+            if(starClass[i]->ID == starID)
                 baseStar = starClass[i];
         }
 
