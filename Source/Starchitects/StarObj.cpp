@@ -55,19 +55,24 @@ void AStarObj::BeginPlay()
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Position: " + pos));
 
 	StarCurve = NewObject<UCurveFloat>(this);
-	StarCurve->FloatCurve.UpdateOrAddKey(0.f, 0.f);
+	FKeyHandle KeyHandle = StarCurve->FloatCurve.UpdateOrAddKey(0.f, 0.f);
 	StarCurve->FloatCurve.UpdateOrAddKey(1.f, 1.f);
+	StarCurve->FloatCurve.SetKeyInterpMode(KeyHandle, ERichCurveInterpMode::RCIM_Cubic, true);
+
+	TwirlTimeline = NewObject<UTimelineComponent>(this);
 
     if (StarCurve)
     {
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Timeline loaded");
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Timeline loaded");
 	    FOnTimelineFloat TimelineCallback;
         FOnTimelineEventStatic TimelineFinishedCallback;
 
-        TimelineCallback.BindUFunction(this, FName("TwirlControls"));
-        //TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("SetState") });
-        TwirlTimeline.AddInterpFloat(StarCurve, TimelineCallback);
-        //TwirlTimeline.SetTimelineFinishedFunc(TimelineFinishedCallback);
+        TimelineCallback.BindUFunction(this, FName{TEXT ("TwirlControls")});
+        TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("FinishTwirlAnimation") });
+		TwirlTimeline->SetTimelineLength(5.f);
+        TwirlTimeline->AddInterpFloat(StarCurve, TimelineCallback);
+        TwirlTimeline->SetTimelineFinishedFunc(TimelineFinishedCallback);
+		//TwirlTimeline->PlayFromStart();
 	}
 	
 }
@@ -114,8 +119,24 @@ void AStarObj::Tick(float DeltaTime)
 		}
 	}
 
-	//Check if position is equal to
-	TwirlTimeline.TickTimeline(DeltaTime);
+	if(startRotation)
+	{
+		RotateValue += 1.0f;
+		FQuat NewRotation = FQuat(FRotator(0, RotateValue, 0));
+		SetActorRelativeRotation(NewRotation);
+		if(GetActorRotation().Yaw < 0)
+		{
+			halfwayRotation = true;
+		}
+
+		if(halfwayRotation && GetActorRotation().Yaw >= 0)
+		{
+			halfwayRotation = false;
+			startRotation = false;
+			SetActorRelativeRotation(FQuat(FRotator::ZeroRotator));
+		}
+	}
+
 
 	//Lerp - Linear
 	//SmoothStep - Hermite
@@ -162,23 +183,25 @@ void AStarObj::TwirlAnimation()
 {
 	//Set the yaw from 0 to 360
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Spin!");
-	RotateValue = 1.0f;
-	TwirlTimeline.PlayFromStart();
+	startRotation = true;
+	TwirlTimeline->PlayFromStart();
 	//FQuat NewRotation = FQuat(FRotator(0.f, 0.f, GetActorRotation().Yaw + 90.0f));
 	//SetActorRelativeRotation(NewRotation);
+}
+
+void AStarObj::TwirlControls()
+{
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Play!");
+	
+    //SetActorRelativeRotation(NewRotation);
+}
+
+void AStarObj::FinishTwirlAnimation()
+{
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Done!");
 }
 
 void AStarObj::SupernovaAnimation()
 {
 	
-}
-
-void AStarObj::TwirlControls()
-{
-	TimelineValue = TwirlTimeline.GetPlaybackPosition();
-    CurveFloatValue = RotateValue*StarCurve->GetFloatValue(TimelineValue);
-
-    FQuat NewRotation = FQuat(FRotator(0.f, 0.f, CurveFloatValue));
-
-    SetActorRelativeRotation(NewRotation);
 }

@@ -52,12 +52,17 @@ protected:
 	UStaticMesh* Rock;
 	UPROPERTY(BlueprintReadWrite)
 	bool hasChangedMesh;
-	// UPROPERTY(BlueprintReadWrite)
-	FTimeline TwirlTimeline;
+	UPROPERTY(BlueprintReadWrite)
+	UTimelineComponent* TwirlTimeline;
 
 	float RotateValue;
 	float CurveFloatValue;
 	float TimelineValue;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool startRotation;
+	UPROPERTY(BlueprintReadWrite)
+	bool halfwayRotation;
 
 	//UPROPERTY(BlueprintReadWrite)
 	//int32 hue;
@@ -80,5 +85,8 @@ public:
 	void TwirlAnimation();
 	void SupernovaAnimation();
 
+	UFUNCTION()
 	void TwirlControls();
+	UFUNCTION()
+	void FinishTwirlAnimation();
 };

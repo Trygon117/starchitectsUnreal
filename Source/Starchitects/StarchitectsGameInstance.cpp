@@ -251,7 +251,7 @@ void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
         if(baseStar != NULL)
         {
             baseStar->TwirlAnimation();
-            GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Twirl");
+            //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Twirl");
         }
             
             //Do twirl animation
