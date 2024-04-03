@@ -6,7 +6,7 @@
 		},
 		{
 			"name": "UE5",
-			"path": "E:\\Software\\Epic Games\\UE_5.3"
+			"path": "C:\\Program Files\\Epic Games\\UE_5.3"
 		}
 	],
 	"settings": {
@@ -30,13 +30,13 @@
 					"Starchitects",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -47,7 +47,7 @@
 					"Starchitects",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -56,7 +56,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -67,13 +67,13 @@
 					"Starchitects",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -84,13 +84,13 @@
 					"Starchitects",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -101,7 +101,7 @@
 					"Starchitects",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -110,7 +110,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -121,13 +121,13 @@
 					"Starchitects",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -138,13 +138,13 @@
 					"Starchitects",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -155,7 +155,7 @@
 					"Starchitects",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -164,7 +164,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -175,13 +175,13 @@
 					"Starchitects",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -192,13 +192,13 @@
 					"Starchitects",
 					"Win64",
 					"Test",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -209,7 +209,7 @@
 					"Starchitects",
 					"Win64",
 					"Test",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -218,7 +218,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -229,13 +229,13 @@
 					"Starchitects",
 					"Win64",
 					"Test",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -246,13 +246,13 @@
 					"Starchitects",
 					"Win64",
 					"Shipping",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -263,7 +263,7 @@
 					"Starchitects",
 					"Win64",
 					"Shipping",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -272,7 +272,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -283,13 +283,13 @@
 					"Starchitects",
 					"Win64",
 					"Shipping",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -300,13 +300,13 @@
 					"StarchitectsEditor",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -317,7 +317,7 @@
 					"StarchitectsEditor",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -326,7 +326,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -337,13 +337,13 @@
 					"StarchitectsEditor",
 					"Win64",
 					"Debug",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -354,13 +354,13 @@
 					"StarchitectsEditor",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -371,7 +371,7 @@
 					"StarchitectsEditor",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -380,7 +380,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -391,13 +391,13 @@
 					"StarchitectsEditor",
 					"Win64",
 					"DebugGame",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -408,13 +408,13 @@
 					"StarchitectsEditor",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -425,7 +425,7 @@
 					"StarchitectsEditor",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -434,7 +434,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -445,13 +445,13 @@
 					"StarchitectsEditor",
 					"Win64",
 					"Development",
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject",
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+					"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			}
 		]
@@ -466,13 +466,13 @@
 				"preLaunchTask": "Starchitects Win64 Debug Build",
 				"args": [
 				],
-				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
+				"cwd": "C:\\Program Files\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
 				"console": "externalTerminal",
 				"type": "cppvsdbg",
-				"visualizerFile": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"visualizerFile": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
 				"sourceFileMap": {
-					"D:\\build\\++UE5\\Sync": "E:\\Software\\Epic Games\\UE_5.3"
+					"D:\\build\\++UE5\\Sync": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -482,13 +482,13 @@
 				"preLaunchTask": "Starchitects Win64 DebugGame Build",
 				"args": [
 				],
-				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
+				"cwd": "C:\\Program Files\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
 				"console": "externalTerminal",
 				"type": "cppvsdbg",
-				"visualizerFile": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"visualizerFile": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
 				"sourceFileMap": {
-					"D:\\build\\++UE5\\Sync": "E:\\Software\\Epic Games\\UE_5.3"
+					"D:\\build\\++UE5\\Sync": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -498,13 +498,13 @@
 				"preLaunchTask": "Starchitects Win64 Development Build",
 				"args": [
 				],
-				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
+				"cwd": "C:\\Program Files\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
 				"console": "externalTerminal",
 				"type": "cppvsdbg",
-				"visualizerFile": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"visualizerFile": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
 				"sourceFileMap": {
-					"D:\\build\\++UE5\\Sync": "E:\\Software\\Epic Games\\UE_5.3"
+					"D:\\build\\++UE5\\Sync": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -514,13 +514,13 @@
 				"preLaunchTask": "Starchitects Win64 Test Build",
 				"args": [
 				],
-				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
+				"cwd": "C:\\Program Files\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
 				"console": "externalTerminal",
 				"type": "cppvsdbg",
-				"visualizerFile": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"visualizerFile": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
 				"sourceFileMap": {
-					"D:\\build\\++UE5\\Sync": "E:\\Software\\Epic Games\\UE_5.3"
+					"D:\\build\\++UE5\\Sync": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -530,64 +530,64 @@
 				"preLaunchTask": "Starchitects Win64 Shipping Build",
 				"args": [
 				],
-				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
+				"cwd": "C:\\Program Files\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
 				"console": "externalTerminal",
 				"type": "cppvsdbg",
-				"visualizerFile": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"visualizerFile": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
 				"sourceFileMap": {
-					"D:\\build\\++UE5\\Sync": "E:\\Software\\Epic Games\\UE_5.3"
+					"D:\\build\\++UE5\\Sync": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
 				"name": "Launch StarchitectsEditor (Debug)",
 				"request": "launch",
-				"program": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-Debug.exe",
+				"program": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-Debug.exe",
 				"preLaunchTask": "StarchitectsEditor Win64 Debug Build",
 				"args": [
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject"
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main"
 				],
-				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
+				"cwd": "C:\\Program Files\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
 				"console": "externalTerminal",
 				"type": "cppvsdbg",
-				"visualizerFile": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"visualizerFile": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
 				"sourceFileMap": {
-					"D:\\build\\++UE5\\Sync": "E:\\Software\\Epic Games\\UE_5.3"
+					"D:\\build\\++UE5\\Sync": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
 				"name": "Launch StarchitectsEditor (DebugGame)",
 				"request": "launch",
-				"program": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-DebugGame.exe",
+				"program": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-DebugGame.exe",
 				"preLaunchTask": "StarchitectsEditor Win64 DebugGame Build",
 				"args": [
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject"
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main"
 				],
-				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
+				"cwd": "C:\\Program Files\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
 				"console": "externalTerminal",
 				"type": "cppvsdbg",
-				"visualizerFile": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"visualizerFile": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
 				"sourceFileMap": {
-					"D:\\build\\++UE5\\Sync": "E:\\Software\\Epic Games\\UE_5.3"
+					"D:\\build\\++UE5\\Sync": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
 				"name": "Launch StarchitectsEditor (Development)",
 				"request": "launch",
-				"program": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
+				"program": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
 				"preLaunchTask": "StarchitectsEditor Win64 Development Build",
 				"args": [
-					"D:\\Documents\\Github Repositories\\starchitectsUnreal\\Starchitects.uproject"
+					"C:\\Users\\dsh3993\\Desktop\\Starchitects\\Unreal Builds\\starchitectsUnreal-main"
 				],
-				"cwd": "E:\\Software\\Epic Games\\UE_5.3",
+				"cwd": "C:\\Program Files\\Epic Games\\UE_5.3",
 				"stopAtEntry": false,
 				"console": "externalTerminal",
 				"type": "cppvsdbg",
-				"visualizerFile": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"visualizerFile": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
 				"sourceFileMap": {
-					"D:\\build\\++UE5\\Sync": "E:\\Software\\Epic Games\\UE_5.3"
+					"D:\\build\\++UE5\\Sync": "C:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
@@ -595,7 +595,7 @@
 				"type": "coreclr",
 				"request": "launch",
 				"preLaunchTask": "UnrealBuildTool Win64 Development Build",
-				"program": "E:\\Software\\Epic Games\\UE_5.3\\Engine\\Build\\BatchFiles\\RunUBT.bat",
+				"program": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Build\\BatchFiles\\RunUBT.bat",
 				"args": [
 					"-projectfiles",
 					"-vscode",
@@ -606,7 +606,7 @@
 				],
 				"console": "externalTerminal",
 				"stopAtEntry": false,
-				"cwd": "E:\\Software\\Epic Games\\UE_5.3"
+				"cwd": "C:\\Program Files\\Epic Games\\UE_5.3"
 			}
 		]
 	}
