@@ -40,6 +40,8 @@ protected:
 	virtual void BeginPlay() override;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FLinearColor color;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FLinearColor particleColor;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMeshComponent* mesh;
 	UPROPERTY(BlueprintReadWrite)
