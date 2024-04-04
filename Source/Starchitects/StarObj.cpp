@@ -83,14 +83,8 @@ void AStarObj::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	//Set actor to position
-	//FVector relativePosition = GetTransform().InverseTransformPosition(GetAttachParentActor()->GetActorLocation());
-	FVector relativePosition = GetTransform().InverseTransformPosition(this->GetActorLocation());
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Position: " + relativePosition.ToString()));
-	this->SetActorRelativeLocation(FMath::Lerp(GetActorLocation(), starData.position, DeltaTime));
-	//this->SetActorRelativeLocation(FMath::Lerp(relativePosition, starData.position, DeltaTime));
-	//FTransform::GetRelativeTransform(GetTransform()).GetLocation()
-	//mesh->SetStaticMesh(Asset);
-	//this->SetActorRelativeLocation(starData.position);
+	//FVector relativePosition = GetTransform().InverseTransformPosition(this->GetActorLocation());
+	//this->SetActorRelativeLocation(FMath::Lerp(GetActorLocation(), starData.position, DeltaTime));
 
 	if(!hasChangedMesh)
 	{
@@ -121,7 +115,7 @@ void AStarObj::Tick(float DeltaTime)
 
 	if(startRotation)
 	{
-		RotateValue += 1.0f;
+		RotateValue += 10.0f;
 		FQuat NewRotation = FQuat(FRotator(0, RotateValue, 0));
 		SetActorRelativeRotation(NewRotation);
 		if(GetActorRotation().Yaw < 0)
@@ -151,6 +145,8 @@ void AStarObj::SetUpData(FStarData data)
 
 	float hue = starData.color * 6;
 	TArray<float> hueToRGB = {FMath::Clamp(abs(hue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(hue - 2), 0, 1), FMath::Clamp(2 - abs(hue - 4), 0, 1)};
+	SetActorRelativeLocation(starData.position);
+	
 	// float shadeRadians = starData.shade * 2 * PI;
 	// float saturation = 0.75 + 0.25*cos(shadeRadians);
 	// float value = 0.75 + 0.25*sin(shadeRadians);
