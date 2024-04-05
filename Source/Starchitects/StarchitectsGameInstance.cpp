@@ -147,7 +147,7 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
             data.size = (float) obj->GetNumberField("size");
             data.shade = (float) obj->GetNumberField("starShade");
             data.shape = obj->GetIntegerField("shape");
-            data.position = FVector(FMath::RandRange(-1000,1000),FMath::RandRange(-1000,1000),FMath::RandRange(100,1000));
+            data.position = FVector(FMath::RandRange(-5000,5000),FMath::RandRange(-5000,5000),FMath::RandRange(500,5000));
             GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + name);
             CreateStar(data.position, data, obj->GetStringField("id"));
         }
@@ -177,7 +177,7 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
     data.color = (float) starJSON->GetNumberField("starColor");
     //data.size = (float) starJSON->GetNumberField("size");
     data.shade = (float) starJSON->GetNumberField("starShade");
-    data.position = FVector(FMath::RandRange(-1000,1000),FMath::RandRange(-1000,1000),FMath::RandRange(100,1000));
+    data.position = FVector(FMath::RandRange(-5000,5000),FMath::RandRange(-5000,5000),FMath::RandRange(500,5000));
     CreateStar(FVector::ZeroVector, data, starJSON->GetStringField("id"));
 
     //FString jsonString = JSON->Stringify(starJSON);

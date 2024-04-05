@@ -115,7 +115,7 @@ void AStarObj::Tick(float DeltaTime)
 
 	if(startRotation)
 	{
-		RotateValue += 10.0f;
+		RotateValue += 5.0f;
 		FQuat NewRotation = FQuat(FRotator(0, RotateValue, 0));
 		SetActorRelativeRotation(NewRotation);
 		if(GetActorRotation().Yaw < 0)
@@ -132,6 +132,27 @@ void AStarObj::Tick(float DeltaTime)
 	}
 
 
+	FVector NewLocation = FVector::ZeroVector;
+
+	angleAxis += DeltaTime * multiplier;
+
+	if(angleAxis >= 360)
+	{
+		angleAxis = 0;
+	}
+
+	FVector RotationValue = dimensions.RotateAngleAxis(angleAxis, axisVector);
+
+	float DeltaHeight = (FMath::Sin(RunningTime + DeltaTime) - FMath::Sin(RunningTime));
+
+	NewLocation.X += RotationValue.X;
+	NewLocation.Y += RotationValue.Y;
+	NewLocation.Z += RotationValue.Z + (DeltaHeight * 50);
+
+	RunningTime += (DeltaTime * 10);
+
+	SetActorLocation(NewLocation, false, 0, ETeleportType::None);
+
 	//Lerp - Linear
 	//SmoothStep - Hermite
 	//InterpEaseInOut - Ease In/Out
@@ -146,6 +167,10 @@ void AStarObj::SetUpData(FStarData data)
 	float hue = starData.color * 6;
 	TArray<float> hueToRGB = {FMath::Clamp(abs(hue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(hue - 2), 0, 1), FMath::Clamp(2 - abs(hue - 4), 0, 1)};
 	SetActorRelativeLocation(starData.position);
+
+	dimensions = starData.position;
+	axisVector = FVector(0,0,1);
+	multiplier = FMath::RandRange(2,6) * 10;
 	
 	// float shadeRadians = starData.shade * 2 * PI;
 	// float saturation = 0.75 + 0.25*cos(shadeRadians);
