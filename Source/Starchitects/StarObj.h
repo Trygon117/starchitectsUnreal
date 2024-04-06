@@ -40,6 +40,8 @@ protected:
 	virtual void BeginPlay() override;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FLinearColor color;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FLinearColor particleColor;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMeshComponent* mesh;
 	UPROPERTY(BlueprintReadWrite)
@@ -75,6 +77,16 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	float angleAxis;
+	UPROPERTY(EditAnywhere)
+	FVector dimensions;
+	UPROPERTY(EditAnywhere)
+	FVector axisVector;
+	UPROPERTY(EditAnywhere)
+	float multiplier;
+
+	float RunningTime;
 
 	//void hueToRGB(float hue, TArray<float> &color);
 

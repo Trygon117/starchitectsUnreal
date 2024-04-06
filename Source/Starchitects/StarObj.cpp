@@ -7,23 +7,23 @@
 // Sets default values
 AStarObj::AStarObj()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Sphere Mesh"));
 	this->SetRootComponent(mesh);
 
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> SquareMesh(TEXT("/Engine/BasicShapes/Sphere")); 
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> SquareMesh(TEXT("/Engine/BasicShapes/Sphere"));
 	Asset = SquareMesh.Object;
 
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> RookMesh(TEXT("/Game/Models/Rook")); 
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> RookMesh(TEXT("/Game/Models/Rook"));
 	Rook = RookMesh.Object;
 
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> RockMesh(TEXT("/Game/Models/Rock")); 
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> RockMesh(TEXT("/Game/Models/Rock"));
 	Rock = RockMesh.Object;
 
 	//const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Engine/BasicShapes/BasicShapeMaterial")); 
-	const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Game/Star_Material")); 
+	const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Game/Star_Material"));
 	mesh->SetMaterial(0, MaterialObj.Object);
 
 	DynamicMaterial = UMaterialInstanceDynamic::Create(MaterialObj.Object, mesh);
@@ -61,20 +61,20 @@ void AStarObj::BeginPlay()
 
 	TwirlTimeline = NewObject<UTimelineComponent>(this);
 
-    if (StarCurve)
-    {
+	if (StarCurve)
+	{
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Timeline loaded");
-	    FOnTimelineFloat TimelineCallback;
-        FOnTimelineEventStatic TimelineFinishedCallback;
+		FOnTimelineFloat TimelineCallback;
+		FOnTimelineEventStatic TimelineFinishedCallback;
 
-        TimelineCallback.BindUFunction(this, FName{TEXT ("TwirlControls")});
-        TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("FinishTwirlAnimation") });
+		TimelineCallback.BindUFunction(this, FName{ TEXT("TwirlControls") });
+		TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("FinishTwirlAnimation") });
 		TwirlTimeline->SetTimelineLength(5.f);
-        TwirlTimeline->AddInterpFloat(StarCurve, TimelineCallback);
-        TwirlTimeline->SetTimelineFinishedFunc(TimelineFinishedCallback);
+		TwirlTimeline->AddInterpFloat(StarCurve, TimelineCallback);
+		TwirlTimeline->SetTimelineFinishedFunc(TimelineFinishedCallback);
 		//TwirlTimeline->PlayFromStart();
 	}
-	
+
 }
 
 // Called every frame
@@ -83,53 +83,47 @@ void AStarObj::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	//Set actor to position
-	//FVector relativePosition = GetTransform().InverseTransformPosition(GetAttachParentActor()->GetActorLocation());
-	FVector relativePosition = GetTransform().InverseTransformPosition(this->GetActorLocation());
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Position: " + relativePosition.ToString()));
-	this->SetActorRelativeLocation(FMath::Lerp(GetActorLocation(), starData.position, DeltaTime));
-	//this->SetActorRelativeLocation(FMath::Lerp(relativePosition, starData.position, DeltaTime));
-	//FTransform::GetRelativeTransform(GetTransform()).GetLocation()
-	//mesh->SetStaticMesh(Asset);
-	//this->SetActorRelativeLocation(starData.position);
+	//FVector relativePosition = GetTransform().InverseTransformPosition(this->GetActorLocation());
+	//this->SetActorRelativeLocation(FMath::Lerp(GetActorLocation(), starData.position, DeltaTime));
 
-	if(!hasChangedMesh)
+	if (!hasChangedMesh)
 	{
-		switch(starData.shape)
+		switch (starData.shape)
 		{
-			case 0:
-				SetActorRelativeScale3D(FVector::OneVector);
-				mesh->SetStaticMesh(Asset);
-				hasChangedMesh = true;
-				//SetActorTickEnabled(false);
-				break;
-			case 1:
-				SetActorRelativeScale3D(FVector::OneVector * 25);
-				mesh->SetStaticMesh(Rook);
-				hasChangedMesh = true;
-				//SetActorTickEnabled(false);
-				break;
-			case 2:
-				SetActorRelativeScale3D(FVector::OneVector * 25);
-				mesh->SetStaticMesh(Rock);
-				hasChangedMesh = true;
-				//SetActorTickEnabled(false);
-				break;
-			default:
-				break;
+		case 0:
+			SetActorRelativeScale3D(FVector::OneVector);
+			mesh->SetStaticMesh(Asset);
+			hasChangedMesh = true;
+			//SetActorTickEnabled(false);
+			break;
+		case 1:
+			SetActorRelativeScale3D(FVector::OneVector * 25);
+			mesh->SetStaticMesh(Rook);
+			hasChangedMesh = true;
+			//SetActorTickEnabled(false);
+			break;
+		case 2:
+			SetActorRelativeScale3D(FVector::OneVector * 25);
+			mesh->SetStaticMesh(Rock);
+			hasChangedMesh = true;
+			//SetActorTickEnabled(false);
+			break;
+		default:
+			break;
 		}
 	}
 
-	if(startRotation)
+	if (startRotation)
 	{
-		RotateValue += 1.0f;
+		RotateValue += 5.0f;
 		FQuat NewRotation = FQuat(FRotator(0, RotateValue, 0));
 		SetActorRelativeRotation(NewRotation);
-		if(GetActorRotation().Yaw < 0)
+		if (GetActorRotation().Yaw < 0)
 		{
 			halfwayRotation = true;
 		}
 
-		if(halfwayRotation && GetActorRotation().Yaw >= 0)
+		if (halfwayRotation && GetActorRotation().Yaw >= 0)
 		{
 			halfwayRotation = false;
 			startRotation = false;
@@ -137,6 +131,27 @@ void AStarObj::Tick(float DeltaTime)
 		}
 	}
 
+
+	FVector NewLocation = FVector::ZeroVector;
+
+	angleAxis += DeltaTime * multiplier;
+
+	if (angleAxis >= 360)
+	{
+		angleAxis = 0;
+	}
+
+	FVector RotationValue = dimensions.RotateAngleAxis(angleAxis, axisVector);
+
+	float DeltaHeight = (FMath::Sin(RunningTime + DeltaTime) - FMath::Sin(RunningTime));
+
+	NewLocation.X += RotationValue.X;
+	NewLocation.Y += RotationValue.Y;
+	NewLocation.Z += RotationValue.Z + (DeltaHeight * 50);
+
+	RunningTime += (DeltaTime * 10);
+
+	SetActorLocation(NewLocation, false, 0, ETeleportType::None);
 
 	//Lerp - Linear
 	//SmoothStep - Hermite
@@ -150,28 +165,34 @@ void AStarObj::SetUpData(FStarData data)
 	starData = data;
 
 	float hue = starData.color * 6;
-	TArray<float> hueToRGB = {FMath::Clamp(abs(hue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(hue - 2), 0, 1), FMath::Clamp(2 - abs(hue - 4), 0, 1)};
+	TArray<float> hueToRGB = { FMath::Clamp(abs(hue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(hue - 2), 0, 1), FMath::Clamp(2 - abs(hue - 4), 0, 1) };
+	SetActorRelativeLocation(starData.position);
+
+	dimensions = starData.position;
+	axisVector = FVector(0, 0, 1);
+	multiplier = FMath::RandRange(2, 6) * 10;
+
 	// float shadeRadians = starData.shade * 2 * PI;
 	// float saturation = 0.75 + 0.25*cos(shadeRadians);
 	// float value = 0.75 + 0.25*sin(shadeRadians);
 
 	TArray<float> colorArray = {};
 
-	for(int i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		colorArray.Add(FMath::Lerp(hueToRGB[i], starData.shade, 0.35));
-	// 	colorArray.Add(FMath::Lerp(1, hueToRGB[i], saturation) * value);
+		// 	colorArray.Add(FMath::Lerp(1, hueToRGB[i], saturation) * value);
 	}
 
 	color = FLinearColor(colorArray[0], colorArray[1], colorArray[2]);
 	DynamicMaterial->SetVectorParameterValue("StarColor", color);
 	mesh->SetMaterial(0, DynamicMaterial);
 
-	
-			// SetActorRelativeScale3D(FVector::OneVector * 25);
-			// SetActorRelativeScale3D(FVector::OneVector * 25);
 
-	//Test for shape
+	// SetActorRelativeScale3D(FVector::OneVector * 25);
+	// SetActorRelativeScale3D(FVector::OneVector * 25);
+
+//Test for shape
 }
 
 void AStarObj::SparkleAnimation()
@@ -192,8 +213,8 @@ void AStarObj::TwirlAnimation()
 void AStarObj::TwirlControls()
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Play!");
-	
-    //SetActorRelativeRotation(NewRotation);
+
+	//SetActorRelativeRotation(NewRotation);
 }
 
 void AStarObj::FinishTwirlAnimation()
@@ -203,5 +224,5 @@ void AStarObj::FinishTwirlAnimation()
 
 void AStarObj::SupernovaAnimation()
 {
-	
+
 }
