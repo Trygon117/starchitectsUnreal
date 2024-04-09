@@ -119,7 +119,7 @@ void AStarObj::Tick(float DeltaTime)
 		{
 		case 0:
 			// Chess Piece
-			SetActorRelativeScale3D(FVector::OneVector);
+			SetActorRelativeScale3D(FVector::OneVector * 25);
 			mesh->SetStaticMesh(ChessPiece);
 			hasChangedMesh = true;
 			//SetActorTickEnabled(false);
