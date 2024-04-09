@@ -17,8 +17,8 @@ UCLASS()
 class STARCHITECTS_API AStarObj : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AStarObj();
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -53,6 +53,22 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* Rock;
 	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* ChessPiece;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* BalloonDog;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* KitchenAppliance;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* BonsaiTree;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* Geode;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* RubberDuck;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* JetPlane;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* Radio;
+	UPROPERTY(BlueprintReadWrite)
 	bool hasChangedMesh;
 	UPROPERTY(BlueprintReadWrite)
 	UTimelineComponent* TwirlTimeline;
@@ -71,10 +87,10 @@ protected:
 
 	//UFUNCTION(BlueprintCallable, Category="StarObj")
 	//void hueToRGB(float hue, TArray<float> &color);
-	
+
 	//void RGBToHex(float color, float shade);
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

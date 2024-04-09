@@ -22,6 +22,33 @@ AStarObj::AStarObj()
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> RockMesh(TEXT("/Game/Models/Rock"));
 	Rock = RockMesh.Object;
 
+	// Load static mesh models
+
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> ChessMesh(TEXT("/Game/Models/ChessUnreal/Geometries/Chess"));
+	ChessPiece = ChessMesh.Object;
+
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> BalloonMesh(TEXT("/Game/Models/BalloonUnreal/Geometries/Balloon"));
+	BalloonDog = BalloonMesh.Object;
+
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> ApplianceMesh(TEXT("/Game/Models/ApplianceUnreal/Geometries/ApplianceStar"));
+	KitchenAppliance = ApplianceMesh.Object;
+
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> BonsaiMesh(TEXT("/Game/Models/BonsaiUnreal/Geometries/Bonsai"));
+	BonsaiTree = BonsaiMesh.Object;
+
+	// const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMesh(TEXT("/Game/Models/GeodeUnreal/Geometries/Geode"));
+	// Geode = GeodeMesh.Object;
+
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> DuckMesh(TEXT("/Game/Models/DuckUnreal/Geometries/Duck"));
+	RubberDuck = DuckMesh.Object;
+
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> JetMesh(TEXT("/Game/Models/PlaneUnreal/Geometries/Plane"));
+	JetPlane = JetMesh.Object;
+
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> RadioMesh(TEXT("/Game/Models/RadioUnreal/Geometries/Speaker"));
+	Radio = RadioMesh.Object;
+
+
 	//const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Engine/BasicShapes/BasicShapeMaterial")); 
 	const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Game/Star_Material"));
 	mesh->SetMaterial(0, MaterialObj.Object);
@@ -91,20 +118,58 @@ void AStarObj::Tick(float DeltaTime)
 		switch (starData.shape)
 		{
 		case 0:
+			// Chess Piece
 			SetActorRelativeScale3D(FVector::OneVector);
-			mesh->SetStaticMesh(Asset);
+			mesh->SetStaticMesh(ChessPiece);
 			hasChangedMesh = true;
 			//SetActorTickEnabled(false);
 			break;
 		case 1:
+			// Balloon Dog
 			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(Rook);
+			mesh->SetStaticMesh(BalloonDog);
 			hasChangedMesh = true;
 			//SetActorTickEnabled(false);
 			break;
 		case 2:
+			// Kitchen Appliances
 			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(Rock);
+			mesh->SetStaticMesh(KitchenAppliance);
+			hasChangedMesh = true;
+			//SetActorTickEnabled(false);
+			break;
+		case 3:
+			// Bonsai Tree
+			SetActorRelativeScale3D(FVector::OneVector * 25);
+			mesh->SetStaticMesh(BonsaiTree);
+			hasChangedMesh = true;
+			//SetActorTickEnabled(false);
+			break;
+		case 4:
+			// Geode
+			SetActorRelativeScale3D(FVector::OneVector * 25);
+			mesh->SetStaticMesh(Asset);
+			hasChangedMesh = true;
+			//SetActorTickEnabled(false);
+			break;
+		case 5:
+			// Rubber Duck
+			SetActorRelativeScale3D(FVector::OneVector * 25);
+			mesh->SetStaticMesh(RubberDuck);
+			hasChangedMesh = true;
+			//SetActorTickEnabled(false);
+			break;
+		case 6:
+			// Jet Plane
+			SetActorRelativeScale3D(FVector::OneVector * 25);
+			mesh->SetStaticMesh(JetPlane);
+			hasChangedMesh = true;
+			//SetActorTickEnabled(false);
+			break;
+		case 7:
+			// Radio
+			SetActorRelativeScale3D(FVector::OneVector * 25);
+			mesh->SetStaticMesh(Radio);
 			hasChangedMesh = true;
 			//SetActorTickEnabled(false);
 			break;
