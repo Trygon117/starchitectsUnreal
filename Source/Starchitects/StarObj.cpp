@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "StarObj.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -16,44 +15,58 @@ AStarObj::AStarObj()
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> SquareMesh(TEXT("/Engine/BasicShapes/Sphere"));
 	Asset = SquareMesh.Object;
 
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> RookMesh(TEXT("/Game/Models/Rook"));
-	Rook = RookMesh.Object;
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> ChessMe(TEXT("/Game/Models/ChessUnreal/Geometries/Chess"));
+	ChessMesh = ChessMe.Object;
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> BalloonMe(TEXT("/Game/Models/BalloonUnreal/Geometries/Balloon"));
+	BalloonMesh = BalloonMe.Object;
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> ApplianceMe(TEXT("/Game/Models/ApplianceUnreal/Geometries/ApplianceStar"));
+	ApplianceMesh = ApplianceMe.Object;
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> BonsaiMe(TEXT("/Game/Models/BonsaiUnreal/Geometries/Bonsai"));
+	BonsaiMesh = BonsaiMe.Object;
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMe(TEXT("/Engine/BasicShapes/Sphere"));
+	GeodeMesh = GeodeMe.Object;
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> DuckMe(TEXT("/Game/Models/DuckUnreal/Geometries/Duck"));
+	DuckMesh = DuckMe.Object;
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> JetMe(TEXT("/Game/Models/PlaneUnreal/Geometries/Plane"));
+	PlaneMesh = JetMe.Object;
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> RadioMe(TEXT("/Game/Models/RadioUnreal/Geometries/Speaker"));
+	RadioMesh = RadioMe.Object;
 
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> RockMesh(TEXT("/Game/Models/Rock"));
-	Rock = RockMesh.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> ChessMa(TEXT("/Game/Models/ChessUnreal/Materials/ChessColor"));
+	ChessMaterial = ChessMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> BalloonMa(TEXT("/Game/Models/BalloonUnreal/Materials/BalloonUnreal"));
+	BalloonMaterial = BalloonMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> ApplianceMa(TEXT("/Game/Models/ApplianceUnreal/Materials/ApplianceColor"));
+	ApplianceMaterial = ApplianceMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> BonsaiWoodMa(TEXT("/Game/Models/BonsaiUnreal/Materials/WoodColor"));
+	BonsaiWoodMaterial = BonsaiWoodMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> BonsaiLeavesWoodMa(TEXT("/Game/Models/BonsaiUnreal/Materials/LeavesColor"));
+	BonsaiLeavesMaterial = BonsaiLeavesWoodMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> BonsaiGrassMa(TEXT("/Game/Models/BonsaiUnreal/Materials/GrassColor"));
+	BonsaiGrassMaterial = BonsaiGrassMa.Object;
+	// const ConstructorHelpers::FObjectFinder<UMaterial> GeodeMa(TEXT("/Game/Models/"));
+	// GeodeMaterial = GeodeMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> DuckDuckMa(TEXT("/Game/Models/DuckUnreal/Materials/DuckColor"));
+	DuckDuckMaterial = DuckDuckMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> DuckSwanMa(TEXT("/Game/Models/DuckUnreal/Materials/SwanColor"));
+	DuckSwanMaterial = DuckSwanMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> DuckBowlMa(TEXT("/Game/Models/DuckUnreal/Materials/BowlColor"));
+	DuckBowlMaterial = DuckBowlMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> PlaneMa(TEXT("/Game/Models/PlaneUnreal/Materials/PlaneColor"));
+	PlaneMaterial = PlaneMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> RadioMa(TEXT("/Game/Models/RadioUnreal/Materials/RadioColor"));
+	RadioMaterial = RadioMa.Object;
 
-	// Load static mesh models
 
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> ChessMesh(TEXT("/Game/Models/ChessUnreal/Geometries/Chess"));
-	ChessPiece = ChessMesh.Object;
-
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> BalloonMesh(TEXT("/Game/Models/BalloonUnreal/Geometries/Balloon"));
-	BalloonDog = BalloonMesh.Object;
-
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> ApplianceMesh(TEXT("/Game/Models/ApplianceUnreal/Geometries/ApplianceStar"));
-	KitchenAppliance = ApplianceMesh.Object;
-
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> BonsaiMesh(TEXT("/Game/Models/BonsaiUnreal/Geometries/Bonsai"));
-	BonsaiTree = BonsaiMesh.Object;
-
-	// const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMesh(TEXT("/Game/Models/GeodeUnreal/Geometries/Geode"));
-	// Geode = GeodeMesh.Object;
-
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> DuckMesh(TEXT("/Game/Models/DuckUnreal/Geometries/Duck"));
-	RubberDuck = DuckMesh.Object;
-
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> JetMesh(TEXT("/Game/Models/PlaneUnreal/Geometries/Plane"));
-	JetPlane = JetMesh.Object;
-
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> RadioMesh(TEXT("/Game/Models/RadioUnreal/Geometries/Speaker"));
-	Radio = RadioMesh.Object;
 
 
 	//const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Engine/BasicShapes/BasicShapeMaterial")); 
-	const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Game/Star_Material"));
-	mesh->SetMaterial(0, MaterialObj.Object);
 
-	DynamicMaterial = UMaterialInstanceDynamic::Create(MaterialObj.Object, mesh);
+	//const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Game/Star_Material"));
+	//mesh->SetMaterial(0, MaterialObj.Object);
+
+	// DynamicMaterial = UMaterialInstanceDynamic::Create(MaterialObj.Object, mesh);
+
 	// DynamicMaterial->SetVectorParameterValue("StarColor", FLinearColor::MakeRandomColor());
 	// mesh->SetMaterial(0, DynamicMaterial);
 
@@ -115,67 +128,70 @@ void AStarObj::Tick(float DeltaTime)
 
 	if (!hasChangedMesh)
 	{
-		switch (starData.shape)
-		{
-		case 0:
-			// Chess Piece
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(ChessPiece);
-			hasChangedMesh = true;
-			//SetActorTickEnabled(false);
-			break;
-		case 1:
-			// Balloon Dog
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(BalloonDog);
-			hasChangedMesh = true;
-			//SetActorTickEnabled(false);
-			break;
-		case 2:
-			// Kitchen Appliances
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(KitchenAppliance);
-			hasChangedMesh = true;
-			//SetActorTickEnabled(false);
-			break;
-		case 3:
-			// Bonsai Tree
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(BonsaiTree);
-			hasChangedMesh = true;
-			//SetActorTickEnabled(false);
-			break;
-		case 4:
-			// Geode
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(Asset);
-			hasChangedMesh = true;
-			//SetActorTickEnabled(false);
-			break;
-		case 5:
-			// Rubber Duck
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(RubberDuck);
-			hasChangedMesh = true;
-			//SetActorTickEnabled(false);
-			break;
-		case 6:
-			// Jet Plane
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(JetPlane);
-			hasChangedMesh = true;
-			//SetActorTickEnabled(false);
-			break;
-		case 7:
-			// Radio
-			SetActorRelativeScale3D(FVector::OneVector * 25);
-			mesh->SetStaticMesh(Radio);
-			hasChangedMesh = true;
-			//SetActorTickEnabled(false);
-			break;
-		default:
-			break;
-		}
+		SetActorRelativeScale3D(FVector::OneVector * 25);
+		mesh->SetStaticMesh(Asset);
+		hasChangedMesh = true;
+		// switch (starData.shape)
+		// {
+		// case 0:
+		// 	// Chess Piece
+		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
+		// 	mesh->SetStaticMesh(ChessPiece);
+		// 	hasChangedMesh = true;
+		// 	//SetActorTickEnabled(false);
+		// 	break;
+		// case 1:
+		// 	// Balloon Dog
+		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
+		// 	mesh->SetStaticMesh(BalloonDog);
+		// 	hasChangedMesh = true;
+		// 	//SetActorTickEnabled(false);
+		// 	break;
+		// case 2:
+		// 	// Kitchen Appliances
+		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
+		// 	mesh->SetStaticMesh(KitchenAppliance);
+		// 	hasChangedMesh = true;
+		// 	//SetActorTickEnabled(false);
+		// 	break;
+		// case 3:
+		// 	// Bonsai Tree
+		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
+		// 	mesh->SetStaticMesh(BonsaiTree);
+		// 	hasChangedMesh = true;
+		// 	//SetActorTickEnabled(false);
+		// 	break;
+		// case 4:
+		// 	// Geode
+		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
+		// 	mesh->SetStaticMesh(Asset);
+		// 	hasChangedMesh = true;
+		// 	//SetActorTickEnabled(false);
+		// 	break;
+		// case 5:
+		// 	// Rubber Duck
+		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
+		// 	mesh->SetStaticMesh(RubberDuck);
+		// 	hasChangedMesh = true;
+		// 	//SetActorTickEnabled(false);
+		// 	break;
+		// case 6:
+		// 	// Jet Plane
+		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
+		// 	mesh->SetStaticMesh(JetPlane);
+		// 	hasChangedMesh = true;
+		// 	//SetActorTickEnabled(false);
+		// 	break;
+		// case 7:
+		// 	// Radio
+		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
+		// 	mesh->SetStaticMesh(Radio);
+		// 	hasChangedMesh = true;
+		// 	//SetActorTickEnabled(false);
+		// 	break;
+		// default:
+		// 	break;
+		// }
 	}
 
 	if (startRotation)
@@ -224,7 +240,7 @@ void AStarObj::Tick(float DeltaTime)
 
 }
 
-//Sets everything up because for some reason I can't make it an argument
+// Sets everything up because for some reason I can't make it an argument
 void AStarObj::SetUpData(FStarData data)
 {
 	starData = data;
@@ -250,14 +266,133 @@ void AStarObj::SetUpData(FStarData data)
 	}
 
 	color = FLinearColor(colorArray[0], colorArray[1], colorArray[2]);
-	DynamicMaterial->SetVectorParameterValue("StarColor", color);
-	mesh->SetMaterial(0, DynamicMaterial);
+	// DynamicMaterial->SetVectorParameterValue("StarColor", color);
+	// mesh->SetMaterial(0, DynamicMaterial);
 
 
 	// SetActorRelativeScale3D(FVector::OneVector * 25);
 	// SetActorRelativeScale3D(FVector::OneVector * 25);
 
-//Test for shape
+
+
+	// set mesh and materials
+	switch (starData.shape)
+	{
+	case 0:
+		// Chess Piece
+		// Load static mesh models
+		Asset = ChessMesh;
+		// Set mesh
+		// const ConstructorHelpers::FObjectFinder<UMaterial> ChessColor(TEXT("/Game/Models/ChessUnreal/Materials/ChessColor"));
+		DynamicMaterial = UMaterialInstanceDynamic::Create(ChessMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(1, DynamicMaterial);
+		break;
+	case 1:
+		// Balloon
+		// Load static mesh models
+		Asset = BalloonMesh;
+		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(BalloonMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(1, DynamicMaterial);
+		mesh->SetMaterial(3, DynamicMaterial);
+		mesh->SetMaterial(5, DynamicMaterial);
+		mesh->SetMaterial(6, DynamicMaterial);
+		mesh->SetMaterial(8, DynamicMaterial);
+		mesh->SetMaterial(10, DynamicMaterial);
+		mesh->SetMaterial(12, DynamicMaterial);
+		break;
+	case 2:
+		// Appliance
+		// Load static mesh models
+		Asset = ApplianceMesh;
+		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(ApplianceMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(1, DynamicMaterial);
+		mesh->SetMaterial(4, DynamicMaterial);
+		mesh->SetMaterial(5, DynamicMaterial);
+		mesh->SetMaterial(7, DynamicMaterial);
+		mesh->SetMaterial(8, DynamicMaterial);
+		mesh->SetMaterial(9, DynamicMaterial);
+		mesh->SetMaterial(10, DynamicMaterial);
+		mesh->SetMaterial(11, DynamicMaterial);
+		mesh->SetMaterial(12, DynamicMaterial);
+		break;
+	case 3:
+		// Bonsai
+		// Load static mesh models
+		Asset = BonsaiMesh;
+		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(BonsaiGrassMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(0, DynamicMaterial);
+
+		DynamicMaterial = UMaterialInstanceDynamic::Create(BonsaiWoodMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(4, DynamicMaterial);
+		mesh->SetMaterial(12, DynamicMaterial);
+		mesh->SetMaterial(13, DynamicMaterial);
+
+		DynamicMaterial = UMaterialInstanceDynamic::Create(BonsaiLeavesMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(10, DynamicMaterial);
+		break;
+	case 4:
+		// Geode
+		// Load static mesh models
+		Asset = GeodeMesh;
+		// const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMesh(TEXT("/Game/Models/GeodeUnreal/Geometries/Geode"));
+		// Geode = GeodeMesh.Object;
+		break;
+	case 5:
+		// Duck
+		// Load static mesh models
+		Asset = DuckMesh;
+		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(DuckDuckMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(6, DynamicMaterial);
+
+		DynamicMaterial = UMaterialInstanceDynamic::Create(DuckSwanMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(4, DynamicMaterial);
+
+		DynamicMaterial = UMaterialInstanceDynamic::Create(DuckBowlMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(2, DynamicMaterial);
+		break;
+	case 6:
+		// Plane
+		// Load static mesh models
+		Asset = PlaneMesh;
+		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(PlaneMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(0, DynamicMaterial);
+		mesh->SetMaterial(1, DynamicMaterial);
+		break;
+	case 7:
+		// Radio
+		// Load static mesh models
+		Asset = RadioMesh;
+		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(RadioMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(0, DynamicMaterial);
+		mesh->SetMaterial(3, DynamicMaterial);
+		mesh->SetMaterial(12, DynamicMaterial);
+		mesh->SetMaterial(13, DynamicMaterial);
+		mesh->SetMaterial(15, DynamicMaterial);
+		mesh->SetMaterial(18, DynamicMaterial);
+		break;
+	default:
+		break;
+	}
+
+
+	//Test for shape
 }
 
 void AStarObj::SparkleAnimation()

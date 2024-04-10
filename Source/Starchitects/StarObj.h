@@ -45,33 +45,56 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMeshComponent* mesh;
 	UPROPERTY(BlueprintReadWrite)
+	UMaterial* Material;
+	UPROPERTY(BlueprintReadWrite)
 	UMaterialInstanceDynamic* DynamicMaterial;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* Asset;
 	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* Rook;
-	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* Rock;
-	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* ChessPiece;
-	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* BalloonDog;
-	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* KitchenAppliance;
-	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* BonsaiTree;
-	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* Geode;
-	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* RubberDuck;
-	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* JetPlane;
-	UPROPERTY(BlueprintReadWrite)
-	UStaticMesh* Radio;
-	UPROPERTY(BlueprintReadWrite)
 	bool hasChangedMesh;
 	UPROPERTY(BlueprintReadWrite)
 	UTimelineComponent* TwirlTimeline;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* ChessMesh;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* BalloonMesh;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* ApplianceMesh;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* BonsaiMesh;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* GeodeMesh;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* DuckMesh;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* PlaneMesh;
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMesh* RadioMesh;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* ChessMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* BalloonMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* ApplianceMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* BonsaiWoodMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* BonsaiLeavesMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* BonsaiGrassMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* GeodeMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* DuckDuckMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* DuckSwanMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* DuckBowlMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* PlaneMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* RadioMaterial;
+
 
 	float RotateValue;
 	float CurveFloatValue;
