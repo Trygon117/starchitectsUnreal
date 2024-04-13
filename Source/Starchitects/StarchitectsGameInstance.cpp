@@ -19,27 +19,28 @@ void UStarchitectsGameInstance::Init()
         FModuleManager::Get().LoadModule("WebSockets");
     }
 
-    const FString ServerURL = TEXT("wss://starchitects-a6e55037181c.herokuapp.com/"); // Your server URL. You can use ws, wss or wss+insecure. "ws://127.0.0.1:3000/"
+    const FString ServerURL = TEXT("wss://starchitects-a6e55037181c.herokuapp.com/"); // Your server URL. You can use ws, wss or wss+insecure.
+    //const FString ServerURL = TEXT("ws://127.0.0.1:3000/"); // Your server URL. You can use ws, wss or wss+insecure.
     const FString ServerProtocol = TEXT("ws");              // The WebServer protocol you want to use.
 
     WebSocket = FWebSocketsModule::Get().CreateWebSocket(ServerURL, ServerProtocol);
 
     WebSocket->OnConnected().AddLambda([&]() {
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "Successfully Connected");
+        //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "Successfully Connected");
         UE_LOG(LogTemp, Warning, TEXT("Connecting..."));
         WebSocket->Send("{\"header\":0, \"data\":\"\"}");
     });
 
     WebSocket->OnConnectionError().AddLambda([](const FString& Error) {
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, Error);
+        //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, Error);
     });
 
     WebSocket->OnClosed().AddLambda([](int32 StatusCode, const FString& Reason, bool bWasClean) {
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, bWasClean ? FColor::Green : FColor::Red, "Connection Closed: " + Reason);
+        //GEngine->AddOnScreenDebugMessage(-1, 15.0f, bWasClean ? FColor::Green : FColor::Red, "Connection Closed: " + Reason);
     });
 
     WebSocket->OnMessage().AddLambda([&](const FString& Message) {
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Recieved Message: " + Message);
+        //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, "Recieved Message: " + Message);
         UE_LOG(LogTemp, Warning, TEXT("Recieved Message: \"%s\"."), *Message);
 
         TSharedPtr<FJsonObject> JSON = UStarchitectsGameInstance::ParseJSON(Message);
@@ -78,12 +79,12 @@ void UStarchitectsGameInstance::Init()
 
     WebSocket->OnRawMessage().AddLambda([](const void* Data, SIZE_T Size, SIZE_T BytesRemaining) {
         // This code will run when we receive a raw (binary) message from the server.
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, "Recieved Raw Message");
+        //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, "Recieved Raw Message");
         UE_LOG(LogTemp, Warning, TEXT("Recieved Raw Message"));
     });
 
     WebSocket->OnMessageSent().AddLambda([](const FString& Message) {
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sent Message: " + Message);
+        //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Sent Message: " + Message);
     });
 
     // if (GEngine)
@@ -132,7 +133,7 @@ void UStarchitectsGameInstance::Shutdown()
 
 void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJSON)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Loading Stars"));
+    //UE_LOG(LogTemp, Warning, TEXT("Loading Stars"));
 
 
     if (starsJSON.Num() != 0)
@@ -147,8 +148,8 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
             data.size = (float)obj->GetNumberField("size");
             data.shade = (float)obj->GetNumberField("starShade");
             data.shape = obj->GetIntegerField("shape");
-            data.position = FVector(FMath::RandRange(-150000, 150000), FMath::RandRange(-150000, 150000), FMath::RandRange(5000, 50000));
-            GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + name);
+            data.position = FVector(FMath::RandRange(-100000, 100000), FMath::RandRange(-100000, 100000), FMath::RandRange(-25000, 25000));
+            //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + name);
             CreateStar(data.position, data, obj->GetStringField("id"));
         }
     }
@@ -169,7 +170,7 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
 
 void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
+    //UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
     FStarData data;
 
     data.name = starJSON->GetStringField("name");
@@ -177,7 +178,7 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
     data.color = (float)starJSON->GetNumberField("starColor");
     //data.size = (float) starJSON->GetNumberField("size");
     data.shade = (float)starJSON->GetNumberField("starShade");
-    data.position = FVector(FMath::RandRange(-150000, 150000), FMath::RandRange(-150000, 150000), FMath::RandRange(5000, 50000));
+    data.position = FVector(FMath::RandRange(-100000, 100000), FMath::RandRange(-100000, 100000), FMath::RandRange(-25000, 25000));
     CreateStar(FVector::ZeroVector, data, starJSON->GetStringField("id"));
 
     //FString jsonString = JSON->Stringify(starJSON);
@@ -213,7 +214,7 @@ void UStarchitectsGameInstance::AddStarDebug()
 
 void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Sparkle Animation"));
+    //UE_LOG(LogTemp, Warning, TEXT("Sparkle Animation"));
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
     //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
@@ -236,7 +237,7 @@ void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
 
 void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Twirl Animation"));
+    //UE_LOG(LogTemp, Warning, TEXT("Twirl Animation"));
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
     //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
@@ -261,7 +262,7 @@ void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
 
 void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Supernova Animation"));
+    //UE_LOG(LogTemp, Warning, TEXT("Supernova Animation"));
     WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
     //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);

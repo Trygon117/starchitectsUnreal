@@ -251,7 +251,7 @@ void AStarObj::SetUpData(FStarData data)
 
 	dimensions = starData.position;
 	axisVector = FVector(0, 0, 1);
-	multiplier = FMath::RandRange(2, 6) * 10;
+	multiplier = FMath::RandRange(2, 6) * 5;
 
 	// float shadeRadians = starData.shade * 2 * PI;
 	// float saturation = 0.75 + 0.25*cos(shadeRadians);
