@@ -2,6 +2,7 @@
 
 #include "StarObj.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Math/Vector.h"
 
 // Sets default values
 AStarObj::AStarObj()
@@ -103,7 +104,7 @@ void AStarObj::BeginPlay()
 
 	if (StarCurve)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Timeline loaded");
+		// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Timeline loaded");
 		FOnTimelineFloat TimelineCallback;
 		FOnTimelineEventStatic TimelineFinishedCallback;
 
@@ -122,122 +123,69 @@ void AStarObj::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//Set actor to position
-	//FVector relativePosition = GetTransform().InverseTransformPosition(this->GetActorLocation());
-	//this->SetActorRelativeLocation(FMath::Lerp(GetActorLocation(), starData.position, DeltaTime));
-
+	// Set the correct mesh
 	if (!hasChangedMesh)
 	{
-		SetActorRelativeScale3D(FVector::OneVector * 25);
+		SetActorRelativeScale3D(FVector::OneVector * 50);
 		mesh->SetStaticMesh(Asset);
 		hasChangedMesh = true;
-		// switch (starData.shape)
-		// {
-		// case 0:
-		// 	// Chess Piece
-		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
-		// 	mesh->SetStaticMesh(ChessPiece);
-		// 	hasChangedMesh = true;
-		// 	//SetActorTickEnabled(false);
-		// 	break;
-		// case 1:
-		// 	// Balloon Dog
-		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
-		// 	mesh->SetStaticMesh(BalloonDog);
-		// 	hasChangedMesh = true;
-		// 	//SetActorTickEnabled(false);
-		// 	break;
-		// case 2:
-		// 	// Kitchen Appliances
-		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
-		// 	mesh->SetStaticMesh(KitchenAppliance);
-		// 	hasChangedMesh = true;
-		// 	//SetActorTickEnabled(false);
-		// 	break;
-		// case 3:
-		// 	// Bonsai Tree
-		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
-		// 	mesh->SetStaticMesh(BonsaiTree);
-		// 	hasChangedMesh = true;
-		// 	//SetActorTickEnabled(false);
-		// 	break;
-		// case 4:
-		// 	// Geode
-		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
-		// 	mesh->SetStaticMesh(Asset);
-		// 	hasChangedMesh = true;
-		// 	//SetActorTickEnabled(false);
-		// 	break;
-		// case 5:
-		// 	// Rubber Duck
-		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
-		// 	mesh->SetStaticMesh(RubberDuck);
-		// 	hasChangedMesh = true;
-		// 	//SetActorTickEnabled(false);
-		// 	break;
-		// case 6:
-		// 	// Jet Plane
-		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
-		// 	mesh->SetStaticMesh(JetPlane);
-		// 	hasChangedMesh = true;
-		// 	//SetActorTickEnabled(false);
-		// 	break;
-		// case 7:
-		// 	// Radio
-		// 	SetActorRelativeScale3D(FVector::OneVector * 25);
-		// 	mesh->SetStaticMesh(Radio);
-		// 	hasChangedMesh = true;
-		// 	//SetActorTickEnabled(false);
-		// 	break;
-		// default:
-		// 	break;
-		// }
 	}
 
-	if (startRotation)
-	{
-		RotateValue += 5.0f;
-		FQuat NewRotation = FQuat(FRotator(0, RotateValue, 0));
-		SetActorRelativeRotation(NewRotation);
-		if (GetActorRotation().Yaw < 0)
-		{
-			halfwayRotation = true;
-		}
-
-		if (halfwayRotation && GetActorRotation().Yaw >= 0)
-		{
-			halfwayRotation = false;
-			startRotation = false;
-			SetActorRelativeRotation(FQuat(FRotator::ZeroRotator));
-		}
-	}
-
-
+	// Set a new location for the star
 	FVector NewLocation = FVector::ZeroVector;
 
-	angleAxis += DeltaTime * multiplier;
+	// Increase distance from 0, 0, 0 based on deltaTime and current distance
+	if (distance < 50000) {
+		distance += DeltaTime * 10000;
+	}
+	else if (distance >= 50000) {
+		distance += DeltaTime * 500;
+	}
+	else if (distance >= 10000) {
+		distance += DeltaTime * 100;
+	}
+	else if (distance >= 100000) {
+		distance += DeltaTime * 10;
+	}
+	else if (distance >= 150000) {
+		distance += DeltaTime * 1;
+	}
+	else if (distance >= 200000) {
+		distance += DeltaTime * .1;
+	}
+	else {
+		distance = distance;
+	}
 
+	// calculate the direction relative to 0,0,0 by normalizing the position of the star
+	FVector direction = starData.position;
+	direction.Normalize();
+
+
+	// increase the current rotation angle based on deltaTime and distance from 0,0,0
+	angleAxis += (DeltaTime * orbitSpeed) / (distance / 100000);
 	if (angleAxis >= 360)
 	{
 		angleAxis = 0;
 	}
 
-	FVector RotationValue = dimensions.RotateAngleAxis(angleAxis, axisVector);
+	// Rotate the direction of the rotation angle around 0, 0, 0
+	FVector RotationValue = direction.RotateAngleAxis(angleAxis, FVector(0, 0, 1));
+	RotationValue.Normalize();
 
-	float DeltaHeight = (FMath::Sin(RunningTime + DeltaTime) - FMath::Sin(RunningTime));
+	// Set the actor rotation to the new location
+	NewLocation = distance * RotationValue;
 
-	NewLocation.X += RotationValue.X;
-	NewLocation.Y += RotationValue.Y;
-	NewLocation.Z += RotationValue.Z + (DeltaHeight * 50);
-
-	RunningTime += (DeltaTime * 10);
-
+	// set the new actor location
 	SetActorLocation(NewLocation, false, 0, ETeleportType::None);
 
-	//Lerp - Linear
-	//SmoothStep - Hermite
-	//InterpEaseInOut - Ease In/Out
+	// rotate the star in place
+	RotateValueX += RotateSpeedX;
+	RotateValueZ += RotateSpeedZ;
+	FQuat NewRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
 
+	// set the new actor rotation
+	SetActorRelativeRotation(NewRotation);
 }
 
 // Sets everything up because for some reason I can't make it an argument
@@ -247,11 +195,13 @@ void AStarObj::SetUpData(FStarData data)
 
 	float hue = starData.color * 6;
 	TArray<float> hueToRGB = { FMath::Clamp(abs(hue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(hue - 2), 0, 1), FMath::Clamp(2 - abs(hue - 4), 0, 1) };
-	SetActorRelativeLocation(starData.position);
+	// SetActorRelativeLocation(starData.position);
 
-	dimensions = starData.position;
-	axisVector = FVector(0, 0, 1);
-	multiplier = FMath::RandRange(2, 6) * 5;
+	distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - starData.birthDate.ToUnixTimestamp());
+	orbitSpeed = FMath::RandRange(2.0, 8.5);
+	angleAxis = 0;
+	RotateSpeedX = FMath::RandRange(0.1, 0.5);
+	RotateSpeedZ = FMath::RandRange(0.1, 0.5);
 
 	// float shadeRadians = starData.shade * 2 * PI;
 	// float saturation = 0.75 + 0.25*cos(shadeRadians);
@@ -266,14 +216,6 @@ void AStarObj::SetUpData(FStarData data)
 	}
 
 	color = FLinearColor(colorArray[0], colorArray[1], colorArray[2]);
-	// DynamicMaterial->SetVectorParameterValue("StarColor", color);
-	// mesh->SetMaterial(0, DynamicMaterial);
-
-
-	// SetActorRelativeScale3D(FVector::OneVector * 25);
-	// SetActorRelativeScale3D(FVector::OneVector * 25);
-
-
 
 	// set mesh and materials
 	switch (starData.shape)
@@ -404,7 +346,7 @@ void AStarObj::TwirlAnimation()
 {
 	//Set the yaw from 0 to 360
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Spin!");
-	startRotation = true;
+	// startRotation = true;
 	TwirlTimeline->PlayFromStart();
 	//FQuat NewRotation = FQuat(FRotator(0.f, 0.f, GetActorRotation().Yaw + 90.0f));
 	//SetActorRelativeRotation(NewRotation);

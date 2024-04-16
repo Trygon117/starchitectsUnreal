@@ -7,6 +7,9 @@
 #include "WebSocketsModule.h"
 #include "Json.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Misc/DateTime.h"
+#include "Math/UnrealMathUtility.h"
+#include "Math/Vector.h"
 
 #include "Serialization/JsonSerializer.h"
 
@@ -148,9 +151,13 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
             data.size = (float)obj->GetNumberField("size");
             data.shade = (float)obj->GetNumberField("starShade");
             data.shape = obj->GetIntegerField("shape");
-            data.position = FVector(FMath::RandRange(-100000, 100000), FMath::RandRange(-100000, 100000), FMath::RandRange(-25000, 25000));
+            FDateTime parsedBirthDate;
+            FString birthDateString = obj->GetStringField("birthDate");
+            bool converted = FDateTime::ParseIso8601(*birthDateString, parsedBirthDate);
+            data.birthDate = parsedBirthDate;
+            data.position = FVector::ZeroVector;
             //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + name);
-            CreateStar(data.position, data, obj->GetStringField("id"));
+            CreateStar(data, obj->GetStringField("id"));
         }
     }
 
@@ -178,8 +185,13 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
     data.color = (float)starJSON->GetNumberField("starColor");
     //data.size = (float) starJSON->GetNumberField("size");
     data.shade = (float)starJSON->GetNumberField("starShade");
-    data.position = FVector(FMath::RandRange(-100000, 100000), FMath::RandRange(-100000, 100000), FMath::RandRange(-25000, 25000));
-    CreateStar(FVector::ZeroVector, data, starJSON->GetStringField("id"));
+    FDateTime parsedBirthDate;
+    FString birthDateString = starJSON->GetStringField("birthDate");
+    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "birthDateString: " + birthDateString);
+    FDateTime::ParseIso8601(*birthDateString, parsedBirthDate);
+    data.birthDate = parsedBirthDate;
+    data.position = FVector::ZeroVector;
+    CreateStar(data, starJSON->GetStringField("id"));
 
     //FString jsonString = JSON->Stringify(starJSON);
 
@@ -197,10 +209,14 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
 
 }
 
-void UStarchitectsGameInstance::CreateStar(FVector position, FStarData data, FString ID)
+void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID)
 {
     //UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
-    AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), position, FRotator::ZeroRotator);
+    FVector direction = FVector(FMath::RandRange(-100, 100), FMath::RandRange(-100, 100), FMath::RandRange(-30, 30));
+    direction.Normalize();
+    double distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp());
+    data.position = direction * distance;
+    AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), data.position, FRotator::ZeroRotator);
     newStar->SetUpData(data);
     newStar->ID = ID;
     newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);

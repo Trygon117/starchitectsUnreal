@@ -3,9 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Misc/DateTime.h"
 #include "StarData.generated.h"
 /**
- * 
+ *
  */
 USTRUCT(BlueprintType)
 struct STARCHITECTS_API FStarData
@@ -33,6 +34,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float dustShade;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FDateTime birthDate;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FVector position;

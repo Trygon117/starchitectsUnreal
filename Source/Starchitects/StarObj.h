@@ -26,8 +26,6 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FStarData starData;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	float rotationSpeed;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool isGlowing;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	UParticleSystem* stardust;
@@ -96,14 +94,22 @@ protected:
 	UMaterial* RadioMaterial;
 
 
-	float RotateValue;
-	float CurveFloatValue;
-	float TimelineValue;
+	// float RotateValue;
+	// float CurveFloatValue;
+	// float TimelineValue;
 
-	UPROPERTY(BlueprintReadWrite)
-	bool startRotation;
+	// UPROPERTY(BlueprintReadWrite)
+	// bool startRotation;
 	UPROPERTY(BlueprintReadWrite)
 	bool halfwayRotation;
+	UPROPERTY(BlueprintReadWrite)
+	float RotateValueX;
+	UPROPERTY(BlueprintReadWrite)
+	float RotateValueZ;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float RotateSpeedX;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float RotateSpeedZ;
 
 	//UPROPERTY(BlueprintReadWrite)
 	//int32 hue;
@@ -117,13 +123,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float orbitSpeed;
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	float angleAxis;
 	UPROPERTY(EditAnywhere)
-	FVector dimensions;
-	UPROPERTY(EditAnywhere)
-	FVector axisVector;
-	UPROPERTY(EditAnywhere)
-	float multiplier;
+	float distance;
 
 	float RunningTime;
 
