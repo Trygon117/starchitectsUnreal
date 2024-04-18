@@ -182,7 +182,42 @@ void AStarObj::Tick(float DeltaTime)
 	// rotate the star in place
 	RotateValueX += RotateSpeedX;
 	RotateValueZ += RotateSpeedZ;
-	FQuat NewRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
+
+	//if the user hits the twirl button, this will start the Z twirl
+	if (startRotation)
+	{
+		RotateValueY += 5.0f;
+		FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
+
+		// set the new actor rotation
+		SetActorRelativeRotation(NewRotation);
+
+		// check to see if it's halfway there (if it starts at 0, halfway is 180 and vice versa)
+		if ((!startAngle && GetActorRotation().Yaw < 0) || (startAngle && GetActorRotation().Yaw >= 0))
+		{
+			halfwayRotation = true;
+		}
+
+		if(halfwayRotation && ((!startAngle && GetActorRotation().Yaw >= 0) || (startAngle && GetActorRotation().Yaw < 0)))
+		{
+
+			halfwayRotation = false;
+			startRotation = false;
+			FQuat ResetRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
+
+			// set the new actor rotation
+			SetActorRelativeRotation(ResetRotation);
+		}
+	}
+	else
+	{
+		RotateValueY = 0;
+
+		FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
+		SetActorRelativeRotation(NewRotation);
+	}
+
+	FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
 
 	// set the new actor rotation
 	SetActorRelativeRotation(NewRotation);
@@ -198,7 +233,7 @@ void AStarObj::SetUpData(FStarData data)
 	// SetActorRelativeLocation(starData.position);
 
 	distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - starData.birthDate.ToUnixTimestamp());
-	orbitSpeed = FMath::RandRange(2.0, 8.5);
+	orbitSpeed = FMath::RandRange(0.1, 1.0); //2.0, 8.5
 	angleAxis = 0;
 	RotateSpeedX = FMath::RandRange(0.1, 0.5);
 	RotateSpeedZ = FMath::RandRange(0.1, 0.5);
@@ -345,8 +380,19 @@ void AStarObj::SparkleAnimation()
 void AStarObj::TwirlAnimation()
 {
 	//Set the yaw from 0 to 360
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Spin!");
-	// startRotation = true;
+	// if(GetActorRotation().Yaw == 180 || GetActorRotation().Yaw == -180)
+	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "180!");
+	// else if(GetActorRotation().Yaw == 0)
+	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "0!");
+
+	startAngle = GetActorRotation().Yaw == 180 || GetActorRotation().Yaw == -180;
+
+	if(startAngle)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "180!");
+	else
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "0!");
+	
+	startRotation = true;
 	TwirlTimeline->PlayFromStart();
 	//FQuat NewRotation = FQuat(FRotator(0.f, 0.f, GetActorRotation().Yaw + 90.0f));
 	//SetActorRelativeRotation(NewRotation);

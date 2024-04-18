@@ -98,16 +98,22 @@ protected:
 	// float CurveFloatValue;
 	// float TimelineValue;
 
-	// UPROPERTY(BlueprintReadWrite)
-	// bool startRotation;
+	UPROPERTY(BlueprintReadWrite)
+	bool startRotation;
 	UPROPERTY(BlueprintReadWrite)
 	bool halfwayRotation;
 	UPROPERTY(BlueprintReadWrite)
+	bool startAngle;
+	UPROPERTY(BlueprintReadWrite)
 	float RotateValueX;
+	UPROPERTY(BlueprintReadWrite)
+	float RotateValueY;
 	UPROPERTY(BlueprintReadWrite)
 	float RotateValueZ;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float RotateSpeedX;
+	// UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	// float RotateSpeedY;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float RotateSpeedZ;
 
