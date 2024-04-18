@@ -183,7 +183,7 @@ void AStarObj::Tick(float DeltaTime)
 	RotateValueX += RotateSpeedX;
 	RotateValueZ += RotateSpeedZ;
 
-	//if the user hits the twirl button, this will start the Z twirl
+	//if the user hits the twirl button, this will start the twirl
 	if (startRotation)
 	{
 		RotateValueY += 5.0f;
@@ -198,9 +198,9 @@ void AStarObj::Tick(float DeltaTime)
 			halfwayRotation = true;
 		}
 
+		// end the twirl animation
 		if(halfwayRotation && ((!startsHalfway && GetActorRotation().Yaw >= 0) || (startsHalfway && GetActorRotation().Yaw < 0)))
 		{
-
 			halfwayRotation = false;
 			startRotation = false;
 			FQuat ResetRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
