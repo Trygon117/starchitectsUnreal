@@ -103,7 +103,7 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	bool halfwayRotation;
 	UPROPERTY(BlueprintReadWrite)
-	bool startAngle;
+	bool startsHalfway;
 	UPROPERTY(BlueprintReadWrite)
 	float RotateValueX;
 	UPROPERTY(BlueprintReadWrite)

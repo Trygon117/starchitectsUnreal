@@ -193,12 +193,12 @@ void AStarObj::Tick(float DeltaTime)
 		SetActorRelativeRotation(NewRotation);
 
 		// check to see if it's halfway there (if it starts at 0, halfway is 180 and vice versa)
-		if ((!startAngle && GetActorRotation().Yaw < 0) || (startAngle && GetActorRotation().Yaw >= 0))
+		if ((!startsHalfway && GetActorRotation().Yaw < 0) || (startsHalfway && GetActorRotation().Yaw >= 0))
 		{
 			halfwayRotation = true;
 		}
 
-		if(halfwayRotation && ((!startAngle && GetActorRotation().Yaw >= 0) || (startAngle && GetActorRotation().Yaw < 0)))
+		if(halfwayRotation && ((!startsHalfway && GetActorRotation().Yaw >= 0) || (startsHalfway && GetActorRotation().Yaw < 0)))
 		{
 
 			halfwayRotation = false;
@@ -380,17 +380,13 @@ void AStarObj::SparkleAnimation()
 void AStarObj::TwirlAnimation()
 {
 	//Set the yaw from 0 to 360
-	// if(GetActorRotation().Yaw == 180 || GetActorRotation().Yaw == -180)
+
+	startsHalfway = GetActorRotation().Yaw == 180 || GetActorRotation().Yaw == -180;
+
+	// if(startsHalfway)
 	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "180!");
-	// else if(GetActorRotation().Yaw == 0)
+	// else
 	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "0!");
-
-	startAngle = GetActorRotation().Yaw == 180 || GetActorRotation().Yaw == -180;
-
-	if(startAngle)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "180!");
-	else
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "0!");
 	
 	startRotation = true;
 	TwirlTimeline->PlayFromStart();
