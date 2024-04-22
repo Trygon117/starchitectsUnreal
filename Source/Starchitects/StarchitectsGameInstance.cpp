@@ -10,7 +10,7 @@
 #include "Misc/DateTime.h"
 #include "Math/UnrealMathUtility.h"
 #include "Math/Vector.h"
-
+#include "Kismet/GameplayStatics.h"
 #include "Serialization/JsonSerializer.h"
 
 void UStarchitectsGameInstance::Init()
@@ -101,26 +101,6 @@ void UStarchitectsGameInstance::Init()
     // AddStarDebug();
 
     starBase = GetWorld()->SpawnActor<AStarBase>(AStarBase::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
-    //starBase->Rename("Base");
-
-    /*FStarData testData;
-
-    testData.name = "This Is A Test";
-    testData.position = FVector::OneVector * 50;
-    testData.shape = 1;
-
-    this->CreateStar(FVector::ZeroVector, testData);
-
-    testData.position = FVector::OneVector * -20;
-    testData.shape = 2;
-
-    this->CreateStar(FVector::ZeroVector, testData);
-    */
-
-    //AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
-    //newStar->SetUpData(testData);
-    //newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);
-    // newStar->SetActorRelativeScale3D(FVector::OneVector);
 }
 
 void UStarchitectsGameInstance::Shutdown()
@@ -215,11 +195,20 @@ void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID)
     FVector direction = FVector(FMath::RandRange(-100, 100), FMath::RandRange(-100, 100), FMath::RandRange(-30, 30));
     direction.Normalize();
     double distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp());
+    if (distance < 50000) {
+        distance = 50000;
+    }
     data.position = direction * distance;
     AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), data.position, FRotator::ZeroRotator);
     newStar->SetUpData(data);
     newStar->ID = ID;
     newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);
+    newStar->trackCamera = true;
+
+    for (int i = 0; i < starClass.Num(); i++) {
+        starClass[i]->trackCamera = false;
+    }
+
     starClass.Add(newStar);
 }
 

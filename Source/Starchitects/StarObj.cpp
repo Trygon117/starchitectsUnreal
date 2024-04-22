@@ -2,6 +2,9 @@
 
 #include "StarObj.h"
 #include "UObject/ConstructorHelpers.h"
+#include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Math/Vector.h"
 
 // Sets default values
@@ -163,7 +166,7 @@ void AStarObj::Tick(float DeltaTime)
 
 
 	// increase the current rotation angle based on deltaTime and distance from 0,0,0
-	angleAxis += (DeltaTime * orbitSpeed) / (distance / 100000);
+	angleAxis += (DeltaTime * orbitSpeed) / (distance / 1000000);
 	if (angleAxis >= 360)
 	{
 		angleAxis = 0;
@@ -199,7 +202,7 @@ void AStarObj::Tick(float DeltaTime)
 		}
 
 		// end the twirl animation
-		if(halfwayRotation && ((!startsHalfway && GetActorRotation().Yaw >= 0) || (startsHalfway && GetActorRotation().Yaw < 0)))
+		if (halfwayRotation && ((!startsHalfway && GetActorRotation().Yaw >= 0) || (startsHalfway && GetActorRotation().Yaw < 0)))
 		{
 			halfwayRotation = false;
 			startRotation = false;
@@ -221,6 +224,16 @@ void AStarObj::Tick(float DeltaTime)
 
 	// set the new actor rotation
 	SetActorRelativeRotation(NewRotation);
+
+	// Make the Camera Track this star if it is being tracked (if more than one is being tracked, it will track whichever one does this last)
+	if (trackCamera) {
+		APlayerController* playerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		FRotator currentRotation = playerController->GetControlRotation();
+		FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(FVector::ZeroVector, GetActorLocation());
+
+		playerController->RotationInput = targetRotation - currentRotation;
+		playerController->UpdateRotation(DeltaTime);
+	}
 }
 
 // Sets everything up because for some reason I can't make it an argument
@@ -233,6 +246,9 @@ void AStarObj::SetUpData(FStarData data)
 	// SetActorRelativeLocation(starData.position);
 
 	distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - starData.birthDate.ToUnixTimestamp());
+	if (distance < 50000) {
+		distance = 50000;
+	}
 	orbitSpeed = FMath::RandRange(0.1, 1.0); //2.0, 8.5
 	angleAxis = 0;
 	RotateSpeedX = FMath::RandRange(0.1, 0.5);
@@ -387,7 +403,7 @@ void AStarObj::TwirlAnimation()
 	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "180!");
 	// else
 	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "0!");
-	
+
 	startRotation = true;
 	TwirlTimeline->PlayFromStart();
 	//FQuat NewRotation = FQuat(FRotator(0.f, 0.f, GetActorRotation().Yaw + 90.0f));

@@ -129,6 +129,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	bool trackCamera;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float orbitSpeed;
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
