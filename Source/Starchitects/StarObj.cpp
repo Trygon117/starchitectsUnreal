@@ -27,7 +27,7 @@ AStarObj::AStarObj()
 	ApplianceMesh = ApplianceMe.Object;
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> BonsaiMe(TEXT("/Game/Models/BonsaiUnreal/Geometries/Bonsai"));
 	BonsaiMesh = BonsaiMe.Object;
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMe(TEXT("/Engine/BasicShapes/Sphere"));
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMe(TEXT("/Game/Models/GeodeUnreal/Geometries/GeodeStar"));
 	GeodeMesh = GeodeMe.Object;
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> DuckMe(TEXT("/Game/Models/DuckUnreal/Geometries/Duck"));
 	DuckMesh = DuckMe.Object;
@@ -48,8 +48,8 @@ AStarObj::AStarObj()
 	BonsaiLeavesMaterial = BonsaiLeavesWoodMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> BonsaiGrassMa(TEXT("/Game/Models/BonsaiUnreal/Materials/GrassColor"));
 	BonsaiGrassMaterial = BonsaiGrassMa.Object;
-	// const ConstructorHelpers::FObjectFinder<UMaterial> GeodeMa(TEXT("/Game/Models/"));
-	// GeodeMaterial = GeodeMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> GeodeMa(TEXT("/Game/Models/GeodeUnreal/Materials/CrystalColor"));
+	GeodeMaterial = GeodeMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> DuckDuckMa(TEXT("/Game/Models/DuckUnreal/Materials/DuckColor"));
 	DuckDuckMaterial = DuckDuckMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> DuckSwanMa(TEXT("/Game/Models/DuckUnreal/Materials/SwanColor"));
@@ -249,7 +249,7 @@ void AStarObj::SetUpData(FStarData data)
 	if (distance < 50000) {
 		distance = 50000;
 	}
-	orbitSpeed = FMath::RandRange(0.1, 1.0); //2.0, 8.5
+	orbitSpeed = FMath::RandRange(0.3, 1.0);
 	angleAxis = 0;
 	RotateSpeedX = FMath::RandRange(0.1, 0.5);
 	RotateSpeedZ = FMath::RandRange(0.1, 0.5);
@@ -336,8 +336,10 @@ void AStarObj::SetUpData(FStarData data)
 		// Geode
 		// Load static mesh models
 		Asset = GeodeMesh;
-		// const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMesh(TEXT("/Game/Models/GeodeUnreal/Geometries/Geode"));
-		// Geode = GeodeMesh.Object;
+		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(GeodeMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(0, DynamicMaterial);
 		break;
 	case 5:
 		// Duck
