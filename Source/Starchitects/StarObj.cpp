@@ -54,7 +54,7 @@ AStarObj::AStarObj()
 	DuckDuckMaterial = DuckDuckMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> DuckSwanMa(TEXT("/Game/Models/DuckUnreal/Materials/SwanColor"));
 	DuckSwanMaterial = DuckSwanMa.Object;
-	const ConstructorHelpers::FObjectFinder<UMaterial> DuckBowlMa(TEXT("/Game/Models/DuckUnreal/Materials/BowlColor"));
+	const ConstructorHelpers::FObjectFinder<UMaterial> DuckBowlMa(TEXT("/Game/Models/DuckUnreal/Materials/BowlDuck"));
 	DuckBowlMaterial = DuckBowlMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> PlaneMa(TEXT("/Game/Models/PlaneUnreal/Materials/PlaneColor"));
 	PlaneMaterial = PlaneMa.Object;
