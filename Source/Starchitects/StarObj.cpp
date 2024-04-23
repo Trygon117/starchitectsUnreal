@@ -61,7 +61,7 @@ AStarObj::AStarObj()
 	const ConstructorHelpers::FObjectFinder<UMaterial> RadioMa(TEXT("/Game/Models/RadioUnreal/Materials/RadioColor"));
 	RadioMaterial = RadioMa.Object;
 
-
+	rotateLimit = 2;
 
 
 	//const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Engine/BasicShapes/BasicShapeMaterial")); 
@@ -205,15 +205,23 @@ void AStarObj::Tick(float DeltaTime)
 		if (halfwayRotation && ((!startsHalfway && GetActorRotation().Yaw >= 0) || (startsHalfway && GetActorRotation().Yaw < 0)))
 		{
 			halfwayRotation = false;
-			startRotation = false;
-			FQuat ResetRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
+			z++;
 
-			// set the new actor rotation
-			SetActorRelativeRotation(ResetRotation);
+			if(z >= rotateLimit)
+			{
+				startRotation = false;
+				FQuat ResetRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
+
+				// set the new actor rotation
+				SetActorRelativeRotation(ResetRotation);
+				z = 0;
+			}
+
 		}
 	}
 	else
 	{
+		//Set the default rotate y value to 0
 		RotateValueY = 0;
 
 		FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
@@ -400,16 +408,8 @@ void AStarObj::TwirlAnimation()
 	//Set the yaw from 0 to 360
 
 	startsHalfway = GetActorRotation().Yaw == 180 || GetActorRotation().Yaw == -180;
-
-	// if(startsHalfway)
-	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "180!");
-	// else
-	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "0!");
-
 	startRotation = true;
 	TwirlTimeline->PlayFromStart();
-	//FQuat NewRotation = FQuat(FRotator(0.f, 0.f, GetActorRotation().Yaw + 90.0f));
-	//SetActorRelativeRotation(NewRotation);
 }
 
 void AStarObj::TwirlControls()
