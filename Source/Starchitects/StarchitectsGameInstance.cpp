@@ -11,6 +11,7 @@
 #include "Math/UnrealMathUtility.h"
 #include "Math/Vector.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Serialization/JsonSerializer.h"
 
 void UStarchitectsGameInstance::Init()
@@ -101,6 +102,11 @@ void UStarchitectsGameInstance::Init()
     // AddStarDebug();
 
     starBase = GetWorld()->SpawnActor<AStarBase>(AStarBase::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+
+    // switch the currently tracked star every 10 seconds
+    TimerManager->SetTimer(trackNewStarHandle, this, &UStarchitectsGameInstance::TrackNewStar, 10, true, 0);
+    // move the camera to track the currently tracked star every 0.1 seconds
+    TimerManager->SetTimer(trackStarHandle, this, &UStarchitectsGameInstance::TrackStar, 0.005, true, 0);
 }
 
 void UStarchitectsGameInstance::Shutdown()
@@ -203,13 +209,68 @@ void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID)
     newStar->SetUpData(data);
     newStar->ID = ID;
     newStar->AttachToActor(starBase, FAttachmentTransformRules::KeepRelativeTransform);
-    newStar->trackCamera = true;
-
-    for (int i = 0; i < starClass.Num(); i++) {
-        starClass[i]->trackCamera = false;
-    }
 
     starClass.Add(newStar);
+    // track this star for a full 30 seconds: 
+    TimerManager->SetTimer(trackNewStarHandle, this, &UStarchitectsGameInstance::TrackNewStar, 10, true, 30);
+    trackingIndex = starClass.Num() - 1;
+}
+
+void UStarchitectsGameInstance::TrackNewStar()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Tracking New Star"));
+
+    if (trackingIndex == -1) { // -1 means that there are no stars
+        return;
+    }
+
+    int32 newIndex = trackingIndex + 1;
+    bool foundStar = false;
+    int32 checkedStars = 0;
+
+    while (!foundStar) {
+        if (newIndex >= starClass.Num()) { // loop back to the first star   
+            newIndex = 0;
+        }
+        else if (starClass[newIndex]->distance > 500000) { // stars further than this wont be tracked
+            if (checkedStars >= starClass.Num()) { // if every star has already failed to meet this criteria
+                // just switch to the next star
+                if (newIndex + 1 >= starClass.Num()) { // check if we need to loop back to 0
+                    newIndex = 0;
+                }
+                else {
+                    newIndex++;
+                }
+                foundStar = true;
+            }
+            else {
+                newIndex++;
+                checkedStars++;
+            }
+        }
+        else {
+            foundStar = true;
+        }
+    }
+
+    trackingIndex = newIndex;
+}
+
+void UStarchitectsGameInstance::TrackStar()
+{
+    // UE_LOG(LogTemp, Warning, TEXT("Tracking Star"));
+    if (trackingIndex == -1) {
+        return;
+    }
+    AStarObj* trackingStar = starClass[trackingIndex];
+    // Make the Camera Track this star if it is being tracked (if more than one is being tracked, it will track whichever one does this last)
+    APlayerController* playerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+    FRotator currentRotation = playerController->GetControlRotation();
+    FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(FVector::ZeroVector, trackingStar->GetActorLocation());
+
+    playerController->RotationInput = targetRotation - currentRotation;
+    // playerController->UpdateRotation(FDateTime::Now().ToUnixTimestamp() - trackingDelta);
+    // trackingDelta = FDateTime::Now().ToUnixTimestamp();
 }
 
 void UStarchitectsGameInstance::AddStarDebug()

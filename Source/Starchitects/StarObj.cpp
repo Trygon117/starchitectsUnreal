@@ -207,7 +207,7 @@ void AStarObj::Tick(float DeltaTime)
 			halfwayRotation = false;
 			z++;
 
-			if(z >= rotateLimit)
+			if (z >= rotateLimit)
 			{
 				startRotation = false;
 				FQuat ResetRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
@@ -232,16 +232,6 @@ void AStarObj::Tick(float DeltaTime)
 
 	// set the new actor rotation
 	SetActorRelativeRotation(NewRotation);
-
-	// Make the Camera Track this star if it is being tracked (if more than one is being tracked, it will track whichever one does this last)
-	if (trackCamera) {
-		APlayerController* playerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-		FRotator currentRotation = playerController->GetControlRotation();
-		FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(FVector::ZeroVector, GetActorLocation());
-
-		playerController->RotationInput = targetRotation - currentRotation;
-		playerController->UpdateRotation(DeltaTime);
-	}
 }
 
 // Sets everything up because for some reason I can't make it an argument
