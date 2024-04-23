@@ -27,7 +27,7 @@ AStarObj::AStarObj()
 	ApplianceMesh = ApplianceMe.Object;
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> BonsaiMe(TEXT("/Game/Models/BonsaiUnreal/Geometries/Bonsai"));
 	BonsaiMesh = BonsaiMe.Object;
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMe(TEXT("/Engine/BasicShapes/Sphere"));
+	const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMe(TEXT("/Game/Models/GeodeUnreal/Geometries/GeodeStar"));
 	GeodeMesh = GeodeMe.Object;
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> DuckMe(TEXT("/Game/Models/DuckUnreal/Geometries/Duck"));
 	DuckMesh = DuckMe.Object;
@@ -48,20 +48,20 @@ AStarObj::AStarObj()
 	BonsaiLeavesMaterial = BonsaiLeavesWoodMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> BonsaiGrassMa(TEXT("/Game/Models/BonsaiUnreal/Materials/GrassColor"));
 	BonsaiGrassMaterial = BonsaiGrassMa.Object;
-	// const ConstructorHelpers::FObjectFinder<UMaterial> GeodeMa(TEXT("/Game/Models/"));
-	// GeodeMaterial = GeodeMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> GeodeMa(TEXT("/Game/Models/GeodeUnreal/Materials/CrystalColor"));
+	GeodeMaterial = GeodeMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> DuckDuckMa(TEXT("/Game/Models/DuckUnreal/Materials/DuckColor"));
 	DuckDuckMaterial = DuckDuckMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> DuckSwanMa(TEXT("/Game/Models/DuckUnreal/Materials/SwanColor"));
 	DuckSwanMaterial = DuckSwanMa.Object;
-	const ConstructorHelpers::FObjectFinder<UMaterial> DuckBowlMa(TEXT("/Game/Models/DuckUnreal/Materials/BowlColor"));
+	const ConstructorHelpers::FObjectFinder<UMaterial> DuckBowlMa(TEXT("/Game/Models/DuckUnreal/Materials/BowlDuck"));
 	DuckBowlMaterial = DuckBowlMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> PlaneMa(TEXT("/Game/Models/PlaneUnreal/Materials/PlaneColor"));
 	PlaneMaterial = PlaneMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> RadioMa(TEXT("/Game/Models/RadioUnreal/Materials/RadioColor"));
 	RadioMaterial = RadioMa.Object;
 
-
+	rotateLimit = 2;
 
 
 	//const ConstructorHelpers::FObjectFinder<UMaterial> MaterialObj(TEXT("/Engine/BasicShapes/BasicShapeMaterial")); 
@@ -205,15 +205,23 @@ void AStarObj::Tick(float DeltaTime)
 		if (halfwayRotation && ((!startsHalfway && GetActorRotation().Yaw >= 0) || (startsHalfway && GetActorRotation().Yaw < 0)))
 		{
 			halfwayRotation = false;
-			startRotation = false;
-			FQuat ResetRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
+			z++;
 
-			// set the new actor rotation
-			SetActorRelativeRotation(ResetRotation);
+			if(z >= rotateLimit)
+			{
+				startRotation = false;
+				FQuat ResetRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
+
+				// set the new actor rotation
+				SetActorRelativeRotation(ResetRotation);
+				z = 0;
+			}
+
 		}
 	}
 	else
 	{
+		//Set the default rotate y value to 0
 		RotateValueY = 0;
 
 		FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
@@ -249,7 +257,7 @@ void AStarObj::SetUpData(FStarData data)
 	if (distance < 50000) {
 		distance = 50000;
 	}
-	orbitSpeed = FMath::RandRange(0.1, 1.0); //2.0, 8.5
+	orbitSpeed = FMath::RandRange(0.3, 1.0);
 	angleAxis = 0;
 	RotateSpeedX = FMath::RandRange(0.1, 0.5);
 	RotateSpeedZ = FMath::RandRange(0.1, 0.5);
@@ -336,8 +344,10 @@ void AStarObj::SetUpData(FStarData data)
 		// Geode
 		// Load static mesh models
 		Asset = GeodeMesh;
-		// const ConstructorHelpers::FObjectFinder<UStaticMesh> GeodeMesh(TEXT("/Game/Models/GeodeUnreal/Geometries/Geode"));
-		// Geode = GeodeMesh.Object;
+		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(GeodeMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(0, DynamicMaterial);
 		break;
 	case 5:
 		// Duck
@@ -398,16 +408,8 @@ void AStarObj::TwirlAnimation()
 	//Set the yaw from 0 to 360
 
 	startsHalfway = GetActorRotation().Yaw == 180 || GetActorRotation().Yaw == -180;
-
-	// if(startsHalfway)
-	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "180!");
-	// else
-	// 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "0!");
-
 	startRotation = true;
 	TwirlTimeline->PlayFromStart();
-	//FQuat NewRotation = FQuat(FRotator(0.f, 0.f, GetActorRotation().Yaw + 90.0f));
-	//SetActorRelativeRotation(NewRotation);
 }
 
 void AStarObj::TwirlControls()

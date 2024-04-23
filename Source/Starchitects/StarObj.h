@@ -116,6 +116,10 @@ protected:
 	// float RotateSpeedY;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float RotateSpeedZ;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float rotateLimit;
+	UPROPERTY(BlueprintReadWrite)
+	float z;
 
 	//UPROPERTY(BlueprintReadWrite)
 	//int32 hue;
