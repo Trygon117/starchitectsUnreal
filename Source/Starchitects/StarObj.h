@@ -11,6 +11,7 @@
 #include "Math/UnrealMathUtility.h"
 #include "Components/TimelineComponent.h"
 #include "Curves/CurveFloat.h"
+#include "NiagaraSystem.h"
 #include "StarObj.generated.h"
 
 UCLASS()
@@ -28,10 +29,11 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool isGlowing;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	UParticleSystem* stardust;
-	//UParticleSystemComponent* stardust;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	UCurveFloat* StarCurve;
+	UPROPERTY(VisibleAnywhere)
+	UNiagaraSystem* NiagaraSystem;
+	UPROPERTY(VisibleAnywhere)
+	UNiagaraComponent* NiagaraComponent;
 
 protected:
 	// Called when the game starts or when spawned
@@ -43,11 +45,11 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMeshComponent* mesh;
 	UPROPERTY(BlueprintReadWrite)
-	UMaterial* Material;
-	UPROPERTY(BlueprintReadWrite)
 	UMaterialInstanceDynamic* DynamicMaterial;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* Asset;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* ParticleMaterial;
 	UPROPERTY(BlueprintReadWrite)
 	bool hasChangedMesh;
 	UPROPERTY(BlueprintReadWrite)
@@ -92,6 +94,14 @@ protected:
 	UMaterial* PlaneMaterial;
 	UPROPERTY(BlueprintReadWrite)
 	UMaterial* RadioMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* CloverMaterial;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* Star4Material;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* Star5Material;
+	UPROPERTY(BlueprintReadWrite)
+	UMaterial* SwirlMaterial;
 
 
 	// float RotateValue;

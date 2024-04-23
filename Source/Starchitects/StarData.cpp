@@ -10,8 +10,9 @@ FStarData::FStarData()
     color = 0;
     size = 1;
     shade = 1;
-    dustColor = 0;
-    dustShade = 0;
+    particleType = 0;
+    particleColor = 0;
+    particleShade = 0;
 }
 
 FStarData::~FStarData()

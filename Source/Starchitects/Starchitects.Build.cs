@@ -17,6 +17,7 @@ public class Starchitects : ModuleRules
 		// New Modules
 		"WebSockets",
 		"Json",
+		"Niagara",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

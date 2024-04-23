@@ -30,10 +30,13 @@ public:
 	float shade;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	float dustColor;
+	int particleType;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	float dustShade;
+	float particleColor;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float particleShade;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FDateTime birthDate;

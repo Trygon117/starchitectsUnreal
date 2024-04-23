@@ -5,6 +5,10 @@
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
+#include "NiagaraSystem.h"
+#include "NiagaraComponentPoolMethodEnum.h"
 #include "Math/Vector.h"
 
 // Sets default values
@@ -16,6 +20,17 @@ AStarObj::AStarObj()
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Sphere Mesh"));
 	this->SetRootComponent(mesh);
 
+	// load Niagara particle system
+	const ConstructorHelpers::FObjectFinder<UNiagaraSystem> NiagaraParticleSystem(TEXT("/Game/Particles/NiagaraSystem"));
+	if (NiagaraParticleSystem.Succeeded()) {
+		NiagaraSystem = NiagaraParticleSystem.Object;
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Couldn't Load Niagara System"));
+	}
+
+
+	// load meshes
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> SquareMesh(TEXT("/Engine/BasicShapes/Sphere"));
 	Asset = SquareMesh.Object;
 
@@ -36,6 +51,7 @@ AStarObj::AStarObj()
 	const ConstructorHelpers::FObjectFinder<UStaticMesh> RadioMe(TEXT("/Game/Models/RadioUnreal/Geometries/Speaker"));
 	RadioMesh = RadioMe.Object;
 
+	// load materials
 	const ConstructorHelpers::FObjectFinder<UMaterial> ChessMa(TEXT("/Game/Models/ChessUnreal/Materials/ChessColor"));
 	ChessMaterial = ChessMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> BalloonMa(TEXT("/Game/Models/BalloonUnreal/Materials/BalloonUnreal"));
@@ -60,6 +76,16 @@ AStarObj::AStarObj()
 	PlaneMaterial = PlaneMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> RadioMa(TEXT("/Game/Models/RadioUnreal/Materials/RadioColor"));
 	RadioMaterial = RadioMa.Object;
+
+	// load particle materials
+	const ConstructorHelpers::FObjectFinder<UMaterial> CloverMa(TEXT("/Game/Particles/Materials/cloverMaterial"));
+	CloverMaterial = CloverMa.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> Star4Ma(TEXT("/Game/Particles/Materials/star4Material"));
+	Star4Material = Star4Ma.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> Star5Ma(TEXT("/Game/Particles/Materials/star5Material"));
+	Star5Material = Star5Ma.Object;
+	const ConstructorHelpers::FObjectFinder<UMaterial> SwirlMa(TEXT("/Game/Particles/Materials/swirlMaterial"));
+	SwirlMaterial = SwirlMa.Object;
 
 	rotateLimit = 2;
 
@@ -129,7 +155,7 @@ void AStarObj::Tick(float DeltaTime)
 	// Set the correct mesh
 	if (!hasChangedMesh)
 	{
-		SetActorRelativeScale3D(FVector::OneVector * 50);
+		SetActorRelativeScale3D(FVector::OneVector * 10);
 		mesh->SetStaticMesh(Asset);
 		hasChangedMesh = true;
 	}
@@ -139,21 +165,18 @@ void AStarObj::Tick(float DeltaTime)
 
 	// Increase distance from 0, 0, 0 based on deltaTime and current distance
 	if (distance < 50000) {
-		distance += DeltaTime * 10000;
-	}
-	else if (distance >= 50000) {
-		distance += DeltaTime * 500;
-	}
-	else if (distance >= 10000) {
 		distance += DeltaTime * 100;
 	}
-	else if (distance >= 100000) {
+	else if (distance <= 100000) {
+		distance += DeltaTime * 25;
+	}
+	else if (distance <= 500000) {
 		distance += DeltaTime * 10;
 	}
-	else if (distance >= 150000) {
+	else if (distance <= 1000000) {
 		distance += DeltaTime * 1;
 	}
-	else if (distance >= 200000) {
+	else if (distance >= 1500000) {
 		distance += DeltaTime * .1;
 	}
 	else {
@@ -166,7 +189,7 @@ void AStarObj::Tick(float DeltaTime)
 
 
 	// increase the current rotation angle based on deltaTime and distance from 0,0,0
-	angleAxis += (DeltaTime * orbitSpeed) / (distance / 1000000);
+	angleAxis += (DeltaTime * orbitSpeed); // (distance / 250000);
 	if (angleAxis >= 360)
 	{
 		angleAxis = 0;
@@ -241,16 +264,58 @@ void AStarObj::SetUpData(FStarData data)
 
 	float hue = starData.color * 6;
 	TArray<float> hueToRGB = { FMath::Clamp(abs(hue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(hue - 2), 0, 1), FMath::Clamp(2 - abs(hue - 4), 0, 1) };
-	// SetActorRelativeLocation(starData.position);
 
-	distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - starData.birthDate.ToUnixTimestamp());
-	if (distance < 50000) {
-		distance = 50000;
+
+	float particleHue = starData.particleColor * 6;
+	TArray<float> particleHueToRGB = { FMath::Clamp(abs(particleHue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(particleHue - 2), 0, 1), FMath::Clamp(2 - abs(particleHue - 4), 0, 1) };
+
+	distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - starData.birthDate.ToUnixTimestamp()) * 5;
+	if (distance < 5000) {
+		distance = 5000;
 	}
-	orbitSpeed = FMath::RandRange(0.3, 1.0);
+	orbitSpeed = FMath::RandRange(1, 25);
 	angleAxis = 0;
 	RotateSpeedX = FMath::RandRange(0.1, 0.5);
 	RotateSpeedZ = FMath::RandRange(0.1, 0.5);
+
+	TArray<float> particleColorArray = {};
+
+	for (int i = 0; i < 3; i++)
+	{
+		particleColorArray.Add(FMath::Lerp(particleHueToRGB[i], starData.particleShade, 0.5));
+	}
+
+	particleColor = FLinearColor(particleColorArray[0], particleColorArray[1], particleColorArray[2]);
+
+	switch (starData.particleType)
+	{
+	case 0:
+		// clover
+		ParticleMaterial = CloverMaterial;
+		break;
+	case 1:
+		// star 4
+		ParticleMaterial = Star4Material;
+		break;
+	case 2:
+		// star 5
+		ParticleMaterial = Star5Material;
+		break;
+	case 3:
+		// swirl
+		ParticleMaterial = SwirlMaterial;
+		break;
+	default:
+		// 
+		break;
+	}
+
+	// NiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), NiagaraSystem, starData.position, FRotator(1.f), FVector(10.f), true, true, ENCPoolMethod::AutoRelease, true);
+	NiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(NiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, NiagaraComponent);
+	DynamicMaterial->SetVectorParameterValue("ParticleColor", particleColor);
+	NiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
+	// NiagaraComponent->Activate(true);
 
 	// float shadeRadians = starData.shade * 2 * PI;
 	// float saturation = 0.75 + 0.25*cos(shadeRadians);
@@ -260,7 +325,7 @@ void AStarObj::SetUpData(FStarData data)
 
 	for (int i = 0; i < 3; i++)
 	{
-		colorArray.Add(FMath::Lerp(hueToRGB[i], starData.shade, 0.35));
+		colorArray.Add(FMath::Lerp(hueToRGB[i], starData.shade, 0.5));
 		// 	colorArray.Add(FMath::Lerp(1, hueToRGB[i], saturation) * value);
 	}
 

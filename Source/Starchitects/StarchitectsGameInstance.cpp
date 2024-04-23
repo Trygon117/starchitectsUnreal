@@ -137,6 +137,9 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
             data.size = (float)obj->GetNumberField("size");
             data.shade = (float)obj->GetNumberField("starShade");
             data.shape = obj->GetIntegerField("shape");
+            data.particleType = obj->GetIntegerField("dustType");
+            data.particleColor = (float)obj->GetNumberField("dustColor");
+            data.particleShade = (float)obj->GetNumberField("dustShade");
             FDateTime parsedBirthDate;
             FString birthDateString = obj->GetStringField("birthDate");
             bool converted = FDateTime::ParseIso8601(*birthDateString, parsedBirthDate);
@@ -171,6 +174,10 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
     data.color = (float)starJSON->GetNumberField("starColor");
     //data.size = (float) starJSON->GetNumberField("size");
     data.shade = (float)starJSON->GetNumberField("starShade");
+    data.shape = starJSON->GetIntegerField("shape");
+    data.particleType = starJSON->GetIntegerField("dustType");
+    data.particleColor = (float)starJSON->GetNumberField("dustColor");
+    data.particleShade = (float)starJSON->GetNumberField("dustShade");
     FDateTime parsedBirthDate;
     FString birthDateString = starJSON->GetStringField("birthDate");
     GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "birthDateString: " + birthDateString);
@@ -178,21 +185,6 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
     data.birthDate = parsedBirthDate;
     data.position = FVector::ZeroVector;
     CreateStar(data, starJSON->GetStringField("id"));
-
-    //FString jsonString = JSON->Stringify(starJSON);
-
-    //const TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(json);
-
-    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, starJSON->GetStringField("name"));
-
-    //data.name = starJSON.name;
-    //data.shape = starJSON.shape;
-    //data.color = starJSON.color;
-    //data.size = starData.size;
-
-    //CreateStar(FVector::ZeroVector, data, starJSON.id);
-
-
 }
 
 void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID)
@@ -200,9 +192,9 @@ void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID)
     //UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
     FVector direction = FVector(FMath::RandRange(-100, 100), FMath::RandRange(-100, 100), FMath::RandRange(-30, 30));
     direction.Normalize();
-    double distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp());
-    if (distance < 50000) {
-        distance = 50000;
+    double distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp()) * 5;
+    if (distance < 5000) {
+        distance = 5000;
     }
     data.position = direction * distance;
     AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), data.position, FRotator::ZeroRotator);
