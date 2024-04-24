@@ -192,11 +192,14 @@ void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID)
     //UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
     FVector direction = FVector(FMath::RandRange(-100, 100), FMath::RandRange(-100, 100), FMath::RandRange(-30, 30));
     direction.Normalize();
-    data.distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp()) * 5;
+    data.distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp());
+    // UE_LOG(LogTemp, Log, TEXT("distance: " + data.distance));
+    // GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, FString::SanitizeFloat(data.distance));
     if (data.distance < 5000) {
-        data.distance = 5000;
+        data.distance += 5000;
     }
-    else if (data.distance > 100000) {
+    else if (data.distance > 50000) {
+        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("Random Distance"));
         data.distance = FMath::RandRange(50000, 100000);
     }
     data.position = direction * data.distance;

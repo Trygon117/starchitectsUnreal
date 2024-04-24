@@ -226,46 +226,46 @@ void AStarObj::Tick(float DeltaTime)
 	RotateValueZ += RotateSpeedZ;
 
 	//if the user hits the twirl button, this will start the twirl
-	if (startRotation)
-	{
-		RotateValueY += 5.0f;
-		FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
+	// if (startRotation)
+	// {
+	// 	RotateValueY += 5.0f;
+	// 	FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
 
-		// set the new actor rotation
-		SetActorRelativeRotation(NewRotation);
+	// 	// set the new actor rotation
+	// 	SetActorRelativeRotation(NewRotation);
 
-		// check to see if it's halfway there (if it starts at 0, halfway is 180 and vice versa)
-		if ((!startsHalfway && GetActorRotation().Yaw < 0) || (startsHalfway && GetActorRotation().Yaw >= 0))
-		{
-			halfwayRotation = true;
-		}
+	// 	// check to see if it's halfway there (if it starts at 0, halfway is 180 and vice versa)
+	// 	if ((!startsHalfway && GetActorRotation().Yaw < 0) || (startsHalfway && GetActorRotation().Yaw >= 0))
+	// 	{
+	// 		halfwayRotation = true;
+	// 	}
 
-		// end the twirl animation
-		if (halfwayRotation && ((!startsHalfway && GetActorRotation().Yaw >= 0) || (startsHalfway && GetActorRotation().Yaw < 0)))
-		{
-			halfwayRotation = false;
-			z++;
+	// 	// end the twirl animation
+	// 	if (halfwayRotation && ((!startsHalfway && GetActorRotation().Yaw >= 0) || (startsHalfway && GetActorRotation().Yaw < 0)))
+	// 	{
+	// 		halfwayRotation = false;
+	// 		z++;
 
-			if (z >= rotateLimit)
-			{
-				startRotation = false;
-				FQuat ResetRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
+	// 		if (z >= rotateLimit)
+	// 		{
+	// 			startRotation = false;
+	// 			FQuat ResetRotation = FQuat(FRotator(RotateValueX, 0, RotateValueZ));
 
-				// set the new actor rotation
-				SetActorRelativeRotation(ResetRotation);
-				z = 0;
-			}
+	// 			// set the new actor rotation
+	// 			SetActorRelativeRotation(ResetRotation);
+	// 			z = 0;
+	// 		}
 
-		}
-	}
-	else
-	{
-		//Set the default rotate y value to 0
-		RotateValueY = 0;
+	// 	}
+	// }
+	// else
+	// {
+	// 	//Set the default rotate y value to 0
+	// 	RotateValueY = 0;
 
-		FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
-		SetActorRelativeRotation(NewRotation);
-	}
+	// 	FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
+	// 	SetActorRelativeRotation(NewRotation);
+	// }
 
 	FQuat NewRotation = FQuat(FRotator(RotateValueX, RotateValueY, RotateValueZ));
 

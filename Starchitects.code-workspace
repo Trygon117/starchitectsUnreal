@@ -23,7 +23,14 @@
 			"regex": "cpp",
 			"*.ipp": "cpp",
 			"xutility": "cpp",
-			"alignedvector3": "cpp"
+			"alignedvector3": "cpp",
+			"array": "cpp",
+			"span": "cpp",
+			"string": "cpp",
+			"string_view": "cpp",
+			"vector": "cpp",
+			"ranges": "cpp",
+			"xstring": "cpp"
 		}
 	},
 	"extensions": {
