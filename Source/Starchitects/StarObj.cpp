@@ -55,6 +55,8 @@ AStarObj::AStarObj()
 	RadioMesh = RadioMe.Object;
 
 	// load materials
+	const ConstructorHelpers::FObjectFinder<UMaterial> GlowMa(TEXT("/Game/Models/Glow"));
+	GlowMaterial = GlowMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> ChessMa(TEXT("/Game/Models/ChessUnreal/Materials/ChessColor"));
 	ChessMaterial = ChessMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> BalloonMa(TEXT("/Game/Models/BalloonUnreal/Materials/BalloonUnreal"));
@@ -73,7 +75,7 @@ AStarObj::AStarObj()
 	DuckDuckMaterial = DuckDuckMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> DuckSwanMa(TEXT("/Game/Models/DuckUnreal/Materials/SwanColor"));
 	DuckSwanMaterial = DuckSwanMa.Object;
-	const ConstructorHelpers::FObjectFinder<UMaterial> DuckBowlMa(TEXT("/Game/Models/DuckUnreal/Materials/BowlDuck"));
+	const ConstructorHelpers::FObjectFinder<UMaterial> DuckBowlMa(TEXT("/Game/Models/DuckUnreal/Materials/BowlColor"));
 	DuckBowlMaterial = DuckBowlMa.Object;
 	const ConstructorHelpers::FObjectFinder<UMaterial> PlaneMa(TEXT("/Game/Models/PlaneUnreal/Materials/PlaneColor"));
 	PlaneMaterial = PlaneMa.Object;
@@ -354,6 +356,9 @@ void AStarObj::SetUpData(FStarData data)
 		Asset = ChessMesh;
 		// Set mesh
 		// const ConstructorHelpers::FObjectFinder<UMaterial> ChessColor(TEXT("/Game/Models/ChessUnreal/Materials/ChessColor"));
+		DynamicMaterial = UMaterialInstanceDynamic::Create(GlowMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(0, DynamicMaterial);
 		DynamicMaterial = UMaterialInstanceDynamic::Create(ChessMaterial, mesh);
 		DynamicMaterial->SetVectorParameterValue("StarColor", color);
 		mesh->SetMaterial(1, DynamicMaterial);
@@ -378,6 +383,12 @@ void AStarObj::SetUpData(FStarData data)
 		// Load static mesh models
 		Asset = ApplianceMesh;
 		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(GlowMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(16, DynamicMaterial);
+		mesh->SetMaterial(29, DynamicMaterial);
+		mesh->SetMaterial(30, DynamicMaterial);
+
 		DynamicMaterial = UMaterialInstanceDynamic::Create(ApplianceMaterial, mesh);
 		DynamicMaterial->SetVectorParameterValue("StarColor", color);
 		mesh->SetMaterial(1, DynamicMaterial);
@@ -395,6 +406,11 @@ void AStarObj::SetUpData(FStarData data)
 		// Load static mesh models
 		Asset = BonsaiMesh;
 		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(GlowMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(1, DynamicMaterial);
+		mesh->SetMaterial(11, DynamicMaterial);
+
 		DynamicMaterial = UMaterialInstanceDynamic::Create(BonsaiGrassMaterial, mesh);
 		DynamicMaterial->SetVectorParameterValue("StarColor", color);
 		mesh->SetMaterial(0, DynamicMaterial);
@@ -414,6 +430,12 @@ void AStarObj::SetUpData(FStarData data)
 		// Load static mesh models
 		Asset = GeodeMesh;
 		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(GlowMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(1, DynamicMaterial);
+		mesh->SetMaterial(5, DynamicMaterial);
+		mesh->SetMaterial(6, DynamicMaterial);
+
 		DynamicMaterial = UMaterialInstanceDynamic::Create(GeodeMaterial, mesh);
 		DynamicMaterial->SetVectorParameterValue("StarColor", color);
 		mesh->SetMaterial(0, DynamicMaterial);
@@ -423,23 +445,32 @@ void AStarObj::SetUpData(FStarData data)
 		// Load static mesh models
 		Asset = DuckMesh;
 		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(GlowMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(8, DynamicMaterial);
+
 		DynamicMaterial = UMaterialInstanceDynamic::Create(DuckDuckMaterial, mesh);
 		DynamicMaterial->SetVectorParameterValue("StarColor", color);
-		mesh->SetMaterial(6, DynamicMaterial);
+		mesh->SetMaterial(0, DynamicMaterial);
+		mesh->SetMaterial(11, DynamicMaterial);
 
 		DynamicMaterial = UMaterialInstanceDynamic::Create(DuckSwanMaterial, mesh);
 		DynamicMaterial->SetVectorParameterValue("StarColor", color);
-		mesh->SetMaterial(4, DynamicMaterial);
+		mesh->SetMaterial(9, DynamicMaterial);
 
 		DynamicMaterial = UMaterialInstanceDynamic::Create(DuckBowlMaterial, mesh);
 		DynamicMaterial->SetVectorParameterValue("StarColor", color);
-		mesh->SetMaterial(2, DynamicMaterial);
+		mesh->SetMaterial(1, DynamicMaterial);
 		break;
 	case 6:
 		// Plane
 		// Load static mesh models
 		Asset = PlaneMesh;
 		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(GlowMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(6, DynamicMaterial);
+
 		DynamicMaterial = UMaterialInstanceDynamic::Create(PlaneMaterial, mesh);
 		DynamicMaterial->SetVectorParameterValue("StarColor", color);
 		mesh->SetMaterial(0, DynamicMaterial);
@@ -450,6 +481,11 @@ void AStarObj::SetUpData(FStarData data)
 		// Load static mesh models
 		Asset = RadioMesh;
 		// Set mesh
+		DynamicMaterial = UMaterialInstanceDynamic::Create(GlowMaterial, mesh);
+		DynamicMaterial->SetVectorParameterValue("StarColor", color);
+		mesh->SetMaterial(5, DynamicMaterial);
+		mesh->SetMaterial(17, DynamicMaterial);
+
 		DynamicMaterial = UMaterialInstanceDynamic::Create(RadioMaterial, mesh);
 		DynamicMaterial->SetVectorParameterValue("StarColor", color);
 		mesh->SetMaterial(0, DynamicMaterial);

@@ -93,6 +93,8 @@ protected:
 	UStaticMesh* RadioMesh;
 	// star materials
 	UPROPERTY(BlueprintReadWrite)
+	UMaterial* GlowMaterial;
+	UPROPERTY(BlueprintReadWrite)
 	UMaterial* ChessMaterial;
 	UPROPERTY(BlueprintReadWrite)
 	UMaterial* BalloonMaterial;
