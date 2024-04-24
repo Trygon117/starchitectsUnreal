@@ -13,6 +13,7 @@ FStarData::FStarData()
     particleType = 0;
     particleColor = 0;
     particleShade = 0;
+    distance = 500;
 }
 
 FStarData::~FStarData()

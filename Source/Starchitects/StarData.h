@@ -44,6 +44,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FVector position;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	double distance;
+
 
 	FStarData();
 	~FStarData();

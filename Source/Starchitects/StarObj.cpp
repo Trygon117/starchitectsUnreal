@@ -10,6 +10,8 @@
 #include "NiagaraSystem.h"
 #include "NiagaraComponentPoolMethodEnum.h"
 #include "Math/Vector.h"
+#include "StarchitectsGameInstance.h"
+#include "Misc/DateTime.h"
 
 // Sets default values
 AStarObj::AStarObj()
@@ -20,14 +22,15 @@ AStarObj::AStarObj()
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Sphere Mesh"));
 	this->SetRootComponent(mesh);
 
-	// load Niagara particle system
-	const ConstructorHelpers::FObjectFinder<UNiagaraSystem> NiagaraParticleSystem(TEXT("/Game/Particles/NiagaraSystem"));
-	if (NiagaraParticleSystem.Succeeded()) {
-		NiagaraSystem = NiagaraParticleSystem.Object;
-	}
-	else {
-		UE_LOG(LogTemp, Error, TEXT("Couldn't Load Niagara System"));
-	}
+	// load Niagara particle systems
+	const ConstructorHelpers::FObjectFinder<UNiagaraSystem> DefaultParticleSystem(TEXT("/Game/Particles/NS_Default"));
+	DefaultNiagaraSystem = DefaultParticleSystem.Object;
+	const ConstructorHelpers::FObjectFinder<UNiagaraSystem> SparkleParticleSystem(TEXT("/Game/Particles/NS_Sparkle"));
+	SparkleNiagaraSystem = SparkleParticleSystem.Object;
+	const ConstructorHelpers::FObjectFinder<UNiagaraSystem> SuperNovaParticleSystem(TEXT("/Game/Particles/NS_SuperNova"));
+	SuperNovaNiagaraSystem = SuperNovaParticleSystem.Object;
+	const ConstructorHelpers::FObjectFinder<UNiagaraSystem> TwirlParticleSystem(TEXT("/Game/Particles/NS_Twirl"));
+	TwirlNiagaraSystem = TwirlParticleSystem.Object;
 
 
 	// load meshes
@@ -124,26 +127,39 @@ void AStarObj::BeginPlay()
 
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Position: " + pos));
 
-	StarCurve = NewObject<UCurveFloat>(this);
-	FKeyHandle KeyHandle = StarCurve->FloatCurve.UpdateOrAddKey(0.f, 0.f);
-	StarCurve->FloatCurve.UpdateOrAddKey(1.f, 1.f);
-	StarCurve->FloatCurve.SetKeyInterpMode(KeyHandle, ERichCurveInterpMode::RCIM_Cubic, true);
+	// StarCurve = NewObject<UCurveFloat>(this);
+	// FKeyHandle KeyHandle = StarCurve->FloatCurve.UpdateOrAddKey(0.f, 0.f);
+	// StarCurve->FloatCurve.UpdateOrAddKey(1.f, 1.f);
+	// StarCurve->FloatCurve.SetKeyInterpMode(KeyHandle, ERichCurveInterpMode::RCIM_Cubic, true);
 
-	TwirlTimeline = NewObject<UTimelineComponent>(this);
+	// TwirlTimeline = NewObject<UTimelineComponent>(this);
+	// SuperNovaTimeline = NewObject<UTimelineComponent>(this);
+	// SparkleTimeline = NewObject<UTimelineComponent>(this);
 
-	if (StarCurve)
-	{
-		// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Timeline loaded");
-		FOnTimelineFloat TimelineCallback;
-		FOnTimelineEventStatic TimelineFinishedCallback;
+	// // if (StarCurve)
+	// // {
+	// 	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Timeline loaded");
+	// 	// FOnTimelineFloat TimelineCallback;
 
-		TimelineCallback.BindUFunction(this, FName{ TEXT("TwirlControls") });
-		TimelineFinishedCallback.BindUFunction(this, FName{ TEXT("FinishTwirlAnimation") });
-		TwirlTimeline->SetTimelineLength(5.f);
-		TwirlTimeline->AddInterpFloat(StarCurve, TimelineCallback);
-		TwirlTimeline->SetTimelineFinishedFunc(TimelineFinishedCallback);
-		//TwirlTimeline->PlayFromStart();
-	}
+	// FOnTimelineEventStatic TwirlTimelineFinishedCallback;
+	// // TwirlTimelineFinishedCallback.BindUFunction(this, FName{ TEXT("TwirlControls") });
+	// TwirlTimelineFinishedCallback.BindUFunction(this, FName{ TEXT("FinishTwirlAnimation") });
+	// TwirlTimeline->SetTimelineLength(5.f);
+	// // TwirlTimeline->AddInterpFloat(StarCurve, TimelineCallback);
+	// TwirlTimeline->SetTimelineFinishedFunc(TwirlTimelineFinishedCallback);
+
+	// FOnTimelineEventStatic SuperNovaTimelineFinishedCallback;
+	// SuperNovaTimelineFinishedCallback.BindUFunction(this, FName{ TEXT("FinishSuperNovaAnimation") });
+	// SuperNovaTimeline->SetTimelineLength(5.f);
+	// SuperNovaTimeline->SetTimelineFinishedFunc(SuperNovaTimelineFinishedCallback);
+
+	// FOnTimelineEventStatic SparkleTimelineFinishedCallback;
+	// SparkleTimelineFinishedCallback.BindUFunction(this, FName{ TEXT("FinishSparkleAnimation") });
+	// SparkleTimeline->SetTimelineLength(5.f);
+	// SparkleTimeline->SetTimelineFinishedFunc(SparkleTimelineFinishedCallback);
+
+	//TwirlTimeline->PlayFromStart();
+// }
 
 }
 
@@ -164,31 +180,31 @@ void AStarObj::Tick(float DeltaTime)
 	FVector NewLocation = FVector::ZeroVector;
 
 	// Increase distance from 0, 0, 0 based on deltaTime and current distance
-	if (distance < 50000) {
+	if (distance < 10000) {
 		distance += DeltaTime * 100;
 	}
-	else if (distance <= 100000) {
-		distance += DeltaTime * 25;
+	else if (distance < 20000) {
+		distance += DeltaTime * 50;
 	}
-	else if (distance <= 500000) {
+	else if (distance < 50000) {
 		distance += DeltaTime * 10;
 	}
-	else if (distance <= 1000000) {
-		distance += DeltaTime * 1;
-	}
-	else if (distance >= 1500000) {
-		distance += DeltaTime * .1;
+	else if (distance <= 100000) {
+		distance += DeltaTime;
 	}
 	else {
-		distance = distance;
+		distance = 100000;
 	}
+
+	// update orbitSpeed based on distance (clamp so min speed is 1 & max speed is 25)
+	orbitSpeed = FMath::Clamp(baseSpeed / (distance / 50000), 5.f, 25.f);
 
 	// calculate the direction relative to 0,0,0 by normalizing the position of the star
 	FVector direction = starData.position;
 	direction.Normalize();
 
 
-	// increase the current rotation angle based on deltaTime and distance from 0,0,0
+	// increase the current rotation angle based on deltaTime
 	angleAxis += (DeltaTime * orbitSpeed); // (distance / 250000);
 	if (angleAxis >= 360)
 	{
@@ -255,6 +271,10 @@ void AStarObj::Tick(float DeltaTime)
 
 	// set the new actor rotation
 	SetActorRelativeRotation(NewRotation);
+
+	if (playingAnimation && (FDateTime::Now().ToUnixTimestamp() - animationStart) > 2) { // 2 seconds
+		FinishAnimation();
+	}
 }
 
 // Sets everything up because for some reason I can't make it an argument
@@ -269,11 +289,9 @@ void AStarObj::SetUpData(FStarData data)
 	float particleHue = starData.particleColor * 6;
 	TArray<float> particleHueToRGB = { FMath::Clamp(abs(particleHue - 3) - 1, 0, 1), FMath::Clamp(2 - abs(particleHue - 2), 0, 1), FMath::Clamp(2 - abs(particleHue - 4), 0, 1) };
 
-	distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - starData.birthDate.ToUnixTimestamp()) * 5;
-	if (distance < 5000) {
-		distance = 5000;
-	}
-	orbitSpeed = FMath::RandRange(1, 25);
+	distance = starData.distance;
+
+	baseSpeed = FMath::RandRange(7, 14);
 	angleAxis = 0;
 	RotateSpeedX = FMath::RandRange(0.1, 0.5);
 	RotateSpeedZ = FMath::RandRange(0.1, 0.5);
@@ -311,15 +329,11 @@ void AStarObj::SetUpData(FStarData data)
 	}
 
 	// NiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), NiagaraSystem, starData.position, FRotator(1.f), FVector(10.f), true, true, ENCPoolMethod::AutoRelease, true);
-	NiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(NiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
-	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, NiagaraComponent);
+	DefaultNiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(DefaultNiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, DefaultNiagaraComponent);
 	DynamicMaterial->SetVectorParameterValue("ParticleColor", particleColor);
-	NiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
-	// NiagaraComponent->Activate(true);
-
-	// float shadeRadians = starData.shade * 2 * PI;
-	// float saturation = 0.75 + 0.25*cos(shadeRadians);
-	// float value = 0.75 + 0.25*sin(shadeRadians);
+	DefaultNiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
+	DefaultNiagaraComponent->Activate();
 
 	TArray<float> colorArray = {};
 
@@ -455,31 +469,120 @@ void AStarObj::SetUpData(FStarData data)
 
 void AStarObj::SparkleAnimation()
 {
+	SparkleNiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(SparkleNiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, SparkleNiagaraComponent);
+	DynamicMaterial->SetVectorParameterValue("ParticleColor", particleColor);
+	SparkleNiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
+	DefaultNiagaraComponent->Deactivate();
+	SparkleNiagaraComponent->Activate();
 
+	playingAnimation = true;
+	animationStart = FDateTime::Now().ToUnixTimestamp();
 }
+
+// void AStarObj::FinishSparkleAnimation()
+// {
+// 	animationStart = 0;
+
+// 	DefaultNiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(DefaultNiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+// 	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, DefaultNiagaraComponent);
+// 	DynamicMaterial->SetVectorParameterValue("ParticleColor", particleColor);
+// 	DefaultNiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
+// 	SparkleNiagaraComponent->Deactivate();
+// 	DefaultNiagaraComponent->Activate();
+
+// 	UStarchitectsGameInstance* GameInstance = Cast<UStarchitectsGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+// 	if (GameInstance) {
+// 		GameInstance->EndAnimations(ID);
+// 	}
+// }
 
 void AStarObj::TwirlAnimation()
 {
+	TwirlNiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(TwirlNiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, TwirlNiagaraComponent);
+	DynamicMaterial->SetVectorParameterValue("ParticleColor", particleColor);
+	TwirlNiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
+	DefaultNiagaraComponent->Deactivate();
+	TwirlNiagaraComponent->Activate();
 	//Set the yaw from 0 to 360
-
 	startsHalfway = GetActorRotation().Yaw == 180 || GetActorRotation().Yaw == -180;
 	startRotation = true;
-	TwirlTimeline->PlayFromStart();
+	// TwirlTimeline->PlayFromStart();
+	playingAnimation = true;
+	animationStart = FDateTime::Now().ToUnixTimestamp();
 }
 
-void AStarObj::TwirlControls()
-{
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Play!");
+// void AStarObj::FinishTwirlAnimation()
+// {
+// 	animationStart = 0;
 
-	//SetActorRelativeRotation(NewRotation);
-}
+// 	DefaultNiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(DefaultNiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+// 	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, DefaultNiagaraComponent);
+// 	DynamicMaterial->SetVectorParameterValue("ParticleColor", particleColor);
+// 	DefaultNiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
+// 	TwirlNiagaraComponent->Deactivate();
+// 	DefaultNiagaraComponent->Activate();
+// 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Done!");
 
-void AStarObj::FinishTwirlAnimation()
-{
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Done!");
-}
+// 	UStarchitectsGameInstance* GameInstance = Cast<UStarchitectsGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+// 	if (GameInstance) {
+// 		GameInstance->EndAnimations(ID);
+// 	}
+// }
 
 void AStarObj::SupernovaAnimation()
 {
+	SuperNovaNiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(SuperNovaNiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, SuperNovaNiagaraComponent);
+	DynamicMaterial->SetVectorParameterValue("ParticleColor", particleColor);
+	SuperNovaNiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
+	DefaultNiagaraComponent->Deactivate();
+	SuperNovaNiagaraComponent->Activate();
 
+	playingAnimation = true;
+	animationStart = FDateTime::Now().ToUnixTimestamp();
+}
+
+// void AStarObj::FinishSuperNovaAnimation()
+// {
+// 	animationStart = 0;
+
+// 	DefaultNiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(DefaultNiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+// 	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, DefaultNiagaraComponent);
+// 	DynamicMaterial->SetVectorParameterValue("ParticleColor", particleColor);
+// 	DefaultNiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
+// 	SuperNovaNiagaraComponent->Deactivate();
+// 	DefaultNiagaraComponent->Activate();
+
+// 	UStarchitectsGameInstance* GameInstance = Cast<UStarchitectsGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+// 	if (GameInstance) {
+// 		GameInstance->EndAnimations(ID);
+// 	}
+// }
+
+void AStarObj::FinishAnimation()
+{
+	animationStart = 0;
+	playingAnimation = false;
+
+	DefaultNiagaraComponent = UNiagaraFunctionLibrary::SpawnSystemAttached(DefaultNiagaraSystem, this->RootComponent, NAME_None, FVector(0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+	DynamicMaterial = UMaterialInstanceDynamic::Create(ParticleMaterial, DefaultNiagaraComponent);
+	DynamicMaterial->SetVectorParameterValue("ParticleColor", particleColor);
+	DefaultNiagaraComponent->SetVariableMaterial(FName("particle material"), DynamicMaterial);
+	if (SuperNovaNiagaraComponent) {
+		SuperNovaNiagaraComponent->Deactivate();
+	}
+	if (TwirlNiagaraComponent) {
+		TwirlNiagaraComponent->Deactivate();
+	}
+	if (SparkleNiagaraComponent) {
+		SparkleNiagaraComponent->Deactivate();
+	}
+	DefaultNiagaraComponent->Activate();
+
+	UStarchitectsGameInstance* GameInstance = Cast<UStarchitectsGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (GameInstance) {
+		GameInstance->EndAnimations(ID);
+	}
 }

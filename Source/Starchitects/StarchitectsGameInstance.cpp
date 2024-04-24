@@ -192,11 +192,14 @@ void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID)
     //UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
     FVector direction = FVector(FMath::RandRange(-100, 100), FMath::RandRange(-100, 100), FMath::RandRange(-30, 30));
     direction.Normalize();
-    double distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp()) * 5;
-    if (distance < 5000) {
-        distance = 5000;
+    data.distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp()) * 5;
+    if (data.distance < 5000) {
+        data.distance = 5000;
     }
-    data.position = direction * distance;
+    else if (data.distance > 100000) {
+        data.distance = FMath::RandRange(50000, 100000);
+    }
+    data.position = direction * data.distance;
     AStarObj* newStar = GetWorld()->SpawnActor<AStarObj>(AStarObj::StaticClass(), data.position, FRotator::ZeroRotator);
     newStar->SetUpData(data);
     newStar->ID = ID;
@@ -224,7 +227,7 @@ void UStarchitectsGameInstance::TrackNewStar()
         if (newIndex >= starClass.Num()) { // loop back to the first star   
             newIndex = 0;
         }
-        else if (starClass[newIndex]->distance > 500000) { // stars further than this wont be tracked
+        else if (starClass[newIndex]->distance > 75000) { // stars further than this wont be tracked
             if (checkedStars >= starClass.Num()) { // if every star has already failed to meet this criteria
                 // just switch to the next star
                 if (newIndex + 1 >= starClass.Num()) { // check if we need to loop back to 0
@@ -273,7 +276,7 @@ void UStarchitectsGameInstance::AddStarDebug()
 void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
 {
     //UE_LOG(LogTemp, Warning, TEXT("Sparkle Animation"));
-    WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
+    // WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
     //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
     AStarObj* baseStar = NULL;
@@ -296,7 +299,7 @@ void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
 void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
 {
     //UE_LOG(LogTemp, Warning, TEXT("Twirl Animation"));
-    WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
+    // WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
     //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
     AStarObj* baseStar = NULL;
@@ -321,7 +324,7 @@ void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
 void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
 {
     //UE_LOG(LogTemp, Warning, TEXT("Supernova Animation"));
-    WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
+    // WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 
     //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
     AStarObj* baseStar = NULL;
@@ -336,6 +339,12 @@ void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
         baseStar->SupernovaAnimation();
     //Do supernova animation
     //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
+}
+
+void UStarchitectsGameInstance::EndAnimations(FString starID)
+{
+    UE_LOG(LogTemp, Log, TEXT("Ending Animations"));
+    WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
 }
 
 TSharedPtr<FJsonObject> UStarchitectsGameInstance::ParseJSON(FString json)

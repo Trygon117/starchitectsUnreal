@@ -28,12 +28,24 @@ public:
 	FStarData starData;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool isGlowing;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	UCurveFloat* StarCurve;
+	// UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	// UCurveFloat* StarCurve;
 	UPROPERTY(VisibleAnywhere)
-	UNiagaraSystem* NiagaraSystem;
+	UNiagaraSystem* DefaultNiagaraSystem;
 	UPROPERTY(VisibleAnywhere)
-	UNiagaraComponent* NiagaraComponent;
+	UNiagaraComponent* DefaultNiagaraComponent;
+	UPROPERTY(VisibleAnywhere)
+	UNiagaraSystem* TwirlNiagaraSystem;
+	UPROPERTY(VisibleAnywhere)
+	UNiagaraComponent* TwirlNiagaraComponent;
+	UPROPERTY(VisibleAnywhere)
+	UNiagaraSystem* SparkleNiagaraSystem;
+	UPROPERTY(VisibleAnywhere)
+	UNiagaraComponent* SparkleNiagaraComponent;
+	UPROPERTY(VisibleAnywhere)
+	UNiagaraSystem* SuperNovaNiagaraSystem;
+	UPROPERTY(VisibleAnywhere)
+	UNiagaraComponent* SuperNovaNiagaraComponent;
 
 protected:
 	// Called when the game starts or when spawned
@@ -53,7 +65,16 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	bool hasChangedMesh;
 	UPROPERTY(BlueprintReadWrite)
-	UTimelineComponent* TwirlTimeline;
+	bool playingAnimation = false; 
+	UPROPERTY(BlueprintReadWrite)
+	double animationStart = 0; 
+	// UPROPERTY(BlueprintReadWrite)
+	// UTimelineComponent* TwirlTimeline;
+	// UPROPERTY(BlueprintReadWrite)
+	// UTimelineComponent* SuperNovaTimeline;
+	// UPROPERTY(BlueprintReadWrite)
+	// UTimelineComponent* SparkleTimeline;
+	// star meshes
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* ChessMesh;
 	UPROPERTY(BlueprintReadWrite)
@@ -70,6 +91,7 @@ protected:
 	UStaticMesh* PlaneMesh;
 	UPROPERTY(BlueprintReadWrite)
 	UStaticMesh* RadioMesh;
+	// star materials
 	UPROPERTY(BlueprintReadWrite)
 	UMaterial* ChessMaterial;
 	UPROPERTY(BlueprintReadWrite)
@@ -94,6 +116,7 @@ protected:
 	UMaterial* PlaneMaterial;
 	UPROPERTY(BlueprintReadWrite)
 	UMaterial* RadioMaterial;
+	// particle materials
 	UPROPERTY(BlueprintReadWrite)
 	UMaterial* CloverMaterial;
 	UPROPERTY(BlueprintReadWrite)
@@ -145,6 +168,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float orbitSpeed;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float baseSpeed;
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	float angleAxis;
 	UPROPERTY(EditAnywhere)
@@ -162,7 +187,11 @@ public:
 	void SupernovaAnimation();
 
 	UFUNCTION()
-	void TwirlControls();
-	UFUNCTION()
-	void FinishTwirlAnimation();
+	void FinishAnimation();
+	//UFUNCTION()
+	// void FinishTwirlAnimation();
+	// UFUNCTION()
+	// void FinishSuperNovaAnimation();
+	// UFUNCTION()
+	// void FinishSparkleAnimation();
 };

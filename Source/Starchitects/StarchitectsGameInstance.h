@@ -36,6 +36,7 @@ public:
 	void CallSparkleAnimation(FString starID);
 	void CallTwirlAnimation(FString starID);
 	void CallSupernovaAnimation(FString starID);
+	void EndAnimations(FString starID);
 
 	FTimerHandle trackStarHandle; // the handle of the timer to track stars
 	FTimerHandle trackNewStarHandle; // the handle of the timer to track stars
