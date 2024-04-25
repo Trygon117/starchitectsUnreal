@@ -314,14 +314,10 @@ void AStarObj::SetUpData(FStarData data)
 		ParticleMaterial = CloverMaterial;
 		break;
 	case 1:
-		// star 4
-		ParticleMaterial = Star4Material;
-		break;
-	case 2:
 		// star 5
 		ParticleMaterial = Star5Material;
 		break;
-	case 3:
+	case 2:
 		// swirl
 		ParticleMaterial = SwirlMaterial;
 		break;
