@@ -199,7 +199,6 @@ void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID)
         data.distance += 5000;
     }
     else if (data.distance > 50000) {
-        GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("Random Distance"));
         data.distance = FMath::RandRange(50000, 100000);
     }
     data.position = direction * data.distance;
@@ -278,70 +277,69 @@ void UStarchitectsGameInstance::AddStarDebug()
 
 void UStarchitectsGameInstance::CallSparkleAnimation(FString starID)
 {
-    //UE_LOG(LogTemp, Warning, TEXT("Sparkle Animation"));
-    // WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
-
-    //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
     AStarObj* baseStar = NULL;
+    int32 newIndex = -1;
 
     for (int i = 0; i < starClass.Num(); i++)
     {
-        if (starClass[i]->ID == starID)
+        if (starClass[i]->ID == starID) {
+            newIndex = i;
             baseStar = starClass[i];
+        }
     }
 
-    if (baseStar != NULL)
+    if (baseStar != NULL) {
         baseStar->SparkleAnimation();
-    //Do sparkle animation
-    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
-
-
-//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + ID);
+        if (newIndex != -1) {
+            TimerManager->SetTimer(trackNewStarHandle, this, &UStarchitectsGameInstance::TrackNewStar, 10, true, 5);
+            trackingIndex = newIndex;
+        }
+    }
 }
 
 void UStarchitectsGameInstance::CallTwirlAnimation(FString starID)
 {
-    //UE_LOG(LogTemp, Warning, TEXT("Twirl Animation"));
-    // WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
-
-    //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
     AStarObj* baseStar = NULL;
+    int32 newIndex = -1;
 
     for (int i = 0; i < starClass.Num(); i++)
     {
-        if (starClass[i]->ID == starID)
+        if (starClass[i]->ID == starID) {
+            newIndex = i;
             baseStar = starClass[i];
+        }
     }
 
     if (baseStar != NULL)
     {
         baseStar->TwirlAnimation();
-        //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Twirl");
+        if (newIndex != -1) {
+            TimerManager->SetTimer(trackNewStarHandle, this, &UStarchitectsGameInstance::TrackNewStar, 10, true, 5);
+            trackingIndex = newIndex;
+        }
     }
-
-    //Do twirl animation
-    // GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
-
 }
 
 void UStarchitectsGameInstance::CallSupernovaAnimation(FString starID)
 {
-    //UE_LOG(LogTemp, Warning, TEXT("Supernova Animation"));
-    // WebSocket->Send("{\"header\":0, \"data\": \"" + starID + "\"}");
-
-    //int32 ID = FDefaultValueHelper::ParseInt(starID, ID);
     AStarObj* baseStar = NULL;
+    int32 newIndex = -1;
 
     for (int i = 0; i < starClass.Num(); i++)
     {
-        if (starClass[i]->ID == starID)
+        if (starClass[i]->ID == starID) {
+            newIndex = i;
             baseStar = starClass[i];
+        }
     }
 
-    if (baseStar != NULL)
+    if (baseStar != NULL) {
         baseStar->SupernovaAnimation();
-    //Do supernova animation
-    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + baseStar->starData.name);
+        if (newIndex != -1) {
+            TimerManager->SetTimer(trackNewStarHandle, this, &UStarchitectsGameInstance::TrackNewStar, 10, true, 5);
+            trackingIndex = newIndex;
+        }
+    }
 }
 
 void UStarchitectsGameInstance::EndAnimations(FString starID)
