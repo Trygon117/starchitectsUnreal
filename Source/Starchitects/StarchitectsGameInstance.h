@@ -26,7 +26,7 @@ public:
 	virtual void Init() override;
 	virtual void Shutdown() override;
 
-	void CreateStar(FStarData data, FString ID);
+	void CreateStar(FStarData data, FString ID, bool isNewStar);
 	void LoadStars(TArray<TSharedPtr<FJsonValue>> starsJSON);
 	void AddStar(TSharedPtr<FJsonObject> starJSON);
 	void AddStarDebug();

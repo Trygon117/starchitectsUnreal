@@ -182,17 +182,20 @@ void AStarObj::Tick(float DeltaTime)
 	FVector NewLocation = FVector::ZeroVector;
 
 	// Increase distance from 0, 0, 0 based on deltaTime and current distance
-	if (distance < 10000) {
-		distance += DeltaTime * 1000;
+	if (distance < 7000) {
+		distance += DeltaTime * 10000;
 	}
 	else if (distance < 20000) {
-		distance += DeltaTime * 100;
+		distance += DeltaTime * 5000;
+	}
+	else if (distance < 40000) {
+		distance += DeltaTime * 1000;
 	}
 	else if (distance < 50000) {
-		distance += DeltaTime * 10;
+		distance += DeltaTime * 100;
 	}
 	else if (distance <= 100000) {
-		distance += DeltaTime;
+		distance += DeltaTime * 10;
 	}
 	else {
 		distance = 100000;

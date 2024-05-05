@@ -146,7 +146,7 @@ void UStarchitectsGameInstance::LoadStars(TArray<TSharedPtr<FJsonValue>> starsJS
             data.birthDate = parsedBirthDate;
             data.position = FVector::ZeroVector;
             //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "loaded star: " + name);
-            CreateStar(data, obj->GetStringField("id"));
+            CreateStar(data, obj->GetStringField("id"), false);
         }
     }
 
@@ -184,19 +184,22 @@ void UStarchitectsGameInstance::AddStar(TSharedPtr<FJsonObject> starJSON)
     FDateTime::ParseIso8601(*birthDateString, parsedBirthDate);
     data.birthDate = parsedBirthDate;
     data.position = FVector::ZeroVector;
-    CreateStar(data, starJSON->GetStringField("id"));
+    CreateStar(data, starJSON->GetStringField("id"), true);
 }
 
-void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID)
+void UStarchitectsGameInstance::CreateStar(FStarData data, FString ID, bool isNewStar)
 {
     //UE_LOG(LogTemp, Warning, TEXT("Adding Star"));
     FVector direction = FVector(FMath::RandRange(-100, 100), FMath::RandRange(-100, 100), FMath::RandRange(-30, 30));
     direction.Normalize();
-    data.distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp());
+    data.distance = FMath::Abs(FDateTime::Now().ToUnixTimestamp() - data.birthDate.ToUnixTimestamp()) * 2;
     // UE_LOG(LogTemp, Log, TEXT("distance: " + data.distance));
     // GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, FString::SanitizeFloat(data.distance));
-    if (data.distance < 5000) {
-        data.distance += 5000;
+    if (isNewStar) {
+        data.distance = 5000;
+    }
+    else if (data.distance < 10000) {
+        data.distance += 5000 * FMath::RandRange(1.5f, 5.f);
     }
     else if (data.distance > 50000) {
         data.distance = FMath::RandRange(50000, 100000);
